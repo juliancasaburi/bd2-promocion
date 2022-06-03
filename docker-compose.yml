@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  postgresdb:
+    image: "postgres:14.3-alpine"
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - POSTGRES_USER=$POSTGRESDB_USER
+      - POSTGRES_PASSWORD=$POSTGRESDB_PASSWORD
+      - POSTGRES_DB=$POSTGRESDB_DATABASE
+    ports:
+      - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
+    volumes:
+      - pgdb:/var/lib/postgresql
+  mongodb:
+    image: "mongo:5.0.9"
+    restart: always
+    env_file: ./.env
+    ports:
+      - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
+    volumes:
+      - mgdb:/var/lib/mongodb
+  app:
+    depends_on:
+      - postgresdb
+      - mongodb
+    build: ./bbdd2PromocionApp
+    restart: on-failure
+    env_file: ./.env
+    ports:
+      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.main.allow-bean-definition-overriding" : "true",
+        "spring.datasource.url"  : "jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE?createDatabaseIfNotExist=true&useSSL=false",
+        "spring.datasource.username" : "$POSTGRESDB_USER",
+        "spring.datasource.password" : "$POSTGRESDB_PASSWORD",
+        "spring.jpa.generate-ddl" : "true",
+        "spring.jpa.hibernate.ddl-auto" : "update",
+        "spring.data.mongodb.host" : "mongodb",
+        "spring.data.mongodb.port" : "$MONGODB_DOCKER_PORT",
+        "spring.data.mongodb.database" : "$MONGODB_DATABASE"
+      }'
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+
+volumes:
+  pgdb:
+  mgdb:
