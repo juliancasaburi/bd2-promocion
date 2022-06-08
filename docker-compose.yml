@@ -13,6 +13,7 @@ services:
       - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
     volumes:
       - pgdb:/var/lib/postgresql
+      #- ./seed/postgresql:/docker-entrypoint-initdb.d/
   mongodb:
     image: "mongo:5.0.9"
     restart: always
@@ -21,6 +22,14 @@ services:
       - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
     volumes:
       - mgdb:/var/lib/mongodb
+  #mongo_seed:
+    #image: "mongo:5.0.9"
+    #links:
+    #  - mongodb
+    #volumes:
+    #  - ./seed:/seed
+    #command:
+    #  /seed/mongodb/import.sh
   app:
     depends_on:
       - postgresdb
@@ -40,7 +49,8 @@ services:
         "spring.jpa.hibernate.ddl-auto" : "update",
         "spring.data.mongodb.host" : "mongodb",
         "spring.data.mongodb.port" : "$MONGODB_DOCKER_PORT",
-        "spring.data.mongodb.database" : "$MONGODB_DATABASE"
+        "spring.data.mongodb.database" : "$MONGODB_DATABASE",
+        "spring.batch.job.enabled" : "true"
       }'
     volumes:
       - .m2:/root/.m2

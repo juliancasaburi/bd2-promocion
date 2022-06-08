@@ -12,10 +12,10 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.bbdd2promocion.dto.DTOFactory;
-import com.bbdd2promocion.dto.TestModelDTO;
-import com.bbdd2promocion.model.postgres.TestModel;
-import com.bbdd2promocion.repository.JPATestModelRepository;
-import com.bbdd2promocion.service.ITestModelService;
+import com.bbdd2promocion.dto.MongoTestModelDTO;
+import com.bbdd2promocion.model.mongodb.TestModel;
+import com.bbdd2promocion.repository.MongoTestModelRepository;
+import com.bbdd2promocion.service.IMongoTestModelService;
 
 /**
  * Esta clase contiene la implementación de los servicios relacionados con los
@@ -23,13 +23,13 @@ import com.bbdd2promocion.service.ITestModelService;
  */
 @Service
 @Transactional
-public class TestModelServiceImpl implements ITestModelService {
+public class MongoTestModelServiceImpl implements IMongoTestModelService {
 
     /**
      * Es el repositorio ligado a los TestModel.
      */
     @Inject
-    private JPATestModelRepository testModelRepository;
+    private MongoTestModelRepository mongoTestModelRepository;
 
     /**
      * Es el objeto encargado de crear los DTOs.
@@ -39,26 +39,31 @@ public class TestModelServiceImpl implements ITestModelService {
 
     @Override
     public List<TestModel> findAll() {
-        return this.getTestModelRepository().findAll();
+        return this.getMongoTestModelRepository().findAll();
     }
 
     @Override
-    public TestModelDTO addTestModel(String aTitle, String aDescription) {
+    public List<TestModel> findByDescription(String description) {
+        return this.getMongoTestModelRepository().findByDescription(description);
+    }
+
+    @Override
+    public MongoTestModelDTO addTestModel(String aTitle, String aDescription) {
 
         TestModel newTestModel = new TestModel(aTitle, aDescription);
 
-        this.getTestModelRepository().save(newTestModel);
+        this.getMongoTestModelRepository().save(newTestModel);
 
-        return this.getDtoFactory().createTestModelDTO(newTestModel);
+        return this.getDtoFactory().createMongoTestModelDTO(newTestModel);
     }
 
     /**
      * Getter.
      *
-     * @return el repositorio de TestModel.
+     * @return el repositorio de mongo de TestModel.
      */
-    public JPATestModelRepository getTestModelRepository() {
-        return this.testModelRepository;
+    public MongoTestModelRepository getMongoTestModelRepository() {
+        return this.mongoTestModelRepository;
     }
 
     /**

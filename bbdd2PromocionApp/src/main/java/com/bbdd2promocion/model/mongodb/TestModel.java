@@ -1,21 +1,20 @@
-package com.bbdd2promocion.model;
-
-import java.util.UUID;
+package com.bbdd2promocion.model.mongodb;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "test_models")
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+@Document(collection = "TestModel")
 public class TestModel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	private String id;
 
-	@Column(name = "title")
+	@Field(name = "title")
 	private String title;
 
-	@Column(name = "description")
+	@Field(name = "description")
 	private String description;
 
 	public TestModel() {
@@ -27,7 +26,7 @@ public class TestModel {
 		this.description = description;
 	}
 
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 
