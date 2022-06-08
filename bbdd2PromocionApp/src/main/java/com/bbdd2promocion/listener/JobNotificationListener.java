@@ -14,13 +14,13 @@ public class JobNotificationListener extends JobExecutionListenerSupport {
 
     @Override
     public void beforeJob(JobExecution jobExecution) {
-        log.info("JOB: INSERTION STARTED");
+        log.info("JOB: " + jobExecution.getJobId() + " STARTED");
     }
 
     @Override
     public void afterJob(JobExecution jobExecution) {
         if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
-            log.info("!!! JOB: INSERTION FINISHED!");
+            log.info("!!! JOB: " + jobExecution.getJobId() + " FINISHED!");
         }
     }
 }
