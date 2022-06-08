@@ -14,8 +14,9 @@ import org.springframework.batch.item.data.builder.MongoItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.boot.convert.ApplicationConversionService;
 
-import com.bbdd2promocion.model.mongodb.TestModel;
+import com.bbdd2promocion.model.mongodb.Accident;
 
 @EnableBatchProcessing
 public class InsertionJobConfiguration {
@@ -30,26 +31,28 @@ public class InsertionJobConfiguration {
     }
 
     @Bean
-    public FlatFileItemReader<TestModel> reader() {
-        return new FlatFileItemReaderBuilder<TestModel>().name("testModelItemReader")
-                .resource(new ClassPathResource("testModel.csv")).delimited()
-                .names(new String[] {"Title", "Description"})
+    public FlatFileItemReader<Accident> reader() {
+        return new FlatFileItemReaderBuilder<Accident>().name("AccidentItemReader")
+                .resource(new ClassPathResource("US_Accidents_Dec19.csv")).delimited()
+                .names(new String[] {"id", "source", "tmc", "severity", "startTime", "endTime", "startLat", "startLng", "endLat", "endLng", "distance", "description", "number", "street", "side", "city", "county", "state", "zipcode", "country", "timezone", "airportCode", "weatherTimestamp", "temperature", "windChill", "humidity", "pressure", "visibility", "windDirection", "windSpeed", "precipitation", "weatherCondition", "amenity", "bump", "crossing", "giveWay", "junction", "noExit", "railway", "roundabout", "station", "stop", "trafficCalming", "trafficSignal", "turningLoop", "sunriseSunset", "civilTwilight", "nauticalTwilight", "astronomicalTwilight" })
                 .linesToSkip(1)
-                .fieldSetMapper(new BeanWrapperFieldSetMapper<TestModel>() {
+                .fieldSetMapper(new BeanWrapperFieldSetMapper<Accident>() {
                     {
-                        setTargetType(TestModel.class);
+                        setTargetType(Accident.class);
+                        setConversionService(ApplicationConversionService.getSharedInstance());
+                        setDistanceLimit(1);
                     }
                 }).build();
     }
 
     @Bean
-    public MongoItemWriter<TestModel> mongoItemWriter(MongoTemplate mongoTemplate) {
-        return new MongoItemWriterBuilder<TestModel>().template(mongoTemplate).collection("TestModel").build();
+    public MongoItemWriter<Accident> mongoItemWriter(MongoTemplate mongoTemplate) {
+        return new MongoItemWriterBuilder<Accident>().template(mongoTemplate).collection("Accidents").build();
     }
 
     @Bean
-    public Step step(FlatFileItemReader<TestModel> flatFileIteamReader, MongoItemWriter<TestModel> mongoItemWriter) {
-        return this.stepBuilderFactory.get("step").<TestModel, TestModel>chunk(2).reader(flatFileIteamReader)
+    public Step step(FlatFileItemReader<Accident> flatFileIteamReader, MongoItemWriter<Accident> mongoItemWriter) {
+        return this.stepBuilderFactory.get("step").<Accident, Accident>chunk(20).reader(flatFileIteamReader)
                 .writer(mongoItemWriter).build();
     }
 
