@@ -12,7 +12,7 @@ services:
     ports:
       - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
     volumes:
-      - pgdb:/var/lib/postgresql
+      - pgdb:/var/lib/postgresql/data
       #- ./seed/postgresql:/docker-entrypoint-initdb.d/
   mongodb:
     image: "mongo:5.0.9"
@@ -21,8 +21,8 @@ services:
     ports:
       - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
     volumes:
-      - mgdb:/var/lib/mongodb
-  #mongo_seed:
+      - mgdb:/data/db
+    #mongo_seed:
     #image: "mongo:5.0.9"
     #links:
     #  - mongodb
@@ -42,7 +42,8 @@ services:
     environment:
       SPRING_APPLICATION_JSON: '{
         "spring.main.allow-bean-definition-overriding" : "true",
-        "spring.datasource.url"  : "jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE?createDatabaseIfNotExist=true&useSSL=false",
+        "spring.jpa.database-platform" : "org.hibernate.dialect.PostgreSQL94Dialect",
+        "spring.datasource.url"  : "jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE?useSSL=false",
         "spring.datasource.username" : "$POSTGRESDB_USER",
         "spring.datasource.password" : "$POSTGRESDB_PASSWORD",
         "spring.jpa.generate-ddl" : "true",
@@ -50,7 +51,9 @@ services:
         "spring.data.mongodb.host" : "mongodb",
         "spring.data.mongodb.port" : "$MONGODB_DOCKER_PORT",
         "spring.data.mongodb.database" : "$MONGODB_DATABASE",
-        "spring.batch.job.enabled" : "true"
+        "spring.batch.job.enabled" : "false",
+        "spring.batch.initialize-schema" : "always",
+        "spring.batch.jdbc.initialize-schema" : "always"
       }'
     volumes:
       - .m2:/root/.m2
