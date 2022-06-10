@@ -4,7 +4,10 @@ import com.bbdd2promocion.seed.mongodb.InsertionJobConfiguration;
 import com.bbdd2promocion.seed.mongodb.MongoDBConfiguration;
 import com.bbdd2promocion.seed.mongodb.TestModelInsertionJobConfiguration;
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.batch.JobLauncherApplicationRunner;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
@@ -13,6 +16,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 @SpringBootApplication
+@ComponentScan(excludeFilters={ @ComponentScan.Filter(type=FilterType.ASSIGNABLE_TYPE, value=JobLauncherApplicationRunner.class)})
 public class BBDD2PromocionApplication {
 
 	public static void main(String[] args) throws Exception {
@@ -22,11 +26,14 @@ public class BBDD2PromocionApplication {
 		SpringApplication.run(BBDD2PromocionApplication.class, args);
 
 		// run the insertion jobs
+		/*
 		JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 		Job testModelinsertionJob = context.getBean("testModelInsertionJob", Job.class);
 		jobLauncher.run(testModelinsertionJob, new JobParameters());
+
 		Job insertionJob = context.getBean("insertionJob", Job.class);
 		jobLauncher.run(insertionJob, new JobParameters());
+		*/
 	}
 
 }
