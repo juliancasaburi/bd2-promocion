@@ -19,7 +19,7 @@ public class DTOFactory {
 	 * @param aTestModel es el TestModel que debe ser representado.
 	 * @return un DTO con los datos básicos.
 	 */
-	public TestModelDTO createTestModelDTO(com.bbdd2promocion.model.postgres.TestModel aTestModel) {
+	public TestModelDTO createTestModelDTO(com.bbdd2promocion.model.postgresql.TestModel aTestModel) {
 		return new TestModelDTO(aTestModel.getId(), aTestModel.getTitle(), aTestModel.getDescription());
 	}
 

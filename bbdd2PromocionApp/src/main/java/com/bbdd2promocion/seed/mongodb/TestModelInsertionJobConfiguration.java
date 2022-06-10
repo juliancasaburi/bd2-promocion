@@ -30,7 +30,7 @@ public class TestModelInsertionJobConfiguration {
         this.stepBuilderFactory = stepBuilderFactory;
     }
 
-    @Bean
+    @Bean(name="testModelMongoDBReader")
     public FlatFileItemReader<TestModel> testModelReader() {
         return new FlatFileItemReaderBuilder<TestModel>().name("testModelItemReader")
                 .resource(new ClassPathResource("testModel.csv")).delimited()
@@ -49,7 +49,7 @@ public class TestModelInsertionJobConfiguration {
     }
 
     @Bean(name="testModelStep")
-    public Step testModelStep(FlatFileItemReader<TestModel> testModelFlatFileIteamReader, MongoItemWriter<TestModel> testModelMongoItemWriter) {
+    public Step testModelStep(@Qualifier("testModelMongoDBReader") FlatFileItemReader<TestModel> testModelFlatFileIteamReader, MongoItemWriter<TestModel> testModelMongoItemWriter) {
         return this.stepBuilderFactory.get("testModelStep").<TestModel, TestModel>chunk(2).reader(testModelFlatFileIteamReader)
                 .writer(testModelMongoItemWriter).build();
     }

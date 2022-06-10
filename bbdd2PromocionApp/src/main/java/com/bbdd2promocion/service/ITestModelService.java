@@ -5,7 +5,7 @@ package com.bbdd2promocion.service;
 
 import java.util.List;
 
-import com.bbdd2promocion.model.postgres.TestModel;
+import com.bbdd2promocion.model.postgresql.TestModel;
 import com.bbdd2promocion.dto.TestModelDTO;
 
 /**

@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.bbdd2promocion.repository.CustomTestModelRepository;
 
-import com.bbdd2promocion.model.postgres.TestModel;
+import com.bbdd2promocion.model.postgresql.TestModel;
 
 import org.springframework.stereotype.Repository;
 

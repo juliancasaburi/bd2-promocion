@@ -13,7 +13,7 @@ services:
       - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
     volumes:
       - pgdb:/var/lib/postgresql/data
-      #- ./seed/postgresql:/docker-entrypoint-initdb.d/
+      - ./seed/postgresql/spring-batch.sql:/docker-entrypoint-initdb.d/create_tables.sql
   mongodb:
     image: "mongo:5.0.9"
     restart: always
@@ -42,12 +42,14 @@ services:
     environment:
       SPRING_APPLICATION_JSON: '{
         "spring.main.allow-bean-definition-overriding" : "true",
-        "spring.jpa.database-platform" : "org.hibernate.dialect.PostgreSQL94Dialect",
+        "spring.jpa.database-platform" : "org.hibernate.dialect.PostgreSQLDialect",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
+        "spring.jpa.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
         "spring.datasource.url"  : "jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE?useSSL=false",
         "spring.datasource.username" : "$POSTGRESDB_USER",
         "spring.datasource.password" : "$POSTGRESDB_PASSWORD",
         "spring.jpa.generate-ddl" : "true",
-        "spring.jpa.hibernate.ddl-auto" : "update",
+        "spring.jpa.hibernate.ddl-auto" : "create",
         "spring.data.mongodb.host" : "mongodb",
         "spring.data.mongodb.port" : "$MONGODB_DOCKER_PORT",
         "spring.data.mongodb.database" : "$MONGODB_DATABASE",

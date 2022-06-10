@@ -4,7 +4,6 @@
 package com.bbdd2promocion.service.impl;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.bbdd2promocion.dto.DTOFactory;
 import com.bbdd2promocion.dto.TestModelDTO;
-import com.bbdd2promocion.model.postgres.TestModel;
+import com.bbdd2promocion.model.postgresql.TestModel;
 import com.bbdd2promocion.repository.JPATestModelRepository;
 import com.bbdd2promocion.service.ITestModelService;
 
