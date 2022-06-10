@@ -1,15 +1,14 @@
 package com.bbdd2promocion.api;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.inject.Inject;
 
 import com.bbdd2promocion.seed.mongodb.InsertionJobConfiguration;
 import com.bbdd2promocion.seed.mongodb.MongoDBConfiguration;
 import com.bbdd2promocion.seed.mongodb.TestModelInsertionJobConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bbdd2promocion.seed.postgresql.TestModelPostgresInsertionJobConfiguration;
+import com.bbdd2promocion.seed.postgresql.HibernateConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +32,7 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.JobParametersInvalidException;
 
-import com.bbdd2promocion.model.postgres.TestModel;
+import com.bbdd2promocion.model.postgresql.TestModel;
 
 import com.bbdd2promocion.service.ITestModelService;
 import com.bbdd2promocion.service.IMongoTestModelService;
@@ -42,7 +40,7 @@ import com.bbdd2promocion.service.IMongoTestModelService;
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
-public class TestModelController {
+public class APIController {
 
 	/**
 	 * Es el servicio relacionado con los TestModel (MongoDB).
@@ -83,7 +81,7 @@ public class TestModelController {
 		Job testModelinsertionJob = context.getBean("testModelInsertionJob", Job.class);
 		JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher");
 		jobLauncher.run(testModelinsertionJob, new JobParameters());
-		return ResponseEntity.status(HttpStatus.OK).body("mongodb testModel seed job started");
+		return ResponseEntity.status(HttpStatus.OK).body("mongodb testModel seeding job started");
 	}
 
 	@PostMapping("/seed/mongodb/accident")
@@ -96,11 +94,23 @@ public class TestModelController {
 		JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher");
 		jobLauncher.run(insertionJob, new JobParameters());
 		return ResponseEntity.status(HttpStatus.OK)
-				.body("mongodb accident seed job started");
+				.body("mongodb accident seeding job started");
+	}
+
+	@PostMapping("/seed/postgresql/testModel")
+	public ResponseEntity seedTestModelPostgrSQL() throws JobExecutionAlreadyRunningException, JobRestartException,
+			JobInstanceAlreadyCompleteException, JobParametersInvalidException
+	{
+		Class<?>[] configurationClasses = { TestModelPostgresInsertionJobConfiguration.class, HibernateConfiguration.class};
+		ApplicationContext context = new AnnotationConfigApplicationContext(configurationClasses);
+		Job testModelinsertionJob = context.getBean("testModelPostgresInsertionJob", Job.class);
+		JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher");
+		jobLauncher.run(testModelinsertionJob, new JobParameters());
+		return ResponseEntity.status(HttpStatus.OK).body("postgresql testModel seeding job started");
 	}
 
 	@GetMapping("/testModelPostgres")
-	public ResponseEntity<List<com.bbdd2promocion.model.postgres.TestModel>> getAllTestModels() {
+	public ResponseEntity<List<com.bbdd2promocion.model.postgresql.TestModel>> getAllTestModels() {
 		return new ResponseEntity<>(this.getTestModelService().findAll(), HttpStatus.OK);
 	}
 

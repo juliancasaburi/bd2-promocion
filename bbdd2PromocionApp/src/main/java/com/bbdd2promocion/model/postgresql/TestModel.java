@@ -1,6 +1,4 @@
-package com.bbdd2promocion.model.postgres;
-
-import java.util.UUID;
+package com.bbdd2promocion.model.postgresql;
 
 import javax.persistence.*;
 
@@ -9,8 +7,8 @@ import javax.persistence.*;
 public class TestModel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
 
 	@Column(name = "title")
 	private String title;
@@ -27,7 +25,7 @@ public class TestModel {
 		this.description = description;
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 

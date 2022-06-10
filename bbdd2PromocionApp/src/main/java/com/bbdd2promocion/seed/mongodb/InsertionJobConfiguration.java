@@ -52,7 +52,7 @@ public class InsertionJobConfiguration {
 
     @Bean
     public Step step(FlatFileItemReader<Accident> flatFileIteamReader, MongoItemWriter<Accident> mongoItemWriter) {
-        return this.stepBuilderFactory.get("step").<Accident, Accident>chunk(20).reader(flatFileIteamReader)
+        return this.stepBuilderFactory.get("step").<Accident, Accident>chunk(10000).reader(flatFileIteamReader)
                 .writer(mongoItemWriter).build();
     }
 
