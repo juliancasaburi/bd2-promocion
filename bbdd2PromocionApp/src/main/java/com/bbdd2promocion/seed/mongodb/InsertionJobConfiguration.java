@@ -12,6 +12,8 @@ import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.data.builder.MongoItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.boot.convert.ApplicationConversionService;
@@ -47,18 +49,32 @@ public class InsertionJobConfiguration {
 
     @Bean
     public MongoItemWriter<Accident> mongoItemWriter(MongoTemplate mongoTemplate) {
-        return new MongoItemWriterBuilder<Accident>().template(mongoTemplate).collection("Accidents").build();
+        return new MongoItemWriterBuilder<Accident>().template(mongoTemplate)
+                .collection("Accidents")
+                .build();
     }
 
     @Bean
-    public Step step(FlatFileItemReader<Accident> flatFileIteamReader, MongoItemWriter<Accident> mongoItemWriter) {
-        return this.stepBuilderFactory.get("step").<Accident, Accident>chunk(10000).reader(flatFileIteamReader)
-                .writer(mongoItemWriter).build();
+    public Step step(TaskExecutor taskExecutor, FlatFileItemReader<Accident> flatFileIteamReader, MongoItemWriter<Accident> mongoItemWriter) {
+        return this.stepBuilderFactory.get("step")
+                .<Accident, Accident>chunk(10000)
+                .reader(flatFileIteamReader)
+                .writer(mongoItemWriter)
+                .taskExecutor(taskExecutor)
+                .build();
+    }
+
+    @Bean
+    public TaskExecutor taskExecutor() {
+        return new SimpleAsyncTaskExecutor("spring_batch");
     }
 
     @Bean
     public Job insertionJob(Step step) {
-        return this.jobBuilderFactory.get("insertionJob").listener(new JobNotificationListener()).start(step).build();
+        return this.jobBuilderFactory.get("insertionJob")
+                .listener(new JobNotificationListener())
+                .start(step)
+                .build();
     }
 
 }
