@@ -1,7 +1,7 @@
 /**
  * Este paquete contiene todas las implementaciones de los repositorios.
  */
-package com.bbdd2promocion.repository;
+package com.bbdd2promocion.repository.jpa;
 
 /**
  * Esta interface define el comportamiento extra que debe cumplir un repositorio

@@ -15,7 +15,7 @@ public class TestModelDTO {
     /**
      * Identificador de cada una de las instancias.
      */
-    private Long id;
+    private String id;
 
     /**
      * Es el title del TestModel.
@@ -34,7 +34,7 @@ public class TestModelDTO {
      * @param aTitle es el title del TestModel.
      * @param aDescription es la description del TestModel.
      */
-    public TestModelDTO(Long anId, String aTitle, String aDescription) {
+    public TestModelDTO(String anId, String aTitle, String aDescription) {
         this.setId(anId);
         this.setTitle(aTitle);
         this.setDescription(aDescription);
@@ -45,7 +45,7 @@ public class TestModelDTO {
      *
      * @return el identificador de esta instancia.
      */
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -54,7 +54,7 @@ public class TestModelDTO {
      *
      * @param anId es el identificador de esta instancia.
      */
-    public void setId(Long anId) {
+    public void setId(String anId) {
         this.id = anId;
     }
 

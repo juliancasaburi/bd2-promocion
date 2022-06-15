@@ -1,9 +1,9 @@
 /**
  * Este paquete contiene las implementaciones de los repositorios personalizados.
  */
-package com.bbdd2promocion.repository.impl;
+package com.bbdd2promocion.repository.jpa.impl;
 
-import com.bbdd2promocion.repository.CustomTestModelRepository;
+import com.bbdd2promocion.repository.jpa.CustomTestModelRepository;
 
 /**
  * Esta clase implementa los mecanismos personalizados de recuperación de
