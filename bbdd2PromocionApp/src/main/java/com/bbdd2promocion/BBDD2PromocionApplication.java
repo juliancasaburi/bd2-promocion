@@ -14,9 +14,13 @@ import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
 @ComponentScan(excludeFilters={ @ComponentScan.Filter(type=FilterType.ASSIGNABLE_TYPE, value=JobLauncherApplicationRunner.class)})
+@EnableJpaRepositories(basePackages = "com.bbdd2promocion.repository.jpa")
+@EnableMongoRepositories(basePackages = "com.bbdd2promocion.repository.mongo")
 public class BBDD2PromocionApplication {
 
 	public static void main(String[] args) throws Exception {

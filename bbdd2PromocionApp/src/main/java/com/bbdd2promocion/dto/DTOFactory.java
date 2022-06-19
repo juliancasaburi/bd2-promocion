@@ -4,6 +4,7 @@
  */
 package com.bbdd2promocion.dto;
 
+import com.bbdd2promocion.model.TestModel;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,18 +20,8 @@ public class DTOFactory {
 	 * @param aTestModel es el TestModel que debe ser representado.
 	 * @return un DTO con los datos básicos.
 	 */
-	public TestModelDTO createTestModelDTO(com.bbdd2promocion.model.postgresql.TestModel aTestModel) {
-		return new TestModelDTO(aTestModel.getId(), aTestModel.getTitle(), aTestModel.getDescription());
-	}
-
-	/**
-	 * Crea un DTO que representará a un TestModel.
-	 *
-	 * @param aTestModel es el TestModel que debe ser representado.
-	 * @return un DTO con los datos básicos.
-	 */
-	public MongoTestModelDTO createMongoTestModelDTO(com.bbdd2promocion.model.mongodb.TestModel aTestModel) {
-		return new MongoTestModelDTO(aTestModel.getId(), aTestModel.getTitle(), aTestModel.getDescription());
+	public TestModelDTO createTestModelDTO(TestModel aTestModel) {
+		return new TestModelDTO(aTestModel.getCsvId(), aTestModel.getTitle(), aTestModel.getDescription());
 	}
 
 }

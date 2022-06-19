@@ -1,7 +1,7 @@
 package com.bbdd2promocion.seed.postgresql;
 
 import com.bbdd2promocion.listener.JobNotificationListener;
-import com.bbdd2promocion.model.postgresql.TestModel;
+import com.bbdd2promocion.model.TestModel;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -14,7 +14,6 @@ import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 
@@ -37,11 +36,12 @@ public class TestModelPostgresInsertionJobConfiguration {
     public FlatFileItemReader<TestModel> testModelPostgresReader() {
         return new FlatFileItemReaderBuilder<TestModel>().name("testModelItemReader")
                 .resource(new ClassPathResource("testModel.csv")).delimited()
-                .names(new String[] {"Title", "Description"})
+                .names(new String[] {"csvId", "Title", "Description"})
                 .linesToSkip(1)
                 .fieldSetMapper(new BeanWrapperFieldSetMapper<TestModel>() {
                     {
                         setTargetType(TestModel.class);
+                        setDistanceLimit(1);
                     }
                 }).build();
     }

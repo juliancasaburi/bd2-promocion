@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.core.io.ClassPathResource;
 
-import com.bbdd2promocion.model.mongodb.TestModel;
+import com.bbdd2promocion.model.TestModel;
 
 @EnableBatchProcessing
 public class TestModelInsertionJobConfiguration {
@@ -34,11 +34,12 @@ public class TestModelInsertionJobConfiguration {
     public FlatFileItemReader<TestModel> testModelReader() {
         return new FlatFileItemReaderBuilder<TestModel>().name("testModelItemReader")
                 .resource(new ClassPathResource("testModel.csv")).delimited()
-                .names(new String[] {"Title", "Description"})
+                .names(new String[] {"csvId", "title", "description"})
                 .linesToSkip(1)
                 .fieldSetMapper(new BeanWrapperFieldSetMapper<TestModel>() {
                     {
                         setTargetType(TestModel.class);
+                        setDistanceLimit(1);
                     }
                 }).build();
     }
