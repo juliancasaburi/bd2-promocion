@@ -16,6 +16,16 @@ Puede lanzarse un job de seeding con una solicitud POST a los endpoints:
 docker-compose up
 ```
 
+## API
+
+/accidentsNear  
+Returns the accidents within a certain area.  
+Parameters:
+
+longitude: a longitude (for example, '-84.058723')  
+latitude: a latitude (for example, '39.865147')  
+radius: a radius (in km)  
+
 
 ## Start the App
 We can easily start app with a single command:

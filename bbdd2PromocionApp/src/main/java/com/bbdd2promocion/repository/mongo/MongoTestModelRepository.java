@@ -12,5 +12,5 @@ import com.bbdd2promocion.model.TestModel;
  */
 //@Repository
 public interface MongoTestModelRepository extends MongoRepository<TestModel, String> {
-    public List<TestModel> findByDescription(String description);
+    List<TestModel> findByDescription(String description);
 }

@@ -19,7 +19,7 @@ import com.bbdd2promocion.service.ITestModelService;
 
 /**
  * Esta clase contiene la implementación de los servicios relacionados con los
- * usuarios.
+ * TestModel.
  */
 @Service
 @Transactional

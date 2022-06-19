@@ -4,13 +4,18 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.model.TestModel;
 import com.bbdd2promocion.seed.mongodb.InsertionJobConfiguration;
 import com.bbdd2promocion.seed.mongodb.MongoDBConfiguration;
 import com.bbdd2promocion.seed.mongodb.TestModelInsertionJobConfiguration;
 import com.bbdd2promocion.seed.postgresql.TestModelPostgresInsertionJobConfiguration;
 import com.bbdd2promocion.seed.postgresql.HibernateConfiguration;
+import com.bbdd2promocion.service.IAccidentService;
 import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -48,12 +53,27 @@ public class APIController {
 	public ITestModelService testModelService;
 
 	/**
+	 * Es el servicio relacionado con los Accident.
+	 */
+	@Inject
+	public IAccidentService accidentService;
+
+	/**
 	 * Getter.
 	 *
 	 * @return el servicio relacionado con los TestModel.
 	 */
 	private ITestModelService getTestModelService() {
 		return this.testModelService;
+	}
+
+	/**
+	 * Getter.
+	 *
+	 * @return el servicio relacionado con los Accident.
+	 */
+	private IAccidentService getAccidentService() {
+		return this.accidentService;
 	}
 
 	@PostMapping("/seed/mongodb/testModel")
@@ -110,6 +130,18 @@ public class APIController {
 	@GetMapping("/testModelMongo")
 	public ResponseEntity<List<TestModel>> getAllMongoTestModels() {
 		return new ResponseEntity<>(this.getTestModelService().findAllMongo(), HttpStatus.OK);
+	}
+
+	@GetMapping("/accidentsNear")
+	public ResponseEntity<List<Accident>> getAccidentsNear(
+			@RequestParam(name = "longitude") String longitude,
+			@RequestParam(name = "latitude") String latitude,
+			@RequestParam(name = "radius") String distance
+	) {
+		return new ResponseEntity<>(this.getAccidentService().findByStartLocationNear(
+				new GeoJsonPoint(Double.parseDouble(longitude), Double.parseDouble(latitude)),
+				new Distance(Double.parseDouble(distance), Metrics.KILOMETERS)
+		), HttpStatus.OK);
 	}
 
 	@GetMapping("/testModelMongoDescription")

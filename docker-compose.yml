@@ -53,6 +53,7 @@ services:
         "spring.data.mongodb.host" : "mongodb",
         "spring.data.mongodb.port" : "$MONGODB_DOCKER_PORT",
         "spring.data.mongodb.database" : "$MONGODB_DATABASE",
+        "spring.data.mongodb.auto-index-creation" : "true",
         "spring.batch.job.enabled" : "false",
         "spring.batch.initialize-schema" : "always",
         "spring.batch.jdbc.initialize-schema" : "always"

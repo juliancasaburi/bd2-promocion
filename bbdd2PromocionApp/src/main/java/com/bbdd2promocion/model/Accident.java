@@ -1,11 +1,12 @@
-package com.bbdd2promocion.model.mongodb;
+package com.bbdd2promocion.model;
 
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.FieldType;
 
-import javax.persistence.Id;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Document(collection = "Accidents")
 public class Accident {
@@ -13,70 +14,81 @@ public class Accident {
 	@Field(name = "ID")
 	private String id;
 
-	@Field(name = "Source")
+	@Field(name = "source")
 	private String source;
 
-	@Field(name = "TMC")
+	@Field(name = "tmc")
 	private String tmc;
 
-	@Field(name = "Severity")
+	@Field(name = "severity")
 	private Double severity;
 
-	@Field(name = "Start_Time")
-	private Timestamp startTime;
+	@Field(name = "startTime")
+	private Date startTime;
 
-	@Field(name = "End_Time")
-	private Timestamp endTime;
+	@Field(name = "endTime")
+	private Date endTime;
 
-	@Field(name = "Start_Lat")
+	@Field(name = "startLat")
 	private String startLat;
 
-	@Field(name = "Start_Lng")
+	@Field(name = "startLng")
 	private String startLng;
 
-	@Field(name = "End_Lat")
+	/**
+	 * startLocation is stored in GeoJSON format.
+	 * {
+	 *   "type" : "Point",
+	 *   "coordinates" : [ x, y ]
+	 * }
+	 */
+	@Field(name = "startLocation")
+	@GeoSpatialIndexed
+	private GeoJsonPoint startLocation;
+
+	@Field(name = "endLat")
 	private String endLat;
 
-	@Field(name = "End_Lng")
+	@Field(name = "endLng")
 	private String endLng;
 
-	@Field(name = "Distance")
+	@Field(name = "distance")
 	private Double distance;
 
-	@Field(name = "Description")
+	@Field(name = "description")
 	private String description;
 
-	@Field(name = "Number")
+	@Field(name = "number")
 	private String number;
 
-	@Field(name = "Street")
+	@Field(name = "street")
 	private String street;
 
-	@Field(name = "Side")
+	@Field(name = "side")
 	private String side;
 
-	@Field(name = "City")
+	@Field(name = "city")
 	private String city;
 
-	@Field(name = "County")
+	@Field(name = "county")
 	private String county;
 
-	@Field(name = "State")
+	@Field(name = "state")
 	private String state;
 
-	@Field(name = "Zipcode")
+	@Field(name = "zipcode")
 	private String zipcode;
 
-	@Field(name = "Country")
+	@Field(name = "country")
 	private String country;
 
-	@Field(name = "Timezone")
+	@Field(name = "timezone")
 	private String timezone;
 
-	@Field(name = "Airport_Code")
+	@Field(name = "airportCode")
 	private String airportCode;
 
-	@Field(name = "Weather_Timestamp")
+	@Field(name = "weatherTimestamp")
 	private String weatherTimestamp;
 
 	@Field(name = "Temperature(F)")
@@ -94,74 +106,74 @@ public class Accident {
 	@Field(name = "Visibility(mi)")
 	private Double visibility;
 
-	@Field(name = "Wind_Direction")
+	@Field(name = "windDirection")
 	private String windDirection;
 
-	@Field(name = "Wind_Speed")
+	@Field(name = "windSpeed")
 	private Double windSpeed;
 
 	@Field(name = "Precipitation(in)")
 	private Double precipitation;
 
-	@Field(name = "Weather_Condition")
+	@Field(name = "weatherCondition")
 	private String weatherCondition;
 
-	@Field(name = "Amenity")
+	@Field(name = "amenity")
 	private Boolean amenity;
 
-	@Field(name = "Bump")
+	@Field(name = "bump")
 	private Boolean bump;
 
-	@Field(name = "Crossing")
+	@Field(name = "crossing")
 	private Boolean crossing;
 
-	@Field(name = "Give_Way")
+	@Field(name = "giveWay")
 	private Boolean giveWay;
 
-	@Field(name = "Junction")
+	@Field(name = "junction")
 	private Boolean junction;
 
-	@Field(name = "No_Exit")
+	@Field(name = "noExit")
 	private Boolean noExit;
 
-	@Field(name = "Railway")
+	@Field(name = "railway")
 	private Boolean railway;
 
-	@Field(name = "Roundabout")
+	@Field(name = "roundabout")
 	private Boolean roundabout;
 
-	@Field(name = "Station")
+	@Field(name = "station")
 	private Boolean station;
 
-	@Field(name = "Stop")
+	@Field(name = "stop")
 	private Boolean stop;
 
-	@Field(name = "Traffic_Calming")
+	@Field(name = "trafficCalming")
 	private Boolean trafficCalming;
 
-	@Field(name = "Traffic_Signal")
+	@Field(name = "trafficSignal")
 	private Boolean trafficSignal;
 
-	@Field(name = "Turning_Loop")
+	@Field(name = "turningLoop")
 	private Boolean turningLoop;
 
-	@Field(name = "Sunrise_Sunset")
+	@Field(name = "sunriseSunset")
 	private String sunriseSunset;
 
-	@Field(name = "Civil_Twilight")
+	@Field(name = "civilTwilight")
 	private String civilTwilight;
 
-	@Field(name = "Nautical_Twilight")
-	private String NauticalTwilight;
+	@Field(name = "nauticalTwilight")
+	private String nauticalTwilight;
 
-	@Field(name = "Astronomical_Twilight")
-	private String AstronomicalTwilight;
+	@Field(name = "astronomicalTwilight")
+	private String astronomicalTwilight;
 
 	public Accident() {
 
 	}
 
-	public Accident(String id, String source, String tmc, Double severity, Timestamp startTime, Timestamp endTime, String startLat, String startLng, String endLat, String endLng, Double distance, String description, String number, String street, String side, String city, String county, String state, String zipcode, String country, String timezone, String airportCode, String weatherTimestamp, Double temperature, Double windChill, Double humidity, Double pressure, Double visibility, String windDirection, Double windSpeed, Double precipitation, String weatherCondition, Boolean amenity, Boolean bump, Boolean crossing, Boolean giveWay, Boolean junction, Boolean noExit, Boolean railway, Boolean roundabout, Boolean station, Boolean stop, Boolean trafficCalming, Boolean trafficSignal, Boolean turningLoop, String sunriseSunset, String civilTwilight, String nauticalTwilight, String astronomicalTwilight) {
+	public Accident(String id, String source, String tmc, Double severity, Date startTime, Date endTime, String startLat, String startLng, String endLat, String endLng, Double distance, String description, String number, String street, String side, String city, String county, String state, String zipcode, String country, String timezone, String airportCode, String weatherTimestamp, Double temperature, Double windChill, Double humidity, Double pressure, Double visibility, String windDirection, Double windSpeed, Double precipitation, String weatherCondition, Boolean amenity, Boolean bump, Boolean crossing, Boolean giveWay, Boolean junction, Boolean noExit, Boolean railway, Boolean roundabout, Boolean station, Boolean stop, Boolean trafficCalming, Boolean trafficSignal, Boolean turningLoop, String sunriseSunset, String civilTwilight, String nauticalTwilight, String astronomicalTwilight) {
 		this.id = id;
 		this.source = source;
 		this.tmc = tmc;
@@ -209,8 +221,8 @@ public class Accident {
 		this.turningLoop = turningLoop;
 		this.sunriseSunset = sunriseSunset;
 		this.civilTwilight = civilTwilight;
-		NauticalTwilight = nauticalTwilight;
-		AstronomicalTwilight = astronomicalTwilight;
+		this.nauticalTwilight = nauticalTwilight;
+		this.astronomicalTwilight = astronomicalTwilight;
 	}
 
 	public void setId(String id) {
@@ -245,19 +257,19 @@ public class Accident {
 		this.severity = severity;
 	}
 
-	public Timestamp getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
-	public Timestamp getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 
@@ -291,6 +303,14 @@ public class Accident {
 
 	public void setEndLng(String endLng) {
 		this.endLng = endLng;
+	}
+
+	public GeoJsonPoint getStartLocation() {
+		return startLocation;
+	}
+
+	public void setStartLocation(GeoJsonPoint point) {
+		this.startLocation = point;
 	}
 
 	public Double getDistance() {
@@ -590,19 +610,19 @@ public class Accident {
 	}
 
 	public String getNauticalTwilight() {
-		return NauticalTwilight;
+		return nauticalTwilight;
 	}
 
 	public void setNauticalTwilight(String nauticalTwilight) {
-		NauticalTwilight = nauticalTwilight;
+		this.nauticalTwilight = nauticalTwilight;
 	}
 
 	public String getAstronomicalTwilight() {
-		return AstronomicalTwilight;
+		return astronomicalTwilight;
 	}
 
 	public void setAstronomicalTwilight(String astronomicalTwilight) {
-		AstronomicalTwilight = astronomicalTwilight;
+		this.astronomicalTwilight = astronomicalTwilight;
 	}
 
 	@Override
@@ -616,6 +636,7 @@ public class Accident {
 				", endTime=" + endTime +
 				", startLat='" + startLat + '\'' +
 				", startLng='" + startLng + '\'' +
+				", startLocation='" + startLocation + '\'' +
 				", endLat='" + endLat + '\'' +
 				", endLng='" + endLng + '\'' +
 				", distance=" + distance +
@@ -655,8 +676,8 @@ public class Accident {
 				", turningLoop=" + turningLoop +
 				", sunriseSunset='" + sunriseSunset + '\'' +
 				", civilTwilight='" + civilTwilight + '\'' +
-				", NauticalTwilight='" + NauticalTwilight + '\'' +
-				", AstronomicalTwilight='" + AstronomicalTwilight + '\'' +
+				", NauticalTwilight='" + nauticalTwilight + '\'' +
+				", AstronomicalTwilight='" + astronomicalTwilight + '\'' +
 				'}';
 	}
 }

@@ -12,13 +12,20 @@ import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.data.builder.MongoItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.boot.convert.ApplicationConversionService;
 
-import com.bbdd2promocion.model.mongodb.Accident;
+import com.bbdd2promocion.model.Accident;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @EnableBatchProcessing
 public class InsertionJobConfiguration {
@@ -32,6 +39,22 @@ public class InsertionJobConfiguration {
         this.stepBuilderFactory = stepBuilderFactory;
     }
 
+    public ConversionService createConversionService() {
+        DefaultConversionService conversionService = new DefaultConversionService();
+        DefaultConversionService.addDefaultConverters(conversionService);
+        conversionService.addConverter(new Converter<String, Date>() {
+            @Override
+            public Date convert(String text) {
+                try {
+                    return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(text);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        return conversionService;
+    }
+
     @Bean
     public FlatFileItemReader<Accident> reader() {
         return new FlatFileItemReaderBuilder<Accident>().name("AccidentItemReader")
@@ -41,7 +64,7 @@ public class InsertionJobConfiguration {
                 .fieldSetMapper(new BeanWrapperFieldSetMapper<Accident>() {
                     {
                         setTargetType(Accident.class);
-                        setConversionService(ApplicationConversionService.getSharedInstance());
+                        setConversionService(createConversionService());
                         setDistanceLimit(1);
                     }
                 }).build();
@@ -55,10 +78,16 @@ public class InsertionJobConfiguration {
     }
 
     @Bean
-    public Step step(TaskExecutor taskExecutor, FlatFileItemReader<Accident> flatFileIteamReader, MongoItemWriter<Accident> mongoItemWriter) {
+    public AccidentItemProcessor processor() {
+        return new AccidentItemProcessor();
+    }
+
+    @Bean
+    public Step step(TaskExecutor taskExecutor, FlatFileItemReader<Accident> flatFileIteamReader, MongoItemWriter<Accident> mongoItemWriter, AccidentItemProcessor processor) {
         return this.stepBuilderFactory.get("step")
                 .<Accident, Accident>chunk(10000)
                 .reader(flatFileIteamReader)
+                .processor(processor)
                 .writer(mongoItemWriter)
                 .taskExecutor(taskExecutor)
                 .build();
