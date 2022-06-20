@@ -19,7 +19,6 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.boot.convert.ApplicationConversionService;
 
 import com.bbdd2promocion.model.Accident;
 
