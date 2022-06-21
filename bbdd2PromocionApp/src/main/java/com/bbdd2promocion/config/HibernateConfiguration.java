@@ -35,7 +35,7 @@ public class HibernateConfiguration {
         LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
         factory.setHibernateProperties(hibernateProperties());
         factory.setDataSource(dataSource());
-        factory.setPackagesToScan(new String[]{"com.bbdd2promocion.model"});
+        factory.setPackagesToScan("com.bbdd2promocion.model");
         return factory;
     }
 

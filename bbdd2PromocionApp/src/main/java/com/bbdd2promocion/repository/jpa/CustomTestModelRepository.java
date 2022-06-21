@@ -14,5 +14,5 @@ public interface CustomTestModelRepository {
      *
      * @return el número de usuarios.
      */
-    public int getNumberOfTestModels();
+    int getNumberOfTestModels();
 }

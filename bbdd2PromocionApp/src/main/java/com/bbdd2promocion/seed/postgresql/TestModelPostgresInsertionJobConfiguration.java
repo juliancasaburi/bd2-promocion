@@ -20,11 +20,11 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 @EnableBatchProcessing
 public class TestModelPostgresInsertionJobConfiguration {
 
-    private JobBuilderFactory jobBuilderFactory;
+    private final JobBuilderFactory jobBuilderFactory;
 
-    private StepBuilderFactory stepBuilderFactory;
+    private final StepBuilderFactory stepBuilderFactory;
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public TestModelPostgresInsertionJobConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, SessionFactory sessionFactory) {
         this.jobBuilderFactory = jobBuilderFactory;
