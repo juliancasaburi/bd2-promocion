@@ -1,4 +1,4 @@
-package com.bbdd2promocion.seed.mongodb;
+package com.bbdd2promocion.config;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;

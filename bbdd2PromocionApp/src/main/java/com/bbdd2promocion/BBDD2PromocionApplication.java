@@ -1,7 +1,7 @@
 package com.bbdd2promocion;
 
 import com.bbdd2promocion.seed.mongodb.InsertionJobConfiguration;
-import com.bbdd2promocion.seed.mongodb.MongoDBConfiguration;
+import com.bbdd2promocion.config.MongoDBConfiguration;
 import com.bbdd2promocion.seed.mongodb.TestModelInsertionJobConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,9 +9,6 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.batch.JobLauncherApplicationRunner;
 
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
