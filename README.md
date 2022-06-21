@@ -2,29 +2,36 @@
 
 ## Seeding de MongoDB y PostgreSQL desde archivo csv
 
-Para esto, se deberá copiar el archivo `US_Accidents_Dec19.csv` en `./bbdd2PromocionApp/main/resources` antes de buildear la imagen del service app, es decir previo a ejecutar por primera vez:
+1. Descargar el archivo [US_Accidents_Dec19.csv](https://www.dropbox.com/sh/g4fo1woljc6j2kw/AACFN-puWJEGv6OxVuNphWGQa/199387_896000_compressed_US_Accidents_Dec19.csv.zip?file_subpath=%2FUS_Accidents_Dec19.csv)  
+2. Copiar el archivo `US_Accidents_Dec19.csv` en `./bbdd2PromocionApp/main/resources` antes de buildear la imagen del service app, es decir previo a ejecutar por primera vez:
 
-Puede lanzarse un job de seeding con una solicitud POST a los endpoints:
+    ```bash
+    docker-compose up
+    ```
 
-/seed/mongodb/testModel
+3. Puede lanzar uno o más jobs de seeding realizando una solicitud POST a los endpoints:
 
-/seed/mongodb/accident
+   - **Seed de TestModel (MongoDB)**  
+   `/seed/mongodb/testModel`
 
-/seed/postgresql/testModel
+   - **Seed de TestModel (PostgreSQL)**  
+     `/seed/postgresql/testModel`
 
-```bash
-docker-compose up
-```
+   - **Seed de Accident (MongoDB)**  
+     `/seed/mongodb/accident`
 
-## API
+## API - Query endpoints
 
-/accidentsNear  
-Returns the accidents within a certain area.  
-Parameters:
-
-longitude: a longitude (for example, '-84.058723')  
-latitude: a latitude (for example, '39.865147')  
-radius: a radius (in km)  
+1. /accidentsNear 
+   
+    ```
+    Returns the accidents within a certain area.  
+    Parameters:
+    
+    longitude: a longitude (for example, '-84.058723')  
+    latitude: a latitude (for example, '39.865147')  
+    radius: a radius (in km)  
+    ```
 
 
 ## Start the App
