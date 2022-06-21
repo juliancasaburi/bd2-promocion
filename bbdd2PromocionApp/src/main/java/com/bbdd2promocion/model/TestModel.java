@@ -3,6 +3,7 @@ package com.bbdd2promocion.model;
 import javax.persistence.*;
 
 import org.bson.codecs.pojo.annotations.BsonIgnore;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -27,6 +28,7 @@ public class TestModel {
 
 	@Field(name = "title")
 	@Column(name = "title")
+	@Indexed
 	private String title;
 
 	@Field(name = "description")
