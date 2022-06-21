@@ -1,36 +1,37 @@
 package com.bbdd2promocion.seed.postgresql;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.core.env.Environment;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource("classpath:batch-postgresql.properties")
 public class HibernateConfiguration {
 
-    @Autowired
-    private Environment environment;
+    private final JSONObject springProperties;
+
+    public HibernateConfiguration(Environment env) throws JSONException {
+        springProperties = new JSONObject(env.getProperty("SPRING_APPLICATION_JSON"));
+    }
 
     @Bean(destroyMethod="close")
-    public DataSource dataSource() {
+    public DataSource dataSource() throws JSONException {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl(environment.getProperty("spring.datasource.url"));
-        dataSource.setUsername(environment.getProperty("spring.datasource.username"));
-        dataSource.setPassword(environment.getProperty("spring.datasource.password"));
+        dataSource.setUrl(springProperties.getString("spring.datasource.url"));
+        dataSource.setUsername(springProperties.getString("spring.datasource.username"));
+        dataSource.setPassword(springProperties.getString("spring.datasource.password"));
         return dataSource;
     }
 
     @Bean(name="entityManagerFactory")
-    public LocalSessionFactoryBean sessionFactory() {
+    public LocalSessionFactoryBean sessionFactory() throws JSONException {
         LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
         factory.setHibernateProperties(hibernateProperties());
         factory.setDataSource(dataSource());
@@ -39,11 +40,11 @@ public class HibernateConfiguration {
     }
 
     @Bean
-    public Properties hibernateProperties() {
+    public Properties hibernateProperties() throws JSONException {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        hibernateProperties.put("hibernate.show_sql", "false");
-        hibernateProperties.put("hibernate.hbm2ddl.auto", "update");
+        hibernateProperties.put("hibernate.dialect", springProperties.getString("spring.jpa.hibernate.dialect"));
+        hibernateProperties.put("hibernate.show_sql", springProperties.getString("spring.jpa.hibernate.show_sql"));
+        hibernateProperties.put("hibernate.hbm2ddl.auto", springProperties.getString("spring.jpa.hibernate.ddl-auto"));
         return hibernateProperties;
     }
 

@@ -3,23 +3,29 @@ package com.bbdd2promocion.seed.mongodb;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 @Configuration
 public class MongoDBConfiguration extends AbstractMongoClientConfiguration {
 
-    @Value("${spring.data.mongodb.host:mongodb}")
-    private String mongodbHost;
+    private final String mongodbHost;
 
-    @Value("${spring.data.mongodb.port:27017}")
-    private String mongodbPort;
+    private final String mongodbPort;
 
-    @Value("${spring.data.mongodb.database:bbdd2_promocion}")
-    private String mongodbDatabase;
+    private final String mongodbDatabase;
+
+    public MongoDBConfiguration(Environment env) throws JSONException {
+        JSONObject springProperties = new JSONObject(env.getProperty("SPRING_APPLICATION_JSON"));
+        this.mongodbHost = springProperties.getString("spring.data.mongodb.host");
+        this.mongodbPort = springProperties.getString("spring.data.mongodb.port");
+        this.mongodbDatabase = springProperties.getString("spring.data.mongodb.database");
+    }
 
     @Override
     protected String getDatabaseName() {
