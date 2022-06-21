@@ -3,10 +3,10 @@
  */
 package com.bbdd2promocion.service;
 
-import java.util.List;
-
-import com.bbdd2promocion.model.TestModel;
 import com.bbdd2promocion.dto.TestModelDTO;
+import com.bbdd2promocion.model.TestModel;
+
+import java.util.List;
 
 /**
  * Esta interface define el comportamiento esperado por los servicios

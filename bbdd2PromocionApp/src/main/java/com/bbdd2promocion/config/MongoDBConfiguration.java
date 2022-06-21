@@ -2,7 +2,6 @@ package com.bbdd2promocion.config;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.context.annotation.Bean;

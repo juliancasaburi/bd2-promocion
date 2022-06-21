@@ -3,19 +3,17 @@
  */
 package com.bbdd2promocion.service.impl;
 
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-
-import com.bbdd2promocion.repository.mongo.MongoTestModelRepository;
-import org.springframework.stereotype.Service;
-
 import com.bbdd2promocion.dto.DTOFactory;
 import com.bbdd2promocion.dto.TestModelDTO;
 import com.bbdd2promocion.model.TestModel;
 import com.bbdd2promocion.repository.jpa.JPATestModelRepository;
+import com.bbdd2promocion.repository.mongo.MongoTestModelRepository;
 import com.bbdd2promocion.service.ITestModelService;
+import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Esta clase contiene la implementación de los servicios relacionados con los

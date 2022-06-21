@@ -1,10 +1,10 @@
 package com.bbdd2promocion.config;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 

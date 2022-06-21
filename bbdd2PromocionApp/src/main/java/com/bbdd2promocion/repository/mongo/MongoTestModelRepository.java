@@ -1,10 +1,9 @@
 package com.bbdd2promocion.repository.mongo;
 
-import java.util.List;
-
+import com.bbdd2promocion.model.TestModel;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.bbdd2promocion.model.TestModel;
+import java.util.List;
 
 /**
  * Repositorio de TestModel para bases de datos Mongo.

@@ -1,22 +1,21 @@
 package com.bbdd2promocion.seed.mongodb;
 
 import com.bbdd2promocion.listener.JobNotificationListener;
+import com.bbdd2promocion.model.TestModel;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.data.MongoItemWriter;
+import org.springframework.batch.item.data.builder.MongoItemWriterBuilder;
+import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.item.data.builder.MongoItemWriterBuilder;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.core.io.ClassPathResource;
-
-import com.bbdd2promocion.model.TestModel;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 @EnableBatchProcessing
 public class TestModelInsertionJobConfiguration {

@@ -1,30 +1,23 @@
 package com.bbdd2promocion.api;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.model.TestModel;
 import com.bbdd2promocion.service.IAccidentService;
 import com.bbdd2promocion.service.ISeedingService;
+import com.bbdd2promocion.service.ITestModelService;
+import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
+import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
+import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
-import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
-import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.web.bind.annotation.*;
 
-import com.bbdd2promocion.service.ITestModelService;
+import javax.inject.Inject;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
