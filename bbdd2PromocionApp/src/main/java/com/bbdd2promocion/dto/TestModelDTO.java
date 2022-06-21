@@ -4,8 +4,6 @@
  */
 package com.bbdd2promocion.dto;
 
-import java.util.UUID;
-
 /**
  * Las instancias de esta clase se utilizan para transferir información de los
  * TestModel.

@@ -14,21 +14,21 @@ public interface ISeedingService {
      * Inicia un Job de seeding para el model TestModel (MongoDB)
      *
      */
-    public void seedTestModelMongoDB() throws JobExecutionAlreadyRunningException, JobRestartException,
+    void seedTestModelMongoDB() throws JobExecutionAlreadyRunningException, JobRestartException,
             JobInstanceAlreadyCompleteException, JobParametersInvalidException;
 
     /**
      * Inicia un Job de seeding para el model TestModel (Postgresql)
      *
      */
-    public void seedTestModelPostgreSQL() throws JobExecutionAlreadyRunningException, JobRestartException,
+    void seedTestModelPostgreSQL() throws JobExecutionAlreadyRunningException, JobRestartException,
             JobInstanceAlreadyCompleteException, JobParametersInvalidException;
 
     /**
      * Inicia un Job de seeding para el model Accident (MongoDB)
      *
      */
-    public void seedAccidentMongoDB() throws JobExecutionAlreadyRunningException, JobRestartException,
+    void seedAccidentMongoDB() throws JobExecutionAlreadyRunningException, JobRestartException,
             JobInstanceAlreadyCompleteException, JobParametersInvalidException;
 
 }

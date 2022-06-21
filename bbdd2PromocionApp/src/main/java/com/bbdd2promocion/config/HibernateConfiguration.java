@@ -1,4 +1,4 @@
-package com.bbdd2promocion.seed.postgresql;
+package com.bbdd2promocion.config;
 
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -35,7 +35,7 @@ public class HibernateConfiguration {
         LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
         factory.setHibernateProperties(hibernateProperties());
         factory.setDataSource(dataSource());
-        factory.setPackagesToScan(new String[]{"com.bbdd2promocion.model"});
+        factory.setPackagesToScan("com.bbdd2promocion.model");
         return factory;
     }
 

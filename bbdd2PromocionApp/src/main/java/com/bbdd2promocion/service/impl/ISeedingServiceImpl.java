@@ -4,9 +4,9 @@
 package com.bbdd2promocion.service.impl;
 
 import com.bbdd2promocion.seed.mongodb.InsertionJobConfiguration;
-import com.bbdd2promocion.seed.mongodb.MongoDBConfiguration;
+import com.bbdd2promocion.config.MongoDBConfiguration;
 import com.bbdd2promocion.seed.mongodb.TestModelInsertionJobConfiguration;
-import com.bbdd2promocion.seed.postgresql.HibernateConfiguration;
+import com.bbdd2promocion.config.HibernateConfiguration;
 import com.bbdd2promocion.seed.postgresql.TestModelPostgresInsertionJobConfiguration;
 import com.bbdd2promocion.service.ISeedingService;
 import org.springframework.batch.core.Job;

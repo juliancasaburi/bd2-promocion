@@ -19,14 +19,14 @@ public interface ITestModelService {
      *
      * @return todos los TestModel.
      */
-    public List<TestModel> findAllMongo();
+    List<TestModel> findAllMongo();
 
     /**
      * Retorna todos los TestModel (PostgreSQL)
      *
      * @return todos los TestModel.
      */
-    public List<TestModel> findAllPostgres();
+    List<TestModel> findAllPostgres();
 
     /**
      * Retorna todos los TestModel cuya description sea igual a aDescription.
@@ -34,7 +34,7 @@ public interface ITestModelService {
      * @param aDescription es la description del TestModel.
      * @return todos los TestModel.
      */
-    public List<TestModel> findByDescription(String aDescription);
+    List<TestModel> findByDescription(String aDescription);
 
     /**
      * Agrega un nuevo TestModel.
@@ -44,6 +44,6 @@ public interface ITestModelService {
      * @param aDescription es la description del TestModel
      * @return un DTO que representa al TestModel recientemete creado.
      */
-    public TestModelDTO addTestModel(String id, String aTitle, String aDescription);
+    TestModelDTO addTestModel(String id, String aTitle, String aDescription);
 
 }
