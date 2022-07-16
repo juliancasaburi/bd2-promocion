@@ -87,6 +87,12 @@ public class APIController {
 		return ResponseEntity.status(HttpStatus.OK).body("postgresql testModel seeding job started");
 	}
 
+	@PostMapping("/seed/postgresql/accident")
+	public ResponseEntity seedAccidentPostgreSQL() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+		this.getSeedingService().seedAccidentPostgreSQL();
+		return ResponseEntity.status(HttpStatus.OK).body("postgresql accident seeding job started");
+	}
+
 	@GetMapping("/testModelPostgres")
 	public ResponseEntity<List<TestModel>> getAllTestModels() {
 		return new ResponseEntity<>(this.getTestModelService().findAllPostgres(), HttpStatus.OK);

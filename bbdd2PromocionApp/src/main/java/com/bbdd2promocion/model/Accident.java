@@ -82,7 +82,7 @@ public class Accident {
 	private Double distance;
 
 	@Field(name = "description")
-	@Column(name = "description")
+	@Column(name = "description", columnDefinition="TEXT")
 	private String description;
 
 	@Field(name = "number")

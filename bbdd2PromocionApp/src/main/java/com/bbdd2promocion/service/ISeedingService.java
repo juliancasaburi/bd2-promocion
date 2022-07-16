@@ -31,4 +31,11 @@ public interface ISeedingService {
     void seedAccidentMongoDB() throws JobExecutionAlreadyRunningException, JobRestartException,
             JobInstanceAlreadyCompleteException, JobParametersInvalidException;
 
+    /**
+     * Inicia un Job de seeding para el model Accident(Postgresql)
+     *
+     */
+    void seedAccidentPostgreSQL() throws JobExecutionAlreadyRunningException, JobRestartException,
+            JobInstanceAlreadyCompleteException, JobParametersInvalidException;
+
 }
