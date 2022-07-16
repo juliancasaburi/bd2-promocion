@@ -4,6 +4,7 @@
 package com.bbdd2promocion.service.impl;
 
 import com.bbdd2promocion.model.Accident;
+import com.bbdd2promocion.repository.jpa.JPAAccidentRepository;
 import com.bbdd2promocion.repository.mongo.MongoAccidentRepository;
 import com.bbdd2promocion.service.IAccidentService;
 import org.springframework.data.geo.Distance;
@@ -29,9 +30,17 @@ public class AccidentServiceImpl implements IAccidentService {
     @Inject
     private MongoAccidentRepository accidentMongoRepository;
 
+    @Inject
+    private JPAAccidentRepository jpaAccidentRepository;
+
     @Override
     public List<Accident> findByStartLocationNear(Point location, Distance distance) {
         return this.getAccidentMongoRepository().findByStartLocationNear(location, distance);
+    }
+
+    @Override
+    public Double getAverageDistance() {
+        return this.getAccidentJPARepository().getAverageDistance();
     }
 
     /**
@@ -41,5 +50,14 @@ public class AccidentServiceImpl implements IAccidentService {
      */
     public MongoAccidentRepository getAccidentMongoRepository() {
         return this.accidentMongoRepository;
+    }
+
+    /**
+     * Getter.
+     *
+     * @return el repositorio de Accident (JPA).
+     */
+    public JPAAccidentRepository getAccidentJPARepository() {
+        return this.jpaAccidentRepository;
     }
 }

@@ -22,4 +22,11 @@ public interface IAccidentService {
      */
     List<Accident> findByStartLocationNear(Point location, Distance distance);
 
+    /**
+     * Obtiene la distancia promedio desde el inicio al fin del accidente
+     *
+     * @return la distancia promedio desde el inicio al fin del accidente
+     */
+    Double getAverageDistance();
+
 }
