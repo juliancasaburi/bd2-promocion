@@ -11,14 +11,17 @@
 
 3. Puede lanzar uno o más jobs de seeding realizando una solicitud POST a los endpoints:
 
-   - **Seed de TestModel (MongoDB)**  
+   - **Seeding de TestModel (MongoDB)**  
    `/seed/mongodb/testModel`
 
-   - **Seed de TestModel (PostgreSQL)**  
+   - **Seeding de TestModel (PostgreSQL)**  
      `/seed/postgresql/testModel`
 
-   - **Seed de Accident (MongoDB)**  
+   - **Seeding de Accident (MongoDB)**  
      `/seed/mongodb/accident`
+
+   - **Seeding de Accident (PostgreSQL)**  
+     `/seed/postgresql/accident`
 
 ## API - Query endpoints
 
@@ -33,6 +36,9 @@
     radius: a radius (in km)  
     ```
 
+2. /averageDistance
+
+3. /betweenDates
 
 ## Start the App
 We can easily start app with a single command:
