@@ -7,6 +7,7 @@ import com.bbdd2promocion.model.Accident;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,5 +29,14 @@ public interface IAccidentService {
      * @return la distancia promedio desde el inicio al fin del accidente
      */
     Double getAverageDistance();
+
+    /**
+     * Retorna los Accident con date entre startDate y endDate
+     *
+     * @param startDate
+     * @param endDate
+     * @return los Accident con date entre startDate y endDate
+     */
+    List<Accident> findBetweenDates(Date startDate, Date endDate);
 
 }

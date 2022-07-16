@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,6 +42,11 @@ public class AccidentServiceImpl implements IAccidentService {
     @Override
     public Double getAverageDistance() {
         return this.getAccidentJPARepository().getAverageDistance();
+    }
+
+    @Override
+    public List<Accident> findBetweenDates(Date startDate, Date endDate) {
+        return this.getAccidentJPARepository().findAllByStartTimeGreaterThanEqualAndEndTimeLessThanEqual(startDate, endDate);
     }
 
     /**
