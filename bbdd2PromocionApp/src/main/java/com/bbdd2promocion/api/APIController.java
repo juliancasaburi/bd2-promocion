@@ -109,6 +109,11 @@ public class APIController {
 		), HttpStatus.OK);
 	}
 
+	@GetMapping("/averageDistance")
+	public ResponseEntity<Double> getAverageDistance() {
+		return new ResponseEntity<>(this.getAccidentService().getAverageDistance(), HttpStatus.OK);
+	}
+
 	@GetMapping("/testModelMongoDescription")
 	public ResponseEntity<List<TestModel>> getMongoTestModelsDescription(@RequestParam(name = "description") String aDescription) {
 		return new ResponseEntity<>(this.getTestModelService().findByDescription(aDescription), HttpStatus.OK);
