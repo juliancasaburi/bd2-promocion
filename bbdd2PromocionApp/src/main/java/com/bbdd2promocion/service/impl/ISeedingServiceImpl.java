@@ -7,6 +7,7 @@ import com.bbdd2promocion.config.HibernateConfiguration;
 import com.bbdd2promocion.config.MongoDBConfiguration;
 import com.bbdd2promocion.seed.mongodb.InsertionJobConfiguration;
 import com.bbdd2promocion.seed.mongodb.TestModelInsertionJobConfiguration;
+import com.bbdd2promocion.seed.postgresql.AccidentPostgresInsertionJobConfiguration;
 import com.bbdd2promocion.seed.postgresql.TestModelPostgresInsertionJobConfiguration;
 import com.bbdd2promocion.service.ISeedingService;
 import org.springframework.batch.core.Job;
@@ -55,6 +56,14 @@ public class ISeedingServiceImpl implements ISeedingService {
 
         Class<?>[] configurationClasses = { InsertionJobConfiguration.class, MongoDBConfiguration.class };
         this.runJob(configurationClasses, "insertionJob");
+    }
+
+    @Override
+    public void seedAccidentPostgreSQL() throws JobExecutionAlreadyRunningException, JobRestartException,
+            JobInstanceAlreadyCompleteException, JobParametersInvalidException {
+
+        Class<?>[] configurationClasses = { AccidentPostgresInsertionJobConfiguration.class, HibernateConfiguration.class };
+        this.runJob(configurationClasses, "accidentPostgresInsertionJob");
     }
 
 }
