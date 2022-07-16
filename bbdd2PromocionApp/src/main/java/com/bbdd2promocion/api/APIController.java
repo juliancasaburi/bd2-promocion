@@ -12,11 +12,13 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -118,6 +120,14 @@ public class APIController {
 	@GetMapping("/averageDistance")
 	public ResponseEntity<Double> getAverageDistance() {
 		return new ResponseEntity<>(this.getAccidentService().getAverageDistance(), HttpStatus.OK);
+	}
+
+	@GetMapping("/betweenDates")
+	public ResponseEntity<List<Accident>> findBetweenDates(
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date startDate,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endDate
+	) {
+		return new ResponseEntity<>(this.getAccidentService().findBetweenDates(startDate, endDate), HttpStatus.OK);
 	}
 
 	@GetMapping("/testModelMongoDescription")
