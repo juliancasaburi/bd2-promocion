@@ -4,14 +4,11 @@ import com.bbdd2promocion.model.Accident;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Repositorio de Accident para bases de datos Mongo.
- *
- */
-//@Repository
+@Repository
 public interface MongoAccidentRepository extends MongoRepository<Accident, String> {
 
     // { 'startLocation' : { '$near' : [point.x, point.y], '$maxDistance' : distance}}
