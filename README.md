@@ -28,17 +28,37 @@
 1. /accidentsNear 
    
     ```
-    Returns the accidents within a certain area.  
-    Parameters:
+    Retorna los Accident ocurridos dentro del radio 
     
-    longitude: a longitude (for example, '-84.058723')  
-    latitude: a latitude (for example, '39.865147')  
-    radius: a radius (in km)  
+    - Parametros:
+    longitude: una longitud (por ejemplo, '-84.058723')  
+    latitude: una latitud (por ejemplo, '39.865147')  
+    radius: un radio (en kilómetros, por ejemplo 100)  
     ```
 
 2. /averageDistance
 
+    ```
+    Obtiene la distancia promedio desde el inicio al fin del accidente
+    ```
+   
 3. /betweenDates
+
+    ```
+    Retorna los Accident ocurridos entre startDate y endDate  
+   
+    - Parametros:
+    startDate: fecha y hora de inicio (por ejemplo: 2016-02-08 06:49:27.000).
+    endDate: fecha y hora de fin (por ejemplo: 2016-02-08 09:25:17.000).
+    ```
+   
+4. /streetsMostAccidents
+    ```
+    Retorna las N calles con mas accidentes  
+   
+    - Parametros:
+    limit: cantidad de Accident a retornar (valor por defecto: 5).
+    ```
 
 ## Start the App
 We can easily start app with a single command:
