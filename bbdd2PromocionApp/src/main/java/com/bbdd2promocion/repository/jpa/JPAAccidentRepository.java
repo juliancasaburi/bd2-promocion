@@ -1,6 +1,8 @@
 package com.bbdd2promocion.repository.jpa;
 
 import com.bbdd2promocion.model.Accident;
+import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,6 +20,9 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
      */
     @Query("SELECT AVG(a.distance) FROM Accident a")
     Double getAverageDistance();
+
+    @Query("SELECT a.street as street, a.zipcode as zipcode, COUNT(a) as count FROM Accident a GROUP BY a.street, a.zipcode ORDER BY COUNT(a) DESC")
+    List<StreetStatistics> getStreetsWithMostAccidents(Pageable pageable);
 
     /**
      * Recupera los Accident con date entre startDate y endDate

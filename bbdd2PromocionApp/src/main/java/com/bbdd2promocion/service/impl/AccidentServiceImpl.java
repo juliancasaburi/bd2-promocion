@@ -5,8 +5,10 @@ package com.bbdd2promocion.service.impl;
 
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.repository.jpa.JPAAccidentRepository;
+import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
 import com.bbdd2promocion.repository.mongo.MongoAccidentRepository;
 import com.bbdd2promocion.service.IAccidentService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,11 @@ public class AccidentServiceImpl implements IAccidentService {
     @Override
     public List<Accident> findBetweenDates(Date startDate, Date endDate) {
         return this.getAccidentJPARepository().findAllByStartTimeGreaterThanEqualAndEndTimeLessThanEqual(startDate, endDate);
+    }
+
+    @Override
+    public List<StreetStatistics> getStreetsWithMostAccidents(int limit){
+        return this.getAccidentJPARepository().getStreetsWithMostAccidents(PageRequest.of(0, limit));
     }
 
     /**

@@ -4,6 +4,7 @@
 package com.bbdd2promocion.service;
 
 import com.bbdd2promocion.model.Accident;
+import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 
@@ -38,5 +39,13 @@ public interface IAccidentService {
      * @return los Accident con date entre startDate y endDate
      */
     List<Accident> findBetweenDates(Date startDate, Date endDate);
+
+    /**
+     * Retorna N las calles con mas accidentes
+     *
+     * @param limit
+     * @return las N calles con mas accidentes
+     */
+    List<StreetStatistics> getStreetsWithMostAccidents(int limit);
 
 }
