@@ -11,6 +11,8 @@
 
 3. Puede lanzar uno o más jobs de seeding realizando una solicitud POST a los endpoints:
 
+> Nota: se provee una [colección de Postman](bd2-promocion.postman_collection.json) que incluye las requests para lanzar los jobs de seeding.
+
    - **Seeding de TestModel (MongoDB)**  
    `/seed/mongodb/testModel`
 
@@ -24,6 +26,8 @@
      `/seed/postgresql/accident`
 
 ## API - Query endpoints
+
+> Nota: se provee una [colección de Postman](bd2-promocion.postman_collection.json) para realizar las requests
 
 1. /accidentsNear 
    

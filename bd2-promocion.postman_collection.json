@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "cb374e01-0fd1-49df-a8a6-52f77579c091",
+		"name": "bd2-promocion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:6868/api/testModelPostgres",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/testModelPostgres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"testModelPostgres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/testModelMongo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/testModelMongo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"testModelMongo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/seed/mongodb/testModel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/seed/mongodb/testModel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"seed",
+						"mongodb",
+						"testModel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/seed/postgresql/testModel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/seed/postgresql/testModel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"seed",
+						"postgresql",
+						"testModel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/seed/mongodb/accident",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/seed/mongodb/accident",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"seed",
+						"mongodb",
+						"accident"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/seed/postgresql/accident",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/seed/postgresql/accident",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"seed",
+						"postgresql",
+						"accident"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/accidentsNear?longitude=-84.205582&latitude=39.747753&radius=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/accidentsNear?longitude=-84.205582&latitude=39.747753&radius=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"accidentsNear"
+					],
+					"query": [
+						{
+							"key": "longitude",
+							"value": "-84.205582"
+						},
+						{
+							"key": "latitude",
+							"value": "39.747753"
+						},
+						{
+							"key": "radius",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/averageDistance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/averageDistance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"averageDistance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/betweenDates?startDate=2016-02-08 06:49:27.000&endDate=2016-02-08 09:25:17.000",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/betweenDates?startDate=2016-02-08 06:49:27.000&endDate=2016-02-08 09:25:17.000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"betweenDates"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2016-02-08 06:49:27.000"
+						},
+						{
+							"key": "endDate",
+							"value": "2016-02-08 09:25:17.000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/streetsMostAccidents?limit=5",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/streetsMostAccidents?limit=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"streetsMostAccidents"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
