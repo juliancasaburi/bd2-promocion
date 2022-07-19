@@ -2,6 +2,7 @@ package com.bbdd2promocion.api;
 
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.model.TestModel;
+import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
 import com.bbdd2promocion.service.IAccidentService;
 import com.bbdd2promocion.service.ISeedingService;
 import com.bbdd2promocion.service.ITestModelService;
@@ -128,6 +129,13 @@ public class APIController {
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endDate
 	) {
 		return new ResponseEntity<>(this.getAccidentService().findBetweenDates(startDate, endDate), HttpStatus.OK);
+	}
+
+	@GetMapping("/streetsMostAccidents")
+	public ResponseEntity<List<StreetStatistics>> getStreetsMostAccidents(
+			@RequestParam(name = "limit", required = false, defaultValue="5") int limit
+	) {
+		return new ResponseEntity<>(this.getAccidentService().getStreetsWithMostAccidents(limit), HttpStatus.OK);
 	}
 
 	@GetMapping("/testModelMongoDescription")
