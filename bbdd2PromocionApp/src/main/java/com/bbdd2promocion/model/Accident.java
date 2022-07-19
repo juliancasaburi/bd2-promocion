@@ -90,7 +90,7 @@ public class Accident {
 	private String number;
 
 	@Field(name = "street")
-	@Column(name = "stret")
+	@Column(name = "street")
 	private String street;
 
 	@Field(name = "side")
