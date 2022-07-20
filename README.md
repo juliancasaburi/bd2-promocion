@@ -64,6 +64,17 @@
     limit: cantidad de Accident a retornar (valor por defecto: 5).
     ```
 
+5. /mostDangerousPointsWithinRadius
+    ```
+     Retorna los N puntos mas peligrosos dentro de un radio dada una latitud y longitud
+   
+    - Parametros:
+    longitude: una longitud (por ejemplo, '-84.058723')  
+    latitude: una latitud (por ejemplo, '39.865147')  
+    radius: un radio (en kilómetros, por ejemplo 100)  
+    limit: cantidad de Accident a retornar (valor por defecto: 5).
+    ```
+
 ## Start the App
 We can easily start app with a single command:
 ```bash
