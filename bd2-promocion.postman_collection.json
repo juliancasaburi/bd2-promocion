@@ -242,6 +242,44 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/mostDangerousPointsWithinRadius?longitude=-84.032608&latitude=39.063148&radius=50000&limit=5",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/mostDangerousPointsWithinRadius?longitude=-84.032608&latitude=39.063148&radius=50000&limit=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"mostDangerousPointsWithinRadius"
+					],
+					"query": [
+						{
+							"key": "longitude",
+							"value": "-84.032608"
+						},
+						{
+							"key": "latitude",
+							"value": "39.063148"
+						},
+						{
+							"key": "radius",
+							"value": "50000"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

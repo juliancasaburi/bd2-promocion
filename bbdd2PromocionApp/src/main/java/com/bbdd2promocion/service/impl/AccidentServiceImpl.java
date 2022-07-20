@@ -6,6 +6,7 @@ package com.bbdd2promocion.service.impl;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.repository.jpa.JPAAccidentRepository;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
+import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import com.bbdd2promocion.repository.mongo.MongoAccidentRepository;
 import com.bbdd2promocion.service.IAccidentService;
 import org.springframework.data.domain.PageRequest;
@@ -54,6 +55,11 @@ public class AccidentServiceImpl implements IAccidentService {
     @Override
     public List<StreetStatistics> getStreetsWithMostAccidents(int limit){
         return this.getAccidentJPARepository().getStreetsWithMostAccidents(PageRequest.of(0, limit));
+    }
+
+    @Override
+    public List<LocationCount> getMostDangerousPointsWithinRadius(Double longitude, Double latitude, int radius, int limit){
+        return this.getAccidentMongoRepository().findMostDangerousPointsWithinRadius(longitude, latitude, radius, limit).getMappedResults();
     }
 
     /**

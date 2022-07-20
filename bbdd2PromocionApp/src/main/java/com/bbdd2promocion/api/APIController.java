@@ -3,6 +3,7 @@ package com.bbdd2promocion.api;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.model.TestModel;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
+import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import com.bbdd2promocion.service.IAccidentService;
 import com.bbdd2promocion.service.ISeedingService;
 import com.bbdd2promocion.service.ITestModelService;
@@ -136,6 +137,21 @@ public class APIController {
 			@RequestParam(name = "limit", required = false, defaultValue="5") int limit
 	) {
 		return new ResponseEntity<>(this.getAccidentService().getStreetsWithMostAccidents(limit), HttpStatus.OK);
+	}
+
+	@GetMapping("/mostDangerousPointsWithinRadius")
+	public ResponseEntity<List<LocationCount>> getMostDangerousPointsWithinRadius(
+			@RequestParam(name = "longitude") Double longitude,
+			@RequestParam(name = "latitude") Double latitude,
+			@RequestParam(name = "radius") int radius,
+			@RequestParam(name = "limit", required = false, defaultValue = "5") int limit
+	) {
+		return new ResponseEntity<>(this.getAccidentService().getMostDangerousPointsWithinRadius(
+				longitude,
+				latitude,
+				radius,
+				limit
+		), HttpStatus.OK);
 	}
 
 	@GetMapping("/testModelMongoDescription")
