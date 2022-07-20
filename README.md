@@ -11,28 +11,69 @@
 
 3. Puede lanzar uno o más jobs de seeding realizando una solicitud POST a los endpoints:
 
-   - **Seed de TestModel (MongoDB)**  
+> Nota: se provee una [colección de Postman](bd2-promocion.postman_collection.json) que incluye las requests para lanzar los jobs de seeding.
+
+   - **Seeding de TestModel (MongoDB)**  
    `/seed/mongodb/testModel`
 
-   - **Seed de TestModel (PostgreSQL)**  
+   - **Seeding de TestModel (PostgreSQL)**  
      `/seed/postgresql/testModel`
 
-   - **Seed de Accident (MongoDB)**  
+   - **Seeding de Accident (MongoDB)**  
      `/seed/mongodb/accident`
 
+   - **Seeding de Accident (PostgreSQL)**  
+     `/seed/postgresql/accident`
+
 ## API - Query endpoints
+
+> Nota: se provee una [colección de Postman](bd2-promocion.postman_collection.json) para realizar las requests
 
 1. /accidentsNear 
    
     ```
-    Returns the accidents within a certain area.  
-    Parameters:
+    Retorna los Accident ocurridos dentro del radio 
     
-    longitude: a longitude (for example, '-84.058723')  
-    latitude: a latitude (for example, '39.865147')  
-    radius: a radius (in km)  
+    - Parametros:
+    longitude: una longitud (por ejemplo, '-84.058723')  
+    latitude: una latitud (por ejemplo, '39.865147')  
+    radius: un radio (en kilómetros, por ejemplo 100)  
     ```
 
+2. /averageDistance
+
+    ```
+    Obtiene la distancia promedio desde el inicio al fin del accidente
+    ```
+   
+3. /betweenDates
+
+    ```
+    Retorna los Accident ocurridos entre startDate y endDate  
+   
+    - Parametros:
+    startDate: fecha y hora de inicio (por ejemplo: 2016-02-08 06:49:27.000).
+    endDate: fecha y hora de fin (por ejemplo: 2016-02-08 09:25:17.000).
+    ```
+   
+4. /streetsMostAccidents
+    ```
+    Retorna las N calles con mas accidentes  
+   
+    - Parametros:
+    limit: cantidad de Accident a retornar (valor por defecto: 5).
+    ```
+
+5. /mostDangerousPointsWithinRadius
+    ```
+     Retorna los N puntos mas peligrosos dentro de un radio dada una latitud y longitud
+   
+    - Parametros:
+    longitude: una longitud (por ejemplo, '-84.058723')  
+    latitude: una latitud (por ejemplo, '39.865147')  
+    radius: un radio (en kilómetros, por ejemplo 100)  
+    limit: cantidad de Accident a retornar (valor por defecto: 5).
+    ```
 
 ## Start the App
 We can easily start app with a single command:

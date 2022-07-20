@@ -5,6 +5,7 @@ package com.bbdd2promocion.service;
 
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
+import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 
@@ -47,5 +48,17 @@ public interface IAccidentService {
      * @return datos de las N calles con mas accidentes
      */
     List<StreetStatistics> getStreetsWithMostAccidents(int limit);
+
+    /**
+     * Retorna los n puntos mas peligrosos dentro de un radio dada una latitud y longitud
+     *
+     * @param longitude
+     * @param latitude
+     * @param radius
+     * @param limit
+     *
+     * @return los n puntos mas peligrosos dentro de un radio dada una latitud y longitud
+     */
+    List<LocationCount> getMostDangerousPointsWithinRadius(Double longitude, Double latitude, int radius, int limit);
 
 }
