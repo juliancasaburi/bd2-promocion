@@ -42,10 +42,10 @@ public interface IAccidentService {
     List<Accident> findBetweenDates(Date startDate, Date endDate);
 
     /**
-     * Retorna las N calles con mas accidentes
+     * Retorna datos de las N calles con mas accidentes
      *
      * @param limit
-     * @return las N calles con mas accidentes
+     * @return datos de las N calles con mas accidentes
      */
     List<StreetStatistics> getStreetsWithMostAccidents(int limit);
 

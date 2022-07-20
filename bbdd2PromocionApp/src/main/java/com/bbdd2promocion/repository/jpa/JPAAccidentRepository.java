@@ -21,6 +21,12 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
     @Query("SELECT AVG(a.distance) FROM Accident a")
     Double getAverageDistance();
 
+    /**
+     * Retorna datos de las N (pageable) calles con mas accidentes
+     *
+     * @param pageable
+     * @return datos (StreetStatistics) de las N (pageable) calles con mas accidentes
+     */
     @Query("SELECT a.street as street, a.zipcode as zipcode, COUNT(a) as count FROM Accident a GROUP BY a.street, a.zipcode ORDER BY COUNT(a) DESC")
     List<StreetStatistics> getStreetsWithMostAccidents(Pageable pageable);
 
