@@ -1,5 +1,6 @@
 package com.bbdd2promocion.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
@@ -19,10 +20,12 @@ public class Accident {
 	@Id
 	@GeneratedValue(strategy= GenerationType.SEQUENCE)
 	@BsonIgnore
+	@JsonIgnore
 	private Long id;
 
 	@MongoId
 	@Transient
+	@JsonIgnore
 	private String mongoId;
 
 	@Field(name = "csvId")
