@@ -280,6 +280,27 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/mostCommonConditions/weather",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/mostCommonConditions/weather",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"mostCommonConditions",
+						"weather"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
