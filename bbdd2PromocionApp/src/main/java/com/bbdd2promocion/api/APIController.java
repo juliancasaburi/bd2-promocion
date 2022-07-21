@@ -1,5 +1,6 @@
 package com.bbdd2promocion.api;
 
+import com.bbdd2promocion.helpers.ConditionValues;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.model.TestModel;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
@@ -152,6 +153,11 @@ public class APIController {
 				radius,
 				limit
 		), HttpStatus.OK);
+	}
+
+	@GetMapping("/mostCommonConditions/weather")
+	public ResponseEntity<List<ConditionValues>> getMostCommonWeatherConditions() {
+		return new ResponseEntity<>(this.getAccidentService().getMostCommonWeatherConditions(), HttpStatus.OK);
 	}
 
 	@GetMapping("/testModelMongoDescription")

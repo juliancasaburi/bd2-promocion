@@ -3,9 +3,11 @@
  */
 package com.bbdd2promocion.service;
 
+import com.bbdd2promocion.helpers.ConditionValues;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
 import com.bbdd2promocion.repository.mongo.projections.LocationCount;
+import com.bbdd2promocion.service.impl.AccidentServiceImpl;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 
@@ -60,5 +62,12 @@ public interface IAccidentService {
      * @return los n puntos mas peligrosos dentro de un radio dada una latitud y longitud
      */
     List<LocationCount> getMostDangerousPointsWithinRadius(Double longitude, Double latitude, int radius, int limit);
+
+    /**
+     * Retorna las condiciones climáticas mas frecuentes
+     *
+     * @return las condiciones climáticas mas frecuentes
+     */
+    List<ConditionValues> getMostCommonWeatherConditions();
 
 }
