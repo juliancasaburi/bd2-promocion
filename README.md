@@ -1,5 +1,14 @@
 # Bases de datos 2 2022 - Trabajo de Promoción
 
+## Documentación OpenAPI
+Se documenta la API con OpenAPI, con la dependencia [springdoc-openapi](https://github.com/springdoc/springdoc-openapi).  
+Se puede acceder a la interfaz (Swagger UI) para probar los endpoints en la siguiente URL: http://localhost:6868/swagger-ui.html
+
+![Swagger UI](openapi-swagger.png)
+
+
+Alternativamente, se provee una [colección de Postman](bd2-promocion.postman_collection.json).
+
 ## Seeding de MongoDB y PostgreSQL desde archivo csv
 
 1. Descargar el archivo [US_Accidents_Dec19.csv](https://www.dropbox.com/sh/g4fo1woljc6j2kw/AACFN-puWJEGv6OxVuNphWGQa/199387_896000_compressed_US_Accidents_Dec19.csv.zip?file_subpath=%2FUS_Accidents_Dec19.csv)  
@@ -10,8 +19,6 @@
     ```
 
 3. Puede lanzar uno o más jobs de seeding realizando una solicitud POST a los endpoints:
-
-> Nota: se provee una [colección de Postman](bd2-promocion.postman_collection.json) que incluye las requests para lanzar los jobs de seeding.
 
    - **Seeding de TestModel (MongoDB)**  
    `/seed/mongodb/testModel`
@@ -26,8 +33,6 @@
      `/seed/postgresql/accident`
 
 ## API - Query endpoints
-
-> Nota: se provee una [colección de Postman](bd2-promocion.postman_collection.json) para realizar las requests
 
 1. /accidentsNear 
    
@@ -80,7 +85,8 @@
     Retorna las condiciones climáticas mas frecuentes
     ```
 
-## Start the App
+## Docker compose
+### Start the App
 We can easily start app with a single command:
 ```bash
 docker-compose up
@@ -93,7 +99,7 @@ The services can be run on the background adding the -d parameter:
 docker-compose up -d
 ```
 
-## Stop the App
+### Stop the App
 Stopping all the running containers is also simple with a single command:
 ```bash
 docker-compose down
