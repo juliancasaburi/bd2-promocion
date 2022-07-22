@@ -70,6 +70,8 @@ public class Accident {
 	@Field(name = "startLocation")
 	@Column(name = "start_location")
 	@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
+	@Transient
+	@JsonIgnore
 	private GeoJsonPoint startLocation;
 
 	@Field(name = "endLat")
