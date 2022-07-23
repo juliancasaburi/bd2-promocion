@@ -12,9 +12,10 @@ import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
+import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.geo.Point;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -108,15 +109,17 @@ public class APIController {
 		return new ResponseEntity<>(this.getTestModelService().findAllMongo(), HttpStatus.OK);
 	}
 
-	@GetMapping("/accidentsNear")
-	public ResponseEntity<List<Accident>> getAccidentsNear(
+	@GetMapping("/withinRadius")
+	public ResponseEntity<List<Accident>> getAccidentsWithinRadius(
 			@RequestParam(name = "longitude") String longitude,
 			@RequestParam(name = "latitude") String latitude,
-			@RequestParam(name = "radius") String distance
+			@RequestParam(name = "radius") String radius
 	) {
-		return new ResponseEntity<>(this.getAccidentService().findByStartLocationNear(
-				new GeoJsonPoint(Double.parseDouble(longitude), Double.parseDouble(latitude)),
-				new Distance(Double.parseDouble(distance), Metrics.KILOMETERS)
+		return new ResponseEntity<>(this.getAccidentService().findByStartLocationWithinRadius(
+				new Circle(
+						new Point(Double.parseDouble(longitude), Double.parseDouble(latitude)),
+						new Distance(Double.parseDouble(radius), Metrics.KILOMETERS)
+				)
 		), HttpStatus.OK);
 	}
 
