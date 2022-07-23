@@ -134,12 +134,12 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:6868/api/accidentsNear?longitude=-84.205582&latitude=39.747753&radius=1",
+			"name": "http://localhost:6868/api/withinRadius?longitude=-84.205582&latitude=39.747753&radius=1",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:6868/api/accidentsNear?longitude=-84.205582&latitude=39.747753&radius=1",
+					"raw": "http://localhost:6868/api/withinRadius?longitude=-84.205582&latitude=39.747753&radius=100",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -147,7 +147,7 @@
 					"port": "6868",
 					"path": [
 						"api",
-						"accidentsNear"
+						"withinRadius"
 					],
 					"query": [
 						{
@@ -160,7 +160,7 @@
 						},
 						{
 							"key": "radius",
-							"value": "1"
+							"value": "100"
 						}
 					]
 				}

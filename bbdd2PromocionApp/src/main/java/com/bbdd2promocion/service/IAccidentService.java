@@ -7,9 +7,7 @@ import com.bbdd2promocion.helpers.ConditionValues;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
 import com.bbdd2promocion.repository.mongo.projections.LocationCount;
-import com.bbdd2promocion.service.impl.AccidentServiceImpl;
-import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.Point;
+import org.springframework.data.geo.Circle;
 
 import java.util.Date;
 import java.util.List;
@@ -25,7 +23,7 @@ public interface IAccidentService {
      *
      * @return los Accident ocurridos dentro del radio
      */
-    List<Accident> findByStartLocationNear(Point location, Distance distance);
+    List<Accident> findByStartLocationWithinRadius(Circle circle);
 
     /**
      * Obtiene la distancia promedio desde el inicio al fin del accidente

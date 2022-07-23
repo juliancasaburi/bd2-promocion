@@ -12,8 +12,7 @@ import com.bbdd2promocion.repository.mongo.MongoAccidentRepository;
 import com.bbdd2promocion.repository.jpa.projections.ValueCount;
 import com.bbdd2promocion.service.IAccidentService;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.Point;
+import org.springframework.data.geo.Circle;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -41,8 +40,8 @@ public class AccidentServiceImpl implements IAccidentService {
     private JPAAccidentRepository jpaAccidentRepository;
 
     @Override
-    public List<Accident> findByStartLocationNear(Point location, Distance distance) {
-        return this.getAccidentMongoRepository().findByStartLocationNear(location, distance);
+    public List<Accident> findByStartLocationWithinRadius(Circle circle) {
+        return this.getAccidentMongoRepository().findByStartLocationWithin(circle);
     }
 
     @Override

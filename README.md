@@ -34,7 +34,7 @@ Alternativamente, se provee una [colección de Postman](bd2-promocion.postman_co
 
 ## API - Query endpoints
 
-1. /accidentsNear 
+1. /withinRadius 
    
     ```
     Retorna los Accident ocurridos dentro del radio 
