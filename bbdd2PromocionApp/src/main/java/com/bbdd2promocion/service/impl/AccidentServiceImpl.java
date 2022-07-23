@@ -60,7 +60,7 @@ public class AccidentServiceImpl implements IAccidentService {
     }
 
     @Override
-    public List<LocationCount> getMostDangerousPointsWithinRadius(Double longitude, Double latitude, int radius, int limit){
+    public List<LocationCount> getMostDangerousPointsWithinRadius(Double longitude, Double latitude, Double radius, int limit){
         return this.getAccidentMongoRepository().findMostDangerousPointsWithinRadius(longitude, latitude, radius, limit).getMappedResults();
     }
 

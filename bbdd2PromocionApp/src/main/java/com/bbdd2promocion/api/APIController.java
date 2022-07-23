@@ -147,13 +147,13 @@ public class APIController {
 	public ResponseEntity<List<LocationCount>> getMostDangerousPointsWithinRadius(
 			@RequestParam(name = "longitude") Double longitude,
 			@RequestParam(name = "latitude") Double latitude,
-			@RequestParam(name = "radius") int radius,
+			@RequestParam(name = "radius") String radius,
 			@RequestParam(name = "limit", required = false, defaultValue = "5") int limit
 	) {
 		return new ResponseEntity<>(this.getAccidentService().getMostDangerousPointsWithinRadius(
 				longitude,
 				latitude,
-				radius,
+				Double.parseDouble(radius) / 6378.1, // 6378.1 = radius of earth in Km,
 				limit
 		), HttpStatus.OK);
 	}

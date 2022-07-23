@@ -5,6 +5,7 @@ import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import org.springframework.data.geo.Circle;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.repository.Aggregation;
+import org.springframework.data.mongodb.repository.Meta;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,18 +18,22 @@ public interface MongoAccidentRepository extends MongoRepository<Accident, Strin
 
     @Aggregation(pipeline = {
             "{\n" +
-            "        $geoNear: {\n" +
-            "            near: { type: \"Point\", coordinates: [?0, ?1] },\n" +
-            "            distanceField: \"dist.calculated\",\n" +
-            "            maxDistance: ?2,\n" +
-            "            spherical: true,\n" +
-            "        }\n" +
+                    "\"$match\": {\n" +
+                        "\"startLocation\": {\n" +
+                        "      \"$geoWithin\": {\n" +
+                        "         \"$centerSphere\": [\n" +
+                        "           [?0, ?1], ?2\n" +
+                        "         ]\n" +
+                        "      }\n" +
+                        "    }\n" +
+                    "    }\n" +
             "    }",
             "{ $sortByCount: \"$startLocation.coordinates\" }",
             "{ $limit: ?3 }",
             "{ $addFields: { startLocation: \"$_id\" } }",
             "{ $unset: [\"_id\"] }"
     })
-    AggregationResults<LocationCount> findMostDangerousPointsWithinRadius(Double longitude, Double latitude, int radius, int limit);
+    @Meta(allowDiskUse = true)
+    AggregationResults<LocationCount> findMostDangerousPointsWithinRadius(Double longitude, Double latitude, Double radius, int limit);
 }
 
