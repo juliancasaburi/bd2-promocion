@@ -59,7 +59,7 @@ public interface IAccidentService {
      *
      * @return los n puntos mas peligrosos dentro de un radio dada una latitud y longitud
      */
-    List<LocationCount> getMostDangerousPointsWithinRadius(Double longitude, Double latitude, int radius, int limit);
+    List<LocationCount> getMostDangerousPointsWithinRadius(Double longitude, Double latitude, Double radius, int limit);
 
     /**
      * Retorna las condiciones climáticas mas frecuentes
