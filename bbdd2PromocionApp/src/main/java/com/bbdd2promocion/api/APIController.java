@@ -5,6 +5,7 @@ import com.bbdd2promocion.repository.jpa.projections.ValueCount;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.model.TestModel;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
+import com.bbdd2promocion.repository.mongo.projections.HourCount;
 import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import com.bbdd2promocion.service.IAccidentService;
 import com.bbdd2promocion.service.ISeedingService;
@@ -163,7 +164,7 @@ public class APIController {
     }
 
     @GetMapping("/mostCommonConditions/hour")
-    public ResponseEntity<ValueCount> getMostCommonHourConditions() {
+    public ResponseEntity<HourCount> getMostCommonHourConditions() {
         return new ResponseEntity<>(this.getAccidentService().getMostCommonHourConditions(), HttpStatus.OK);
     }
 

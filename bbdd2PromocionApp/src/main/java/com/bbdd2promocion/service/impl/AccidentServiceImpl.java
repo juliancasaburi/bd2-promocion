@@ -7,6 +7,7 @@ import com.bbdd2promocion.helpers.ConditionValues;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.repository.jpa.JPAAccidentRepository;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
+import com.bbdd2promocion.repository.mongo.projections.HourCount;
 import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import com.bbdd2promocion.repository.mongo.MongoAccidentRepository;
 import com.bbdd2promocion.repository.jpa.projections.ValueCount;
@@ -94,9 +95,8 @@ public class AccidentServiceImpl implements IAccidentService {
     }
 
     @Override
-    public ValueCount getMostCommonHourConditions() {
-        PageRequest pageRequest = PageRequest.of(0, 1);
-        return this.getAccidentJPARepository().findMostCommonHour(pageRequest).get(0);
+    public HourCount getMostCommonHourConditions() {
+        return this.getAccidentMongoRepository().findMostCommonHour().getMappedResults().get(0);
     }
 
     /**
