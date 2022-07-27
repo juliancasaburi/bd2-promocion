@@ -8,6 +8,7 @@ import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import com.bbdd2promocion.service.IAccidentService;
 import com.bbdd2promocion.service.ISeedingService;
 import com.bbdd2promocion.service.ITestModelService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
@@ -75,40 +76,47 @@ public class APIController {
 		return this.seedingService;
 	}
 
+	@Operation(summary = "Lanza un job de seeding para TestModel (MongoDB)")
 	@PostMapping("/seed/mongodb/testModel")
 	public ResponseEntity seedTestModelMongoDB() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 		this.getSeedingService().seedTestModelMongoDB();
 		return ResponseEntity.status(HttpStatus.OK).body("mongodb testModel seeding job started");
 	}
 
+	@Operation(summary = "Lanza un job de seeding para Accident (MongoDB)")
 	@PostMapping("/seed/mongodb/accident")
 	public ResponseEntity seedAccidentMongoDB() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 		this.getSeedingService().seedAccidentMongoDB();
 		return ResponseEntity.status(HttpStatus.OK).body("mongodb accident seeding job started");
 	}
 
+	@Operation(summary = "Lanza un job de seeding para TestModel (Postgresql)")
 	@PostMapping("/seed/postgresql/testModel")
 	public ResponseEntity seedTestModelPostgreSQL() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 		this.getSeedingService().seedTestModelPostgreSQL();
 		return ResponseEntity.status(HttpStatus.OK).body("postgresql testModel seeding job started");
 	}
 
+	@Operation(summary = "Lanza un job de seeding para Accident (Postgresql)")
 	@PostMapping("/seed/postgresql/accident")
 	public ResponseEntity seedAccidentPostgreSQL() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 		this.getSeedingService().seedAccidentPostgreSQL();
 		return ResponseEntity.status(HttpStatus.OK).body("postgresql accident seeding job started");
 	}
 
+	@Operation(summary = "Recupera todos los TestModel (Postgresql)")
 	@GetMapping("/testModelPostgres")
 	public ResponseEntity<List<TestModel>> getAllTestModels() {
 		return new ResponseEntity<>(this.getTestModelService().findAllPostgres(), HttpStatus.OK);
 	}
 
+	@Operation(summary = "Recupera todos los TestModel (MongoDB)")
 	@GetMapping("/testModelMongo")
 	public ResponseEntity<List<TestModel>> getAllMongoTestModels() {
 		return new ResponseEntity<>(this.getTestModelService().findAllMongo(), HttpStatus.OK);
 	}
 
+	@Operation(summary = "Retorna los Accident ocurridos dentro del radio")
 	@GetMapping("/withinRadius")
 	public ResponseEntity<List<Accident>> getAccidentsWithinRadius(
 			@RequestParam(name = "longitude") String longitude,
@@ -123,11 +131,13 @@ public class APIController {
 		), HttpStatus.OK);
 	}
 
+	@Operation(summary = "Obtiene la distancia promedio desde el inicio al fin del accidente")
 	@GetMapping("/averageDistance")
 	public ResponseEntity<Double> getAverageDistance() {
 		return new ResponseEntity<>(this.getAccidentService().getAverageDistance(), HttpStatus.OK);
 	}
 
+	@Operation(summary = "Retorna los Accident ocurridos entre startDate y endDate")
 	@GetMapping("/betweenDates")
 	public ResponseEntity<List<Accident>> findBetweenDates(
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date startDate,
@@ -136,6 +146,7 @@ public class APIController {
 		return new ResponseEntity<>(this.getAccidentService().findBetweenDates(startDate, endDate), HttpStatus.OK);
 	}
 
+	@Operation(summary = "Retorna las N calles con mas accidentes")
 	@GetMapping("/streetsMostAccidents")
 	public ResponseEntity<List<StreetStatistics>> getStreetsMostAccidents(
 			@RequestParam(name = "limit", required = false, defaultValue="5") int limit
@@ -143,6 +154,7 @@ public class APIController {
 		return new ResponseEntity<>(this.getAccidentService().getStreetsWithMostAccidents(limit), HttpStatus.OK);
 	}
 
+	@Operation(summary = "Retorna los N puntos mas peligrosos dentro de un radio dada una latitud y longitud")
 	@GetMapping("/mostDangerousPointsWithinRadius")
 	public ResponseEntity<List<LocationCount>> getMostDangerousPointsWithinRadius(
 			@RequestParam(name = "longitude") Double longitude,
@@ -158,11 +170,13 @@ public class APIController {
 		), HttpStatus.OK);
 	}
 
+	@Operation(summary = "Retorna las condiciones climáticas mas frecuentes")
 	@GetMapping("/mostCommonConditions/weather")
 	public ResponseEntity<List<ConditionValues>> getMostCommonWeatherConditions() {
 		return new ResponseEntity<>(this.getAccidentService().getMostCommonWeatherConditions(), HttpStatus.OK);
 	}
 
+	@Operation(summary = "Retorna los TestModel con description = al parametro description (MongoDB)")
 	@GetMapping("/testModelMongoDescription")
 	public ResponseEntity<List<TestModel>> getMongoTestModelsDescription(@RequestParam(name = "description") String aDescription) {
 		return new ResponseEntity<>(this.getTestModelService().findByDescription(aDescription), HttpStatus.OK);
