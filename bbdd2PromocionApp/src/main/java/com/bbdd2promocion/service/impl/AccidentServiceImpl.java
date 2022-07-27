@@ -7,6 +7,7 @@ import com.bbdd2promocion.helpers.ConditionValues;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.repository.jpa.JPAAccidentRepository;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
+import com.bbdd2promocion.repository.mongo.projections.HourCount;
 import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import com.bbdd2promocion.repository.mongo.MongoAccidentRepository;
 import com.bbdd2promocion.repository.jpa.projections.ValueCount;
@@ -51,24 +52,28 @@ public class AccidentServiceImpl implements IAccidentService {
 
     @Override
     public List<Accident> findBetweenDates(Date startDate, Date endDate) {
-        return this.getAccidentJPARepository().findAllByStartTimeGreaterThanEqualAndEndTimeLessThanEqual(startDate, endDate);
+        return this.getAccidentJPARepository().findAllByStartTimeGreaterThanEqualAndEndTimeLessThanEqual(startDate,
+                endDate);
     }
 
     @Override
-    public List<StreetStatistics> getStreetsWithMostAccidents(int limit){
+    public List<StreetStatistics> getStreetsWithMostAccidents(int limit) {
         return this.getAccidentJPARepository().getStreetsWithMostAccidents(PageRequest.of(0, limit));
     }
 
     @Override
-    public List<LocationCount> getMostDangerousPointsWithinRadius(Double longitude, Double latitude, Double radius, int limit){
-        return this.getAccidentMongoRepository().findMostDangerousPointsWithinRadius(longitude, latitude, radius, limit).getMappedResults();
+    public List<LocationCount> getMostDangerousPointsWithinRadius(Double longitude, Double latitude, Double radius,
+            int limit) {
+        return this.getAccidentMongoRepository().findMostDangerousPointsWithinRadius(longitude, latitude, radius, limit)
+                .getMappedResults();
     }
 
     @Override
-    public List<ConditionValues> getMostCommonWeatherConditions(){
+    public List<ConditionValues> getMostCommonWeatherConditions() {
         PageRequest pageRequest = PageRequest.of(0, 1);
 
-        ValueCount weatherConditionCount = this.getAccidentJPARepository().findMostCommonWeatherCondition(pageRequest).get(0);
+        ValueCount weatherConditionCount = this.getAccidentJPARepository().findMostCommonWeatherCondition(pageRequest)
+                .get(0);
         ValueCount pressureCount = this.getAccidentJPARepository().findMostCommonPressure(pageRequest).get(0);
         ValueCount humidityCount = this.getAccidentJPARepository().findMostCommonHumidity(pageRequest).get(0);
         ValueCount temperatureCount = this.getAccidentJPARepository().findMostCommonTemperature(pageRequest).get(0);
@@ -87,6 +92,11 @@ public class AccidentServiceImpl implements IAccidentService {
         weatherConditions.add(new ConditionValues("Wind Speed(mph)", windSpeedCount));
         weatherConditions.add(new ConditionValues("Wind Direction", windDirectionCount));
         return weatherConditions;
+    }
+
+    @Override
+    public HourCount getMostCommonHourConditions() {
+        return this.getAccidentMongoRepository().findMostCommonHour().getMappedResults().get(0);
     }
 
     /**
