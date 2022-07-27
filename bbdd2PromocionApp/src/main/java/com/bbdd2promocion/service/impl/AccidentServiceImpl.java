@@ -51,24 +51,28 @@ public class AccidentServiceImpl implements IAccidentService {
 
     @Override
     public List<Accident> findBetweenDates(Date startDate, Date endDate) {
-        return this.getAccidentJPARepository().findAllByStartTimeGreaterThanEqualAndEndTimeLessThanEqual(startDate, endDate);
+        return this.getAccidentJPARepository().findAllByStartTimeGreaterThanEqualAndEndTimeLessThanEqual(startDate,
+                endDate);
     }
 
     @Override
-    public List<StreetStatistics> getStreetsWithMostAccidents(int limit){
+    public List<StreetStatistics> getStreetsWithMostAccidents(int limit) {
         return this.getAccidentJPARepository().getStreetsWithMostAccidents(PageRequest.of(0, limit));
     }
 
     @Override
-    public List<LocationCount> getMostDangerousPointsWithinRadius(Double longitude, Double latitude, Double radius, int limit){
-        return this.getAccidentMongoRepository().findMostDangerousPointsWithinRadius(longitude, latitude, radius, limit).getMappedResults();
+    public List<LocationCount> getMostDangerousPointsWithinRadius(Double longitude, Double latitude, Double radius,
+            int limit) {
+        return this.getAccidentMongoRepository().findMostDangerousPointsWithinRadius(longitude, latitude, radius, limit)
+                .getMappedResults();
     }
 
     @Override
-    public List<ConditionValues> getMostCommonWeatherConditions(){
+    public List<ConditionValues> getMostCommonWeatherConditions() {
         PageRequest pageRequest = PageRequest.of(0, 1);
 
-        ValueCount weatherConditionCount = this.getAccidentJPARepository().findMostCommonWeatherCondition(pageRequest).get(0);
+        ValueCount weatherConditionCount = this.getAccidentJPARepository().findMostCommonWeatherCondition(pageRequest)
+                .get(0);
         ValueCount pressureCount = this.getAccidentJPARepository().findMostCommonPressure(pageRequest).get(0);
         ValueCount humidityCount = this.getAccidentJPARepository().findMostCommonHumidity(pageRequest).get(0);
         ValueCount temperatureCount = this.getAccidentJPARepository().findMostCommonTemperature(pageRequest).get(0);
@@ -87,6 +91,12 @@ public class AccidentServiceImpl implements IAccidentService {
         weatherConditions.add(new ConditionValues("Wind Speed(mph)", windSpeedCount));
         weatherConditions.add(new ConditionValues("Wind Direction", windDirectionCount));
         return weatherConditions;
+    }
+
+    @Override
+    public ValueCount getMostCommonHourConditions() {
+        PageRequest pageRequest = PageRequest.of(0, 1);
+        return this.getAccidentJPARepository().findMostCommonHour(pageRequest).get(0);
     }
 
     /**

@@ -26,7 +26,8 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
      * Retorna datos de las N (pageable) calles con mas accidentes
      *
      * @param pageable
-     * @return datos (StreetStatistics) de las N (pageable) calles con mas accidentes
+     * @return datos (StreetStatistics) de las N (pageable) calles con mas
+     *         accidentes
      */
     @Query("SELECT a.street as street, a.zipcode as zipcode, COUNT(a) as count FROM Accident a GROUP BY a.street, a.zipcode ORDER BY COUNT(a) DESC")
     List<StreetStatistics> getStreetsWithMostAccidents(Pageable pageable);
@@ -41,10 +42,12 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
     List<Accident> findAllByStartTimeGreaterThanEqualAndEndTimeLessThanEqual(Date startDate, Date endDate);
 
     /**
-     * Retorna el valor con mayor cantidad de repeticiones para la propiedad weatherCondition
+     * Retorna el valor con mayor cantidad de repeticiones para la propiedad
+     * weatherCondition
      *
      * @param pageable
-     * @return el valor con mayor cantidad de repeticiones para la propiedad weatherCondition
+     * @return el valor con mayor cantidad de repeticiones para la propiedad
+     *         weatherCondition
      */
     @Query("select a.weatherCondition as value, count(a) as count \n" +
             "from Accident a \n" +
@@ -53,10 +56,12 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
     List<ValueCount> findMostCommonWeatherCondition(Pageable pageable);
 
     /**
-     * Retorna el valor con mayor cantidad de repeticiones para la propiedad visibility
+     * Retorna el valor con mayor cantidad de repeticiones para la propiedad
+     * visibility
      *
      * @param pageable
-     * @return el valor con mayor cantidad de repeticiones para la propiedad visibility
+     * @return el valor con mayor cantidad de repeticiones para la propiedad
+     *         visibility
      */
     @Query("select a.visibility as value, count(a) as count \n" +
             "from Accident a \n" +
@@ -65,10 +70,12 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
     List<ValueCount> findMostCommonVisibility(Pageable pageable);
 
     /**
-     * Retorna el valor con mayor cantidad de repeticiones para la propiedad windChill
+     * Retorna el valor con mayor cantidad de repeticiones para la propiedad
+     * windChill
      *
      * @param pageable
-     * @return el valor con mayor cantidad de repeticiones para la propiedad windChill
+     * @return el valor con mayor cantidad de repeticiones para la propiedad
+     *         windChill
      */
     @Query("select a.windChill as value, count(a) as count \n" +
             "from Accident a \n" +
@@ -77,10 +84,12 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
     List<ValueCount> findMostCommonWindChill(Pageable pageable);
 
     /**
-     * Retorna el valor con mayor cantidad de repeticiones para la propiedad windDirection
+     * Retorna el valor con mayor cantidad de repeticiones para la propiedad
+     * windDirection
      *
      * @param pageable
-     * @return el valor con mayor cantidad de repeticiones para la propiedad windDirection
+     * @return el valor con mayor cantidad de repeticiones para la propiedad
+     *         windDirection
      */
     @Query("select a.windDirection as value, count(a) as count \n" +
             "from Accident a \n" +
@@ -89,10 +98,12 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
     List<ValueCount> findMostCommonWindDirection(Pageable pageable);
 
     /**
-     * Retorna el valor con mayor cantidad de repeticiones para la propiedad windSpeed
+     * Retorna el valor con mayor cantidad de repeticiones para la propiedad
+     * windSpeed
      *
      * @param pageable
-     * @return el valor con mayor cantidad de repeticiones para la propiedad windSpeed
+     * @return el valor con mayor cantidad de repeticiones para la propiedad
+     *         windSpeed
      */
     @Query("select a.windSpeed as value, count(a) as count \n" +
             "from Accident a \n" +
@@ -101,10 +112,12 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
     List<ValueCount> findMostCommonWindSpeed(Pageable pageable);
 
     /**
-     * Retorna el valor con mayor cantidad de repeticiones para la propiedad pressure
+     * Retorna el valor con mayor cantidad de repeticiones para la propiedad
+     * pressure
      *
      * @param pageable
-     * @return el valor con mayor cantidad de repeticiones para la propiedad pressure
+     * @return el valor con mayor cantidad de repeticiones para la propiedad
+     *         pressure
      */
     @Query("select a.pressure as value, count(a) as count \n" +
             "from Accident a \n" +
@@ -113,10 +126,12 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
     List<ValueCount> findMostCommonPressure(Pageable pageable);
 
     /**
-     * Retorna el valor con mayor cantidad de repeticiones para la propiedad humidity
+     * Retorna el valor con mayor cantidad de repeticiones para la propiedad
+     * humidity
      *
      * @param pageable
-     * @return el valor con mayor cantidad de repeticiones para la propiedad humidity
+     * @return el valor con mayor cantidad de repeticiones para la propiedad
+     *         humidity
      */
     @Query("select a.humidity as value, count(a) as count \n" +
             "from Accident a \n" +
@@ -125,15 +140,29 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
     List<ValueCount> findMostCommonHumidity(Pageable pageable);
 
     /**
-     * Retorna el valor con mayor cantidad de repeticiones para la propiedad temperature
+     * Retorna el valor con mayor cantidad de repeticiones para la propiedad
+     * temperature
      *
      * @param pageable
-     * @return el valor con mayor cantidad de repeticiones para la propiedad temperature
+     * @return el valor con mayor cantidad de repeticiones para la propiedad
+     *         temperature
      */
     @Query("select a.temperature as value, count(a) as count \n" +
             "from Accident a \n" +
             "group by a.temperature \n" +
             "order by count(a.temperature) desc \n")
     List<ValueCount> findMostCommonTemperature(Pageable pageable);
+
+    /**
+     * Retorna el valor con mayor cantidad de repeticiones para la propiedad hora
+     *
+     * @param pageable
+     * @return el valor con mayor cantidad de repeticiones para la propiedad hora
+     */
+    @Query("SELECT EXTRACT(HOUR FROM a.startTime) as value, count(a) as count  \n" +
+            "from Accident a \n" +
+            "group by EXTRACT(HOUR FROM a.startTime) \n" +
+            "order by count(EXTRACT(HOUR FROM a.startTime)) desc \n")
+    List<ValueCount> findMostCommonHour(Pageable pageable);
 
 }
