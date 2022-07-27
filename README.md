@@ -1,5 +1,9 @@
 # Bases de datos 2 2022 - Trabajo de Promoción
 
+## Descripción del Dataset US Accidents
+
+Se provee una descripción del dataset en el archivo [DATASET-ABOUT.MD](DATASET-ABOUT.MD).
+
 ## Documentación OpenAPI
 Se documenta la API con OpenAPI, con la dependencia [springdoc-openapi](https://github.com/springdoc/springdoc-openapi).  
 Se puede acceder a la interfaz (Swagger UI) para probar los endpoints en la siguiente URL: http://localhost:6868/swagger-ui.html
