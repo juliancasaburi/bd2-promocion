@@ -12,6 +12,7 @@ import com.bbdd2promocion.repository.mongo.MongoAccidentRepository;
 import com.bbdd2promocion.repository.jpa.projections.ValueCount;
 import com.bbdd2promocion.service.IAccidentService;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Range;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
@@ -52,7 +53,7 @@ public class AccidentServiceImpl implements IAccidentService {
 
     @Override
     public List<Accident> findBetweenDates(Date startDate, Date endDate) {
-        return this.getAccidentJPARepository().findAllByStartTimeGreaterThanEqualAndEndTimeLessThanEqual(startDate, endDate);
+        return this.getAccidentMongoRepository().findByStartTimeBetween(Range.closed(startDate, endDate));
     }
 
     @Override

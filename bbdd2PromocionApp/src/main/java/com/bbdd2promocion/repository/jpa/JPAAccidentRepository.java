@@ -32,15 +32,6 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
     List<StreetStatistics> getStreetsWithMostAccidents(Pageable pageable);
 
     /**
-     * Recupera los Accident con date entre startDate y endDate
-     *
-     * @param startDate
-     * @param endDate
-     * @return los Accident con date entre startDate y endDate
-     */
-    List<Accident> findAllByStartTimeGreaterThanEqualAndEndTimeLessThanEqual(Date startDate, Date endDate);
-
-    /**
      * Retorna el valor con mayor cantidad de repeticiones para la propiedad weatherCondition
      *
      * @param pageable
