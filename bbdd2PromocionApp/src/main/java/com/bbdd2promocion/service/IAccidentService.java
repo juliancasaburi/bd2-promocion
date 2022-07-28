@@ -4,10 +4,9 @@
 package com.bbdd2promocion.service;
 
 import com.bbdd2promocion.helpers.ConditionValues;
-import com.bbdd2promocion.repository.jpa.projections.ValueCount;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
-import com.bbdd2promocion.repository.mongo.projections.HourCount;
+import com.bbdd2promocion.repository.jpa.projections.ValueCount;
 import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import org.springframework.data.geo.Circle;
 
@@ -77,6 +76,6 @@ public interface IAccidentService {
      *
      * @return las horas mas frecuentes de los accidentes
      */
-    HourCount getMostCommonHourConditions();
+    ValueCount getMostCommonHourConditions();
 
 }

@@ -9,7 +9,8 @@ import com.bbdd2promocion.repository.jpa.JPAAccidentLocationDataRepository;
 import com.bbdd2promocion.repository.jpa.JPAAccidentRepository;
 import com.bbdd2promocion.repository.jpa.JPAAccidentWeatherDataRepository;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
-import com.bbdd2promocion.repository.mongo.projections.HourCount;
+import com.bbdd2promocion.repository.jpa.projections.ValueCount;
+import com.bbdd2promocion.repository.mongo.MongoAccidentRepository;
 import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import com.bbdd2promocion.service.IAccidentService;
 import org.springframework.data.domain.PageRequest;
@@ -101,8 +102,8 @@ public class AccidentServiceImpl implements IAccidentService {
     }
 
     @Override
-    public HourCount getMostCommonHourConditions() {
-        return this.getAccidentMongoRepository().findMostCommonHour().getMappedResults().get(0);
+    public ValueCount getMostCommonHourConditions() {
+        return this.getAccidentJPARepository().findMostCommonHour(PageRequest.of(0, 1)).get(0);
     }
 
     /**

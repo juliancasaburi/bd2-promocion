@@ -1,11 +1,10 @@
 package com.bbdd2promocion.api;
 
 import com.bbdd2promocion.helpers.ConditionValues;
-import com.bbdd2promocion.repository.jpa.projections.ValueCount;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.model.TestModel;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
-import com.bbdd2promocion.repository.mongo.projections.HourCount;
+import com.bbdd2promocion.repository.jpa.projections.ValueCount;
 import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import com.bbdd2promocion.service.IAccidentService;
 import com.bbdd2promocion.service.ISeedingService;
@@ -178,16 +177,16 @@ public class APIController {
         return new ResponseEntity<>(this.getAccidentService().getMostCommonWeatherConditions(), HttpStatus.OK);
     }
 
-	@Operation(summary = "Retorna los TestModel con description = al parametro description (MongoDB)")
-	@GetMapping("/testModelMongoDescription")
-	public ResponseEntity<List<TestModel>> getMongoTestModelsDescription(@RequestParam(name = "description") String aDescription) {
-		return new ResponseEntity<>(this.getTestModelService().findByDescription(aDescription), HttpStatus.OK);
+	@Operation(summary = "Retorna el horario de accidentes mas frecuente")
+	@GetMapping("/mostCommonConditions/hour")
+	public ResponseEntity<ValueCount> getMostCommonHourConditions() {
+		return new ResponseEntity<>(this.getAccidentService().getMostCommonHourConditions(), HttpStatus.OK);
 	}
 
-  @Operation(summary = "Retorna el horario de accidentes mas frecuente")
-  @GetMapping("/mostCommonConditions/hour")
-    public ResponseEntity<HourCount> getMostCommonHourConditions() {
-        return new ResponseEntity<>(this.getAccidentService().getMostCommonHourConditions(), HttpStatus.OK);
+    @Operation(summary = "Retorna los TestModel con description = al parametro description (MongoDB)")
+    @GetMapping("/testModelMongoDescription")
+    public ResponseEntity<List<TestModel>> getMongoTestModelsDescription(@RequestParam(name = "description") String aDescription) {
+        return new ResponseEntity<>(this.getTestModelService().findByDescription(aDescription), HttpStatus.OK);
     }
 
 }
