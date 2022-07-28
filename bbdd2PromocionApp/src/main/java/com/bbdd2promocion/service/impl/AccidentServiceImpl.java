@@ -102,7 +102,7 @@ public class AccidentServiceImpl implements IAccidentService {
     }
 
     @Override
-    public ValueCount getMostCommonHourConditions() {
+    public ValueCount getMostCommonHour() {
         return this.getAccidentJPARepository().findMostCommonHour(PageRequest.of(0, 1)).get(0);
     }
 

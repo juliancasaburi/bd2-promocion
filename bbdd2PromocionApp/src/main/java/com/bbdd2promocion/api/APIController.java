@@ -179,8 +179,8 @@ public class APIController {
 
 	@Operation(summary = "Retorna el horario de accidentes mas frecuente")
 	@GetMapping("/mostCommonConditions/hour")
-	public ResponseEntity<ValueCount> getMostCommonHourConditions() {
-		return new ResponseEntity<>(this.getAccidentService().getMostCommonHourConditions(), HttpStatus.OK);
+	public ResponseEntity<ValueCount> getMostCommonHour() {
+		return new ResponseEntity<>(this.getAccidentService().getMostCommonHour(), HttpStatus.OK);
 	}
 
     @Operation(summary = "Retorna los TestModel con description = al parametro description (MongoDB)")

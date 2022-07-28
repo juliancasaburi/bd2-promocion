@@ -76,6 +76,6 @@ public interface IAccidentService {
      *
      * @return las horas mas frecuentes de los accidentes
      */
-    ValueCount getMostCommonHourConditions();
+    ValueCount getMostCommonHour();
 
 }
