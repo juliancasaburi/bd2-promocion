@@ -2,6 +2,8 @@ package com.bbdd2promocion.seed.mongodb;
 
 import com.bbdd2promocion.listener.JobNotificationListener;
 import com.bbdd2promocion.model.Accident;
+import com.bbdd2promocion.dto.AccidentDTO;
+import com.bbdd2promocion.seed.AccidentItemProcessor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -54,14 +56,14 @@ public class InsertionJobConfiguration {
     }
 
     @Bean
-    public FlatFileItemReader<Accident> reader() {
-        return new FlatFileItemReaderBuilder<Accident>().name("AccidentItemReader")
+    public FlatFileItemReader<AccidentDTO> reader() {
+        return new FlatFileItemReaderBuilder<AccidentDTO>().name("AccidentItemReader")
                 .resource(new ClassPathResource("US_Accidents_Dec19.csv")).delimited()
                 .names(new String[] {"csvId", "source", "tmc", "severity", "startTime", "endTime", "startLat", "startLng", "endLat", "endLng", "distance", "description", "number", "street", "side", "city", "county", "state", "zipcode", "country", "timezone", "airportCode", "weatherTimestamp", "temperature", "windChill", "humidity", "pressure", "visibility", "windDirection", "windSpeed", "precipitation", "weatherCondition", "amenity", "bump", "crossing", "giveWay", "junction", "noExit", "railway", "roundabout", "station", "stop", "trafficCalming", "trafficSignal", "turningLoop", "sunriseSunset", "civilTwilight", "nauticalTwilight", "astronomicalTwilight" })
                 .linesToSkip(1)
-                .fieldSetMapper(new BeanWrapperFieldSetMapper<Accident>() {
+                .fieldSetMapper(new BeanWrapperFieldSetMapper<AccidentDTO>() {
                     {
-                        setTargetType(Accident.class);
+                        setTargetType(AccidentDTO.class);
                         setConversionService(createConversionService());
                         setDistanceLimit(1);
                     }
@@ -81,10 +83,10 @@ public class InsertionJobConfiguration {
     }
 
     @Bean
-    public Step step(TaskExecutor taskExecutor, FlatFileItemReader<Accident> flatFileIteamReader, MongoItemWriter<Accident> mongoItemWriter, AccidentItemProcessor processor) {
+    public Step step(TaskExecutor taskExecutor, FlatFileItemReader<AccidentDTO> flatFileItemReader, MongoItemWriter<Accident> mongoItemWriter, AccidentItemProcessor processor) {
         return this.stepBuilderFactory.get("step")
-                .<Accident, Accident>chunk(10000)
-                .reader(flatFileIteamReader)
+                .<AccidentDTO, Accident>chunk(10000)
+                .reader(flatFileItemReader)
                 .processor(processor)
                 .writer(mongoItemWriter)
                 .taskExecutor(taskExecutor)

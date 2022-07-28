@@ -2,6 +2,8 @@ package com.bbdd2promocion.seed.postgresql;
 
 import com.bbdd2promocion.listener.JobNotificationListener;
 import com.bbdd2promocion.model.Accident;
+import com.bbdd2promocion.dto.AccidentDTO;
+import com.bbdd2promocion.seed.AccidentItemProcessor;
 import org.hibernate.SessionFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -58,14 +60,14 @@ public class AccidentPostgresInsertionJobConfiguration {
     }
 
     @Bean(name="accidentPostgresReader")
-    public FlatFileItemReader<Accident> accidentPostgresReader() {
-        return new FlatFileItemReaderBuilder<Accident>().name("accidentItemReader")
+    public FlatFileItemReader<AccidentDTO> accidentPostgresReader() {
+        return new FlatFileItemReaderBuilder<AccidentDTO>().name("accidentItemReader")
                 .resource(new ClassPathResource("US_Accidents_Dec19.csv")).delimited()
                 .names(new String[] {"csvId", "source", "tmc", "severity", "startTime", "endTime", "startLat", "startLng", "endLat", "endLng", "distance", "description", "number", "street", "side", "city", "county", "state", "zipcode", "country", "timezone", "airportCode", "weatherTimestamp", "temperature", "windChill", "humidity", "pressure", "visibility", "windDirection", "windSpeed", "precipitation", "weatherCondition", "amenity", "bump", "crossing", "giveWay", "junction", "noExit", "railway", "roundabout", "station", "stop", "trafficCalming", "trafficSignal", "turningLoop", "sunriseSunset", "civilTwilight", "nauticalTwilight", "astronomicalTwilight" })
                 .linesToSkip(1)
-                .fieldSetMapper(new BeanWrapperFieldSetMapper<Accident>() {
+                .fieldSetMapper(new BeanWrapperFieldSetMapper<AccidentDTO>() {
                     {
-                        setTargetType(Accident.class);
+                        setTargetType(AccidentDTO.class);
                         setConversionService(createConversionService());
                         setDistanceLimit(1);
                     }
@@ -79,11 +81,17 @@ public class AccidentPostgresInsertionJobConfiguration {
         return hibernateItemWriter;
     }
 
+    @Bean
+    public AccidentItemProcessor processor() {
+        return new AccidentItemProcessor();
+    }
+
     @Bean(name="accidentPostgresStep")
-    public Step accidentPostgresStep(TaskExecutor taskExecutor, @Qualifier("accidentPostgresReader") FlatFileItemReader<Accident> accidentFlatFileItemReader, HibernateItemWriter<Accident> accidentHibernateItemWriter) {
+    public Step accidentPostgresStep(TaskExecutor taskExecutor, @Qualifier("accidentPostgresReader") FlatFileItemReader<AccidentDTO> accidentFlatFileItemReader, HibernateItemWriter<Accident> accidentHibernateItemWriter, AccidentItemProcessor processor) {
         return this.stepBuilderFactory.get("accidentStep")
-                .<Accident, Accident>chunk(10000)
+                .<AccidentDTO, Accident>chunk(10000)
                 .reader(accidentFlatFileItemReader)
+                .processor(processor)
                 .writer(accidentHibernateItemWriter)
                 .transactionManager(new HibernateTransactionManager(sessionFactory))
                 .taskExecutor(taskExecutor)

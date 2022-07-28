@@ -5,12 +5,12 @@ package com.bbdd2promocion.service.impl;
 
 import com.bbdd2promocion.helpers.ConditionValues;
 import com.bbdd2promocion.model.Accident;
+import com.bbdd2promocion.repository.jpa.JPAAccidentLocationDataRepository;
 import com.bbdd2promocion.repository.jpa.JPAAccidentRepository;
+import com.bbdd2promocion.repository.jpa.JPAAccidentWeatherDataRepository;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
 import com.bbdd2promocion.repository.mongo.projections.HourCount;
 import com.bbdd2promocion.repository.mongo.projections.LocationCount;
-import com.bbdd2promocion.repository.mongo.MongoAccidentRepository;
-import com.bbdd2promocion.repository.jpa.projections.ValueCount;
 import com.bbdd2promocion.service.IAccidentService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.geo.Circle;
@@ -40,9 +40,15 @@ public class AccidentServiceImpl implements IAccidentService {
     @Inject
     private JPAAccidentRepository jpaAccidentRepository;
 
+    @Inject
+    private JPAAccidentWeatherDataRepository jpaAccidentWeatherDataRepository;
+
+    @Inject
+    private JPAAccidentLocationDataRepository jpaAccidentLocationDataRepository;
+
     @Override
     public List<Accident> findByStartLocationWithinRadius(Circle circle) {
-        return this.getAccidentMongoRepository().findByStartLocationWithin(circle);
+        return this.getAccidentMongoRepository().findByAccidentLocationData_StartLocationWithin(circle);
     }
 
     @Override
@@ -58,7 +64,7 @@ public class AccidentServiceImpl implements IAccidentService {
 
     @Override
     public List<StreetStatistics> getStreetsWithMostAccidents(int limit) {
-        return this.getAccidentJPARepository().getStreetsWithMostAccidents(PageRequest.of(0, limit));
+        return this.getAccidentLocationDataJPARepository().getStreetsWithMostAccidents(PageRequest.of(0, limit));
     }
 
     @Override
@@ -72,15 +78,15 @@ public class AccidentServiceImpl implements IAccidentService {
     public List<ConditionValues> getMostCommonWeatherConditions() {
         PageRequest pageRequest = PageRequest.of(0, 1);
 
-        ValueCount weatherConditionCount = this.getAccidentJPARepository().findMostCommonWeatherCondition(pageRequest)
+        ValueCount weatherConditionCount = this.getAccidentWeatherDataJPARepository().findMostCommonWeatherCondition(pageRequest)
                 .get(0);
-        ValueCount pressureCount = this.getAccidentJPARepository().findMostCommonPressure(pageRequest).get(0);
-        ValueCount humidityCount = this.getAccidentJPARepository().findMostCommonHumidity(pageRequest).get(0);
-        ValueCount temperatureCount = this.getAccidentJPARepository().findMostCommonTemperature(pageRequest).get(0);
-        ValueCount visibilityCount = this.getAccidentJPARepository().findMostCommonVisibility(pageRequest).get(0);
-        ValueCount windChillCount = this.getAccidentJPARepository().findMostCommonWindChill(pageRequest).get(0);
-        ValueCount windDirectionCount = this.getAccidentJPARepository().findMostCommonWindDirection(pageRequest).get(0);
-        ValueCount windSpeedCount = this.getAccidentJPARepository().findMostCommonWindSpeed(pageRequest).get(0);
+        ValueCount pressureCount = this.getAccidentWeatherDataJPARepository().findMostCommonPressure(pageRequest).get(0);
+        ValueCount humidityCount = this.getAccidentWeatherDataJPARepository().findMostCommonHumidity(pageRequest).get(0);
+        ValueCount temperatureCount = this.getAccidentWeatherDataJPARepository().findMostCommonTemperature(pageRequest).get(0);
+        ValueCount visibilityCount = this.getAccidentWeatherDataJPARepository().findMostCommonVisibility(pageRequest).get(0);
+        ValueCount windChillCount = this.getAccidentWeatherDataJPARepository().findMostCommonWindChill(pageRequest).get(0);
+        ValueCount windDirectionCount = this.getAccidentWeatherDataJPARepository().findMostCommonWindDirection(pageRequest).get(0);
+        ValueCount windSpeedCount = this.getAccidentWeatherDataJPARepository().findMostCommonWindSpeed(pageRequest).get(0);
 
         List<ConditionValues> weatherConditions = new ArrayList<>();
         weatherConditions.add(new ConditionValues("Weather Condition", weatherConditionCount));
@@ -115,5 +121,23 @@ public class AccidentServiceImpl implements IAccidentService {
      */
     public JPAAccidentRepository getAccidentJPARepository() {
         return this.jpaAccidentRepository;
+    }
+
+    /**
+     * Getter.
+     *
+     * @return el repositorio de AccidentWeatherData (JPA).
+     */
+    public JPAAccidentWeatherDataRepository getAccidentWeatherDataJPARepository() {
+        return this.jpaAccidentWeatherDataRepository;
+    }
+
+    /**
+     * Getter.
+     *
+     * @return el repositorio de AccidentLocationData (JPA).
+     */
+    public JPAAccidentLocationDataRepository getAccidentLocationDataJPARepository() {
+        return this.jpaAccidentLocationDataRepository;
     }
 }
