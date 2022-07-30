@@ -1,8 +1,7 @@
 package com.bbdd2promocion.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -14,24 +13,21 @@ import java.util.Properties;
 @Configuration
 public class HibernateConfiguration {
 
-    private final JSONObject springProperties;
-
-    public HibernateConfiguration(Environment env) throws JSONException {
-        springProperties = new JSONObject(env.getProperty("SPRING_APPLICATION_JSON"));
-    }
+    @Autowired
+    private Environment env;
 
     @Bean(destroyMethod="close")
-    public DataSource dataSource() throws JSONException {
+    public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl(springProperties.getString("spring.datasource.url"));
-        dataSource.setUsername(springProperties.getString("spring.datasource.username"));
-        dataSource.setPassword(springProperties.getString("spring.datasource.password"));
+        dataSource.setUrl(env.getProperty("spring.datasource.url"));
+        dataSource.setUsername(env.getProperty("spring.datasource.username"));
+        dataSource.setPassword(env.getProperty("spring.datasource.password"));
         return dataSource;
     }
 
     @Bean(name="entityManagerFactory")
-    public LocalSessionFactoryBean sessionFactory() throws JSONException {
+    public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
         factory.setHibernateProperties(hibernateProperties());
         factory.setDataSource(dataSource());
@@ -40,11 +36,11 @@ public class HibernateConfiguration {
     }
 
     @Bean
-    public Properties hibernateProperties() throws JSONException {
+    public Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.put("hibernate.dialect", springProperties.getString("spring.jpa.hibernate.dialect"));
-        hibernateProperties.put("hibernate.show_sql", springProperties.getString("spring.jpa.hibernate.show_sql"));
-        hibernateProperties.put("hibernate.hbm2ddl.auto", springProperties.getString("spring.jpa.hibernate.ddl-auto"));
+        hibernateProperties.put("hibernate.dialect", env.getProperty("spring.jpa.hibernate.dialect"));
+        hibernateProperties.put("hibernate.show_sql", env.getProperty("spring.jpa.hibernate.show_sql"));
+        hibernateProperties.put("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto"));
         return hibernateProperties;
     }
 

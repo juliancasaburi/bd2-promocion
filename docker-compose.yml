@@ -36,31 +36,28 @@ services:
       - mongodb
     build: ./bbdd2PromocionApp
     restart: on-failure
-    env_file: ./.env
     ports:
       - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
-    environment:
-      SPRING_APPLICATION_JSON: '{
-        "spring.main.allow-bean-definition-overriding" : "true",
-        "spring.jpa.database-platform" : "org.hibernate.dialect.PostgreSQLDialect",
-        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
-        "spring.jpa.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
-        "spring.jpa.hibernate.show_sql" : "false",
-        "spring.datasource.url"  : "jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE?useSSL=false",
-        "spring.datasource.username" : "$POSTGRESDB_USER",
-        "spring.datasource.password" : "$POSTGRESDB_PASSWORD",
-        "spring.jpa.generate-ddl" : "true",
-        "spring.jpa.hibernate.ddl-auto" : "update",
-        "spring.data.mongodb.host" : "mongodb",
-        "spring.data.mongodb.port" : "$MONGODB_DOCKER_PORT",
-        "spring.data.mongodb.database" : "$MONGODB_DATABASE",
-        "spring.data.mongodb.auto-index-creation" : "true",
-        "spring.batch.job.enabled" : "false",
-        "spring.batch.initialize-schema" : "always",
-        "spring.batch.jdbc.initialize-schema" : "always"
-      }'
     volumes:
       - .m2:/root/.m2
+    environment:
+      - SPRING_MAIN_ALLOW_BEAN_DEFINITION_OVERRIDING=true
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_JPA_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_JPA_HIBERNATE_SHOW_SQL=false
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE?useSSL=false
+      - SPRING_DATASOURCE_USERNAME=$POSTGRESDB_USER
+      - SPRING_DATASOURCE_PASSWORD=$POSTGRESDB_PASSWORD
+      - SPRING_JPA_GENERATE_DDL=true
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_DATA_MONGODB_HOST=mongodb
+      - SPRING_DATA_MONGODB_PORT=$MONGODB_DOCKER_PORT
+      - SPRING_DATA_MONGODB_DATABASE=$MONGODB_DATABASE
+      - SPRING_DATA_MONGODB_AUTO_INDEX_CREATION=true
+      - SPRING_BATCH_JOB_ENABLED=false
+      - SPRING_BATCH_INITIALIZE_SCHEMA=always
+      - SPRING_BATCH_JDBC.INITIALIZE_SCHEMA=always
     stdin_open: true
     tty: true
 
