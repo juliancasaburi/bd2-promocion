@@ -89,7 +89,27 @@ Alternativamente, se provee una [colección de Postman](bd2-promocion.postman_co
     Retorna las condiciones climáticas mas frecuentes
     ```
 
+## Entorno local
+
+Puede ejecutar la API en un entorno local, contando con una instalación válida y propiamente configurada de PostgreSQL y MongoDB.
+
+```bash
+cd ./bbdd2PromocionApp
+./mvnw spring-boot:run -Dspring-boot.run.jvmArguments='-Dserver.port=6868'
+```
+
+También, puede utilizar el docker-compose iniciando unicamente PostgreSQL y MongoDB y configurando los datos en [application-properties](./bbdd2PromocionApp/src/main/resources/application.properties), e iniciar la app localmente:
+
+```bash
+sudo docker-compose up postgresdb mongodb
+cd ./bbdd2PromocionApp
+./mvnw spring-boot:run -Dspring-boot.run.jvmArguments='-Dserver.port=6868'
+```
+
 ## Docker compose
+
+Puede ejecutar la API en un entorno dockerizado (Spring Boot + PostgreSQL + MongoDB).
+
 ### Start the App
 We can easily start app with a single command:
 ```bash
