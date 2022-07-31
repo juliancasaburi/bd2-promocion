@@ -7,6 +7,7 @@ import com.bbdd2promocion.helpers.ConditionValues;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.repository.jpa.JPAAccidentLocationDataRepository;
 import com.bbdd2promocion.repository.jpa.JPAAccidentRepository;
+import com.bbdd2promocion.repository.jpa.JPAAccidentTerrainDataRepository;
 import com.bbdd2promocion.repository.jpa.JPAAccidentWeatherDataRepository;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
 import com.bbdd2promocion.repository.jpa.projections.ValueCount;
@@ -46,6 +47,9 @@ public class AccidentServiceImpl implements IAccidentService {
 
     @Inject
     private JPAAccidentLocationDataRepository jpaAccidentLocationDataRepository;
+
+    @Inject
+    private JPAAccidentTerrainDataRepository jpaAccidentTerrainDataRepository;
 
     @Override
     public List<Accident> findByStartLocationWithinRadius(Circle circle) {
@@ -116,14 +120,14 @@ public class AccidentServiceImpl implements IAccidentService {
     public List<ConditionValues> getMostCommonTerrainConditions() {
         PageRequest pageRequest = PageRequest.of(0, 1);
 
-        ValueCount crossingCount = this.getAccidentJPARepository().findMostCommonCrossing(pageRequest).get(0);
-        ValueCount giveWayCount = this.getAccidentJPARepository().findMostCommonGiveWay(pageRequest).get(0);
-        ValueCount junctionCount = this.getAccidentJPARepository().findMostCommonJunction(pageRequest).get(0);
-        ValueCount noExitCount = this.getAccidentJPARepository().findMostCommonNoExit(pageRequest).get(0);
-        ValueCount railwayCount = this.getAccidentJPARepository().findMostCommonRailway(pageRequest).get(0);
-        ValueCount stopCount = this.getAccidentJPARepository().findMostCommonStop(pageRequest).get(0);
-        ValueCount turningLoopCount = this.getAccidentJPARepository().findMostCommonTurningLoop(pageRequest).get(0);
-        ValueCount stationCount = this.getAccidentJPARepository().findMostCommonStation(pageRequest).get(0);
+        ValueCount crossingCount = this.getAccidentTerrainDataJPARepository().findMostCommonCrossing(pageRequest).get(0);
+        ValueCount giveWayCount = this.getAccidentTerrainDataJPARepository().findMostCommonGiveWay(pageRequest).get(0);
+        ValueCount junctionCount = this.getAccidentTerrainDataJPARepository().findMostCommonJunction(pageRequest).get(0);
+        ValueCount noExitCount = this.getAccidentTerrainDataJPARepository().findMostCommonNoExit(pageRequest).get(0);
+        ValueCount railwayCount = this.getAccidentTerrainDataJPARepository().findMostCommonRailway(pageRequest).get(0);
+        ValueCount stopCount = this.getAccidentTerrainDataJPARepository().findMostCommonStop(pageRequest).get(0);
+        ValueCount turningLoopCount = this.getAccidentTerrainDataJPARepository().findMostCommonTurningLoop(pageRequest).get(0);
+        ValueCount stationCount = this.getAccidentTerrainDataJPARepository().findMostCommonStation(pageRequest).get(0);
 
         List<ConditionValues> terrainConditions = new ArrayList<>();
 
@@ -172,5 +176,14 @@ public class AccidentServiceImpl implements IAccidentService {
      */
     public JPAAccidentLocationDataRepository getAccidentLocationDataJPARepository() {
         return this.jpaAccidentLocationDataRepository;
+    }
+
+    /**
+     * Getter.
+     *
+     * @return el repositorio de AccidentTerrainData (JPA).
+     */
+    public JPAAccidentTerrainDataRepository getAccidentTerrainDataJPARepository() {
+        return this.jpaAccidentTerrainDataRepository;
     }
 }
