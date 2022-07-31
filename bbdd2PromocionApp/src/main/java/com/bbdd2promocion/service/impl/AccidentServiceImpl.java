@@ -148,5 +148,4 @@ public class AccidentServiceImpl implements IAccidentService {
     public JPAAccidentRepository getAccidentJPARepository() {
         return this.jpaAccidentRepository;
     }
-
 }

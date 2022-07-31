@@ -166,10 +166,10 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long>, Cu
     List<ValueCount> findMostCommonHour(Pageable pageable);
 
     /**
-     * Retorna el valor con mayor cantidad de repeticiones para la propiedad hora
+     * Retorna dia de la semana con mayor cantidad de accidentes
      *
      * @param pageable
-     * @return el valor con mayor cantidad de repeticiones para la propiedad hora
+     * @return el dia de la semana con mayor cantidad de accidentes
      */
     @Query("SELECT TO_CHAR(a.startTime, 'day') as value, count(a) as count  \n" +
             "from Accident a \n" +
