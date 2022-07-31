@@ -116,4 +116,30 @@ public class AccidentServiceImpl implements IAccidentService {
     public JPAAccidentRepository getAccidentJPARepository() {
         return this.jpaAccidentRepository;
     }
+
+    @Override
+    public List<ConditionValues> getMostCommonTerrainConditions() {
+        PageRequest pageRequest = PageRequest.of(0, 1);
+
+        ValueCount crossingCount = this.getAccidentJPARepository().findMostCommonCrossing(pageRequest).get(0);
+        ValueCount giveWayCount = this.getAccidentJPARepository().findMostCommonGiveWay(pageRequest).get(0);
+        ValueCount junctionCount = this.getAccidentJPARepository().findMostCommonJunction(pageRequest).get(0);
+        ValueCount noExitCount = this.getAccidentJPARepository().findMostCommonNoExit(pageRequest).get(0);
+        ValueCount railwayCount = this.getAccidentJPARepository().findMostCommonRailway(pageRequest).get(0);
+        ValueCount stopCount = this.getAccidentJPARepository().findMostCommonStop(pageRequest).get(0);
+        ValueCount turningLoopCount = this.getAccidentJPARepository().findMostCommonTurningLoop(pageRequest).get(0);
+        ValueCount stationCount = this.getAccidentJPARepository().findMostCommonStation(pageRequest).get(0);
+
+        List<ConditionValues> terrainConditions = new ArrayList<>();
+
+        terrainConditions.add(new ConditionValues("Crossing", crossingCount));
+        terrainConditions.add(new ConditionValues("Give Way", giveWayCount));
+        terrainConditions.add(new ConditionValues("Junction", junctionCount));
+        terrainConditions.add(new ConditionValues("No Exit", noExitCount));
+        terrainConditions.add(new ConditionValues("Railway", railwayCount));
+        terrainConditions.add(new ConditionValues("Stop", stopCount));
+        terrainConditions.add(new ConditionValues("Turning Loop", turningLoopCount));
+        terrainConditions.add(new ConditionValues("Station", stationCount));
+        return terrainConditions;
+    }
 }
