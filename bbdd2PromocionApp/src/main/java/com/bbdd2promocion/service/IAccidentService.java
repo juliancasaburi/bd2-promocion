@@ -78,4 +78,18 @@ public interface IAccidentService {
      */
     ValueCount getMostCommonHour();
 
+    /**
+     * Retorna el día mas frecuente de los accidentes
+     *
+     * @return el día mas frecuente de los accidentes
+     */
+    ValueCount getMostCommonDayConditions();
+
+    /**
+     * Retorna las condiciones de terreno mas frecuentes de los accidentes
+     *
+     * @return las condiciones de terreno mas frecuentes de los accidentes
+     */
+    List<ConditionValues> getMostCommonTerrainConditions();
+
 }
