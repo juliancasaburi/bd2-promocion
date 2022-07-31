@@ -99,22 +99,10 @@ public class AccidentServiceImpl implements IAccidentService {
         return this.getAccidentMongoRepository().findMostCommonHour().getMappedResults().get(0);
     }
 
-    /**
-     * Getter.
-     *
-     * @return el repositorio de Accident (MongoDB).
-     */
-    public MongoAccidentRepository getAccidentMongoRepository() {
-        return this.accidentMongoRepository;
-    }
-
-    /**
-     * Getter.
-     *
-     * @return el repositorio de Accident (JPA).
-     */
-    public JPAAccidentRepository getAccidentJPARepository() {
-        return this.jpaAccidentRepository;
+    @Override
+    public ValueCount getMostCommonDayConditions() {
+        PageRequest pageRequest = PageRequest.of(0, 1);
+        return this.getAccidentJPARepository().findMostCommonDay(pageRequest).get(0);
     }
 
     @Override
@@ -141,5 +129,23 @@ public class AccidentServiceImpl implements IAccidentService {
         terrainConditions.add(new ConditionValues("Turning Loop", turningLoopCount));
         terrainConditions.add(new ConditionValues("Station", stationCount));
         return terrainConditions;
+    }
+
+    /**
+     * Getter.
+     *
+     * @return el repositorio de Accident (MongoDB).
+     */
+    public MongoAccidentRepository getAccidentMongoRepository() {
+        return this.accidentMongoRepository;
+    }
+
+    /**
+     * Getter.
+     *
+     * @return el repositorio de Accident (JPA).
+     */
+    public JPAAccidentRepository getAccidentJPARepository() {
+        return this.jpaAccidentRepository;
     }
 }

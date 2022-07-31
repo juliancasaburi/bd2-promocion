@@ -189,6 +189,13 @@ public class APIController {
         return new ResponseEntity<>(this.getAccidentService().getMostCommonHourConditions(), HttpStatus.OK);
     }
 
+    @Operation(summary = "Retorna el dia de accidentes mas frecuente")
+    @GetMapping("/mostCommonConditions/dayOfWeek")
+    public ResponseEntity<ValueCount> getMostCommonDayConditions() {
+        return new ResponseEntity<>(this.getAccidentService().getMostCommonDayConditions(),
+                HttpStatus.OK);
+    }
+
     @Operation(summary = "Retorna las condiciones de terreno mas frecuentes")
     @GetMapping("/mostCommonConditions/terrain")
     public ResponseEntity<List<ConditionValues>> getMostCommonTerrainConditions() {
