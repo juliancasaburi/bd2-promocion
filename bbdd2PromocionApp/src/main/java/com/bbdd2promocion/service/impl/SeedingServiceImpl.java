@@ -5,8 +5,8 @@ package com.bbdd2promocion.service.impl;
 
 import com.bbdd2promocion.config.HibernateConfiguration;
 import com.bbdd2promocion.config.MongoDBConfiguration;
-import com.bbdd2promocion.seed.mongodb.InsertionJobConfiguration;
-import com.bbdd2promocion.seed.mongodb.TestModelInsertionJobConfiguration;
+import com.bbdd2promocion.seed.mongodb.AccidentMongoInsertionJobConfiguration;
+import com.bbdd2promocion.seed.mongodb.TestModelMongoInsertionJobConfiguration;
 import com.bbdd2promocion.seed.postgresql.AccidentPostgresInsertionJobConfiguration;
 import com.bbdd2promocion.seed.postgresql.TestModelPostgresInsertionJobConfiguration;
 import com.bbdd2promocion.service.ISeedingService;
@@ -23,7 +23,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Service;
 
 @Service
-public class ISeedingServiceImpl implements ISeedingService {
+public class SeedingServiceImpl implements ISeedingService {
 
     private void runJob(Class<?>[] configurationClasses, String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         ApplicationContext context = new AnnotationConfigApplicationContext(configurationClasses);
@@ -38,7 +38,7 @@ public class ISeedingServiceImpl implements ISeedingService {
     @Override
     public void seedTestModelMongoDB() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 
-        Class<?>[] configurationClasses = { TestModelInsertionJobConfiguration.class, MongoDBConfiguration.class };
+        Class<?>[] configurationClasses = { TestModelMongoInsertionJobConfiguration.class, MongoDBConfiguration.class };
         this.runJob(configurationClasses, "testModelInsertionJob");
     }
 
@@ -54,8 +54,8 @@ public class ISeedingServiceImpl implements ISeedingService {
     public void seedAccidentMongoDB() throws JobExecutionAlreadyRunningException, JobRestartException,
             JobInstanceAlreadyCompleteException, JobParametersInvalidException {
 
-        Class<?>[] configurationClasses = { InsertionJobConfiguration.class, MongoDBConfiguration.class };
-        this.runJob(configurationClasses, "insertionJob");
+        Class<?>[] configurationClasses = { AccidentMongoInsertionJobConfiguration.class, MongoDBConfiguration.class };
+        this.runJob(configurationClasses, "accidentMongoInsertionJob");
     }
 
     @Override
