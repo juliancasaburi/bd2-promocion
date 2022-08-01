@@ -13,7 +13,6 @@ services:
       - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
     volumes:
       - pgdb:/var/lib/postgresql/data
-      - ./seed/postgresql/spring-batch.sql:/docker-entrypoint-initdb.d/create_tables.sql
   mongodb:
     image: "mongo:5.0.9"
     restart: always
