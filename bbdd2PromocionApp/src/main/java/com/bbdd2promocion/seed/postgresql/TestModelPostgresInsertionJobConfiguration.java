@@ -14,9 +14,11 @@ import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 
+@Configuration
 @EnableBatchProcessing
 public class TestModelPostgresInsertionJobConfiguration {
 
@@ -48,7 +50,7 @@ public class TestModelPostgresInsertionJobConfiguration {
 
     @Bean
     public HibernateItemWriter<TestModel> writer() {
-        HibernateItemWriter<TestModel> hibernateItemWriter = new HibernateItemWriter<TestModel>();
+        HibernateItemWriter<TestModel> hibernateItemWriter = new HibernateItemWriter<>();
         hibernateItemWriter.setSessionFactory(sessionFactory);
         return hibernateItemWriter;
     }
