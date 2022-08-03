@@ -109,6 +109,14 @@ Alternativamente, se provee una [colección de Postman](bd2-promocion.postman_co
     ```
     Retorna el día mas frecuente
     ```
+   
+10. /averageDistanceNearestNeighbors
+
+    ```
+    Retorna la distancia promedio que existe entre cada accidente y los "n" más cercanos.
+    - Parametros:
+    limit: cantidad de Nearest Neighbors a utilizar durante el cálculo del promedio de distance (valor por defecto: 10).
+    ```
 
 ## Entorno local
 
