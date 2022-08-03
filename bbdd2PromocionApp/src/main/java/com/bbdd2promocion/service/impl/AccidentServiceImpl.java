@@ -134,8 +134,8 @@ public class AccidentServiceImpl implements IAccidentService {
     }
 
     @Override
-    public Double getAverageDistanceNearestNeighbors(){
-        AverageDistanceHelper averageDistanceHelper = new AverageDistanceHelper();
+    public Double getAverageDistanceNearestNeighbors(int limit){
+        AverageDistanceHelper averageDistanceHelper = new AverageDistanceHelper(limit);
         Stream<Accident> accidents = this.getAccidentMongoRepository().findAllBy();
         // getCoordinates returns the coordinates putting x/longitude first, and y/latitude second.
         accidents.forEach(e -> averageDistanceHelper.calc(e.getStartLocation().getCoordinates().get(0), e.getStartLocation().getCoordinates().get(1)));
