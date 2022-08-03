@@ -3,6 +3,7 @@
  */
 package com.bbdd2promocion.service.impl;
 
+import com.bbdd2promocion.helpers.AverageDistanceHelper;
 import com.bbdd2promocion.helpers.ConditionValues;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.repository.jpa.JPAAccidentRepository;
@@ -21,6 +22,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Esta clase contiene la implementación de los servicios relacionados con los
@@ -129,6 +131,15 @@ public class AccidentServiceImpl implements IAccidentService {
         terrainConditions.add(new ConditionValues("Turning Loop", turningLoopCount));
         terrainConditions.add(new ConditionValues("Station", stationCount));
         return terrainConditions;
+    }
+
+    @Override
+    public Double getAverageDistanceNearestNeighbors(){
+        AverageDistanceHelper averageDistanceHelper = new AverageDistanceHelper();
+        Stream<Accident> accidents = this.getAccidentMongoRepository().findAllBy();
+        // getCoordinates returns the coordinates putting x/longitude first, and y/latitude second.
+        accidents.forEach(e -> averageDistanceHelper.calc(e.getStartLocation().getCoordinates().get(0), e.getStartLocation().getCoordinates().get(1)));
+        return averageDistanceHelper.getAverageDistance();
     }
 
     /**

@@ -11,9 +11,12 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Repository
 public interface MongoAccidentRepository extends MongoRepository<Accident, String> {
+
+    Stream<Accident> findAllBy();
 
     List<Accident> findByStartLocationWithin(Circle circle);
 

@@ -93,4 +93,11 @@ public interface IAccidentService {
      */
     List<ConditionValues> getMostCommonTerrainConditions();
 
+    /**
+     * Retorna las condiciones de terreno mas frecuentes de los accidentes
+     *
+     * @return las condiciones de terreno mas frecuentes de los accidentes
+     */
+    Double getAverageDistanceNearestNeighbors();
+
 }

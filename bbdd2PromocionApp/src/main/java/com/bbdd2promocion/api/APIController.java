@@ -202,4 +202,10 @@ public class APIController {
         return new ResponseEntity<>(this.getAccidentService().getMostCommonTerrainConditions(), HttpStatus.OK);
     }
 
+    @Operation(summary = "Retorna la distancia promedio que existe entre cada accidente y los 10 más cercanos.")
+    @GetMapping("/averageDistanceNearestNeighbors")
+    public ResponseEntity<Double> getAverageDistanceNearestNeighbors() {
+        return new ResponseEntity<>(this.getAccidentService().getAverageDistanceNearestNeighbors(), HttpStatus.OK);
+    }
+
 }
