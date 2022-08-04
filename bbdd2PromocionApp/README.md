@@ -1,5 +1,5 @@
 ## Run Spring Boot application
 ```
-mvn spring-boot:run
+./mvnw spring-boot:run -Dspring-boot.run.jvmArguments='-Dserver.port=6868'
 ```
 

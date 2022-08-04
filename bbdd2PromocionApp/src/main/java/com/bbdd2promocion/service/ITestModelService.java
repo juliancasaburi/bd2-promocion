@@ -3,10 +3,10 @@
  */
 package com.bbdd2promocion.service;
 
-import java.util.List;
-
-import com.bbdd2promocion.model.TestModel;
 import com.bbdd2promocion.dto.TestModelDTO;
+import com.bbdd2promocion.model.TestModel;
+
+import java.util.List;
 
 /**
  * Esta interface define el comportamiento esperado por los servicios
@@ -15,19 +15,35 @@ import com.bbdd2promocion.dto.TestModelDTO;
 public interface ITestModelService {
 
     /**
-     * Retorna todos los TestModel.
+     * Retorna todos los TestModel (MongoDB).
      *
      * @return todos los TestModel.
      */
-    public List<TestModel> findAll();
+    List<TestModel> findAllMongo();
+
+    /**
+     * Retorna todos los TestModel (PostgreSQL)
+     *
+     * @return todos los TestModel.
+     */
+    List<TestModel> findAllPostgres();
+
+    /**
+     * Retorna todos los TestModel cuya description sea igual a aDescription.
+     *
+     * @param aDescription es la description del TestModel.
+     * @return todos los TestModel.
+     */
+    List<TestModel> findByDescription(String aDescription);
 
     /**
      * Agrega un nuevo TestModel.
      *
+     * @param id es el id del TestModel.
      * @param aTitle es el title del TestModel.
      * @param aDescription es la description del TestModel
      * @return un DTO que representa al TestModel recientemete creado.
      */
-    public TestModelDTO addTestModel(String aTitle, String aDescription);
+    TestModelDTO addTestModel(String id, String aTitle, String aDescription);
 
 }

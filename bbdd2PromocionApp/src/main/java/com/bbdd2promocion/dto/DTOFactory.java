@@ -4,9 +4,8 @@
  */
 package com.bbdd2promocion.dto;
 
-import org.springframework.stereotype.Component;
-
 import com.bbdd2promocion.model.TestModel;
+import org.springframework.stereotype.Component;
 
 /**
  * Las instancias de esta clase se utilizan para crear DTOs en forma
@@ -22,7 +21,7 @@ public class DTOFactory {
 	 * @return un DTO con los datos básicos.
 	 */
 	public TestModelDTO createTestModelDTO(TestModel aTestModel) {
-		return new TestModelDTO(aTestModel.getId(), aTestModel.getTitle(), aTestModel.getDescription());
+		return new TestModelDTO(aTestModel.getCsvId(), aTestModel.getTitle(), aTestModel.getDescription());
 	}
 
 }

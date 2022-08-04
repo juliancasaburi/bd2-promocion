@@ -4,8 +4,6 @@
  */
 package com.bbdd2promocion.dto;
 
-import java.util.UUID;
-
 /**
  * Las instancias de esta clase se utilizan para transferir información de los
  * TestModel.
@@ -15,7 +13,7 @@ public class TestModelDTO {
     /**
      * Identificador de cada una de las instancias.
      */
-    private UUID id;
+    private String id;
 
     /**
      * Es el title del TestModel.
@@ -34,7 +32,7 @@ public class TestModelDTO {
      * @param aTitle es el title del TestModel.
      * @param aDescription es la description del TestModel.
      */
-    public TestModelDTO(UUID anId, String aTitle, String aDescription) {
+    public TestModelDTO(String anId, String aTitle, String aDescription) {
         this.setId(anId);
         this.setTitle(aTitle);
         this.setDescription(aDescription);
@@ -45,7 +43,7 @@ public class TestModelDTO {
      *
      * @return el identificador de esta instancia.
      */
-    public UUID getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -54,7 +52,7 @@ public class TestModelDTO {
      *
      * @param anId es el identificador de esta instancia.
      */
-    public void setId(UUID anId) {
+    public void setId(String anId) {
         this.id = anId;
     }
 

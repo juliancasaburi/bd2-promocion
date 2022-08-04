@@ -3,24 +3,21 @@
  */
 package com.bbdd2promocion.service.impl;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Service;
-
 import com.bbdd2promocion.dto.DTOFactory;
 import com.bbdd2promocion.dto.TestModelDTO;
 import com.bbdd2promocion.model.TestModel;
-import com.bbdd2promocion.repository.JPATestModelRepository;
-import com.bbdd2promocion.repository.MongoTestModelRepository;
+import com.bbdd2promocion.repository.jpa.JPATestModelRepository;
+import com.bbdd2promocion.repository.mongo.MongoTestModelRepository;
 import com.bbdd2promocion.service.ITestModelService;
+import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Esta clase contiene la implementación de los servicios relacionados con los
- * usuarios.
+ * TestModel.
  */
 @Service
 @Transactional
@@ -30,13 +27,10 @@ public class TestModelServiceImpl implements ITestModelService {
      * Es el repositorio ligado a los TestModel.
      */
     @Inject
-    private JPATestModelRepository testModelRepository;
+    private JPATestModelRepository testModelPostgresRepository;
 
-    /**
-     * Es el repositorio de Mongo ligado a los TestModel.
-     */
     @Inject
-    private MongoTestModelRepository mongoTestModelRepository;
+    private MongoTestModelRepository testModelMongoRepository;
 
     /**
      * Es el objeto encargado de crear los DTOs.
@@ -45,17 +39,28 @@ public class TestModelServiceImpl implements ITestModelService {
     private DTOFactory dtoFactory;
 
     @Override
-    public List<TestModel> findAll() {
-        return this.getTestModelRepository().findAll();
+    public List<TestModel> findAllPostgres() {
+        return this.getTestModelPostgresRepository().findAll();
     }
 
     @Override
-    public TestModelDTO addTestModel(String aTitle, String aDescription) {
+    public List<TestModel> findAllMongo() {
+        return this.getTestModelMongoRepository().findAll();
+    }
 
-        TestModel newTestModel = new TestModel(aTitle, aDescription);
+    @Override
+    public List<TestModel> findByDescription(String description) {
+        return this.getTestModelMongoRepository().findByDescription(description);
+    }
 
-        this.getTestModelRepository().save(newTestModel);
-        this.getMongoTestModelRepository().save(newTestModel);
+    @Override
+    public TestModelDTO addTestModel(String id, String aTitle, String aDescription) {
+
+        TestModel newTestModel = new TestModel(id, aTitle, aDescription);
+
+        this.getTestModelMongoRepository().save(newTestModel);
+
+        this.getTestModelPostgresRepository().save(newTestModel);
 
         return this.getDtoFactory().createTestModelDTO(newTestModel);
     }
@@ -63,19 +68,19 @@ public class TestModelServiceImpl implements ITestModelService {
     /**
      * Getter.
      *
-     * @return el repositorio de TestModel.
+     * @return el repositorio de TestModel (PostgreSQL).
      */
-    public JPATestModelRepository getTestModelRepository() {
-        return this.testModelRepository;
+    public JPATestModelRepository getTestModelPostgresRepository() {
+        return this.testModelPostgresRepository;
     }
 
     /**
      * Getter.
      *
-     * @return el repositorio de mongo de TestModel.
+     * @return el repositorio de TestModel (MongoDB).
      */
-    public MongoTestModelRepository getMongoTestModelRepository() {
-        return this.mongoTestModelRepository;
+    public MongoTestModelRepository getTestModelMongoRepository() {
+        return this.testModelMongoRepository;
     }
 
     /**

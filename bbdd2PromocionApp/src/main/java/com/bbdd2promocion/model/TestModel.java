@@ -1,20 +1,37 @@
 package com.bbdd2promocion.model;
 
-import java.util.UUID;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import javax.persistence.*;
 
+@Document(collection = "TestModel")
 @Entity
 @Table(name = "test_models")
 public class TestModel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	@GeneratedValue(strategy= GenerationType.SEQUENCE)
+	@BsonIgnore
+	private Long id;
 
+	@MongoId
+	@Transient
+	private String mongoId;
+
+	@Field(name = "csvId")
+	@Column(name = "csv_id")
+	private String csvId;
+
+	@Field(name = "title")
 	@Column(name = "title")
+	@Indexed
 	private String title;
 
+	@Field(name = "description")
 	@Column(name = "description")
 	private String description;
 
@@ -22,13 +39,26 @@ public class TestModel {
 
 	}
 
-	public TestModel(String title, String description) {
+	public TestModel(String csvId, String title, String description) {
+		this.csvId = csvId;
 		this.title = title;
 		this.description = description;
 	}
 
-	public UUID getId() {
+	public void setCsvId(String csvId) {
+		this.csvId = csvId;
+	}
+
+	public String getCsvId() {
+		return csvId;
+	}
+
+	public Long getId() {
 		return id;
+	}
+
+	public String getMongoId() {
+		return mongoId;
 	}
 
 	public String getTitle() {
@@ -49,7 +79,10 @@ public class TestModel {
 
 	@Override
 	public String toString() {
-		return "TestModel [id=" + id + ", title=" + title + ", desc=" + description + "]";
+		return "TestModel{" +
+				"csvId='" + csvId + '\'' +
+				", title='" + title + '\'' +
+				", description='" + description + '\'' +
+				'}';
 	}
-
 }
