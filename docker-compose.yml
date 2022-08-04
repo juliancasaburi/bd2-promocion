@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   postgresdb:
-    image: "postgres:14.3-alpine"
+    image: "postgis/postgis:14-3.2"
     restart: unless-stopped
     env_file: ./.env
     environment:
@@ -41,9 +41,10 @@ services:
       - .m2:/root/.m2
     environment:
       - SPRING_MAIN_ALLOW_BEAN_DEFINITION_OVERRIDING=true
-      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
-      - SPRING_JPA_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.spatial.dialect.postgis.PostgisDialect
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.spatial.dialect.postgis.PostgisDialect
+      - SPRING_JPA_HIBERNATE_DIALECT=org.hibernate.spatial.dialect.postgis.PostgisDialect
+      - HIBERNATE_DIALECT=org.hibernate.spatial.dialect.postgis.PostgisDialect
       - SPRING_JPA_HIBERNATE_SHOW_SQL=false
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE?useSSL=false
       - SPRING_DATASOURCE_USERNAME=$POSTGRESDB_USER

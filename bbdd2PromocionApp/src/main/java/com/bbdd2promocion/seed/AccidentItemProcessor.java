@@ -1,6 +1,7 @@
 package com.bbdd2promocion.seed;
 
 import com.bbdd2promocion.dto.AccidentDTO;
+import com.bbdd2promocion.helpers.GeometryUtil;
 import com.bbdd2promocion.model.*;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
@@ -26,6 +27,8 @@ public class AccidentItemProcessor implements ItemProcessor<AccidentDTO, Acciden
         accidentLocationData.setCity(data.getCity());
         accidentLocationData.setAirportCode(data.getAirportCode());
         accidentLocationData.setTimezone(data.getTimezone());
+        accidentLocationData.setPoint(GeometryUtil.parseLocation(Double.parseDouble(accidentLocationData.getStartLng()), Double.parseDouble(accidentLocationData.getStartLat())));
+
 
         AccidentWeatherData accidentWeatherData = new AccidentWeatherData();
         accidentWeatherData.setWeatherTimestamp(data.getWeatherTimestamp());
@@ -38,6 +41,7 @@ public class AccidentItemProcessor implements ItemProcessor<AccidentDTO, Acciden
         accidentWeatherData.setWindChill(data.getWindChill());
         accidentWeatherData.setWindDirection(data.getWindDirection());
         accidentWeatherData.setWindSpeed(data.getWindSpeed());
+
 
         AccidentTerrainData accidentTerrainData = new AccidentTerrainData();
         accidentTerrainData.setAmenity(data.getAmenity());

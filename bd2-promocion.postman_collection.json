@@ -1,282 +1,400 @@
 {
-    "info": {
-        "_postman_id": "cb374e01-0fd1-49df-a8a6-52f77579c091",
-        "name": "bd2-promocion",
-        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-    },
-    "item": [
-        {
-            "name": "http://localhost:6868/api/testModelPostgres",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/testModelPostgres",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "testModelPostgres"]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/testModelMongo",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/testModelMongo",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "testModelMongo"]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/seed/mongodb/testModel",
-            "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/seed/mongodb/testModel",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "seed", "mongodb", "testModel"]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/seed/postgresql/testModel",
-            "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/seed/postgresql/testModel",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "seed", "postgresql", "testModel"]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/seed/mongodb/accident",
-            "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/seed/mongodb/accident",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "seed", "mongodb", "accident"]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/seed/postgresql/accident",
-            "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/seed/postgresql/accident",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "seed", "postgresql", "accident"]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/withinRadius?longitude=-84.205582&latitude=39.747753&radius=1",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/withinRadius?longitude=-84.205582&latitude=39.747753&radius=100",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "withinRadius"],
-                    "query": [
-                        {
-                            "key": "longitude",
-                            "value": "-84.205582"
-                        },
-                        {
-                            "key": "latitude",
-                            "value": "39.747753"
-                        },
-                        {
-                            "key": "radius",
-                            "value": "100"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/averageDistance",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/averageDistance",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "averageDistance"]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/betweenDates?startDate=2016-02-08 06:49:27.000&endDate=2016-02-08 09:25:17.000",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/betweenDates?startDate=2016-02-08 06:49:27.000&endDate=2016-02-08 09:25:17.000",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "betweenDates"],
-                    "query": [
-                        {
-                            "key": "startDate",
-                            "value": "2016-02-08 06:49:27.000"
-                        },
-                        {
-                            "key": "endDate",
-                            "value": "2016-02-08 09:25:17.000"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/streetsMostAccidents?limit=5",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/streetsMostAccidents?limit=5",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "streetsMostAccidents"],
-                    "query": [
-                        {
-                            "key": "limit",
-                            "value": "5"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/mostDangerousPointsWithinRadius?longitude=-84.032608&latitude=39.063148&radius=50000&limit=5",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/mostDangerousPointsWithinRadius?longitude=-84.032608&latitude=39.063148&radius=50000&limit=5",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "mostDangerousPointsWithinRadius"],
-                    "query": [
-                        {
-                            "key": "longitude",
-                            "value": "-84.032608"
-                        },
-                        {
-                            "key": "latitude",
-                            "value": "39.063148"
-                        },
-                        {
-                            "key": "radius",
-                            "value": "50000"
-                        },
-                        {
-                            "key": "limit",
-                            "value": "5"
-                        }
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/mostCommonConditions/weather",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/mostCommonConditions/weather",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "mostCommonConditions", "weather"]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/mostCommonConditions/hour",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/mostCommonConditions/hour",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "mostCommonConditions", "hour"]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/mostCommonConditions/terrain",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/mostCommonConditions/terrain",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "mostCommonConditions", "terrain"]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "http://localhost:6868/api/mostCommonConditions/dayOfWeek",
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "http://localhost:6868/api/mostCommonConditions/dayOfWeek",
-                    "protocol": "http",
-                    "host": ["localhost"],
-                    "port": "6868",
-                    "path": ["api", "mostCommonConditions", "dayOfWeek"]
-                }
-            },
-            "response": []
-        }
-    ]
+	"info": {
+		"_postman_id": "40312e21-e1d4-4fd2-a834-a7f1c21e4889",
+		"name": "bd2-promocion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:6868/api/testModelPostgres",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/testModelPostgres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"testModelPostgres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/testModelMongo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/testModelMongo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"testModelMongo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/seed/mongodb/testModel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/seed/mongodb/testModel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"seed",
+						"mongodb",
+						"testModel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/seed/postgresql/testModel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/seed/postgresql/testModel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"seed",
+						"postgresql",
+						"testModel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/seed/mongodb/accident",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/seed/mongodb/accident",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"seed",
+						"mongodb",
+						"accident"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/seed/postgresql/accident",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/seed/postgresql/accident",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"seed",
+						"postgresql",
+						"accident"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/withinRadius?longitude=-84.205582&latitude=39.747753&radius=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/withinRadius?longitude=-84.205582&latitude=39.747753&radius=100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"withinRadius"
+					],
+					"query": [
+						{
+							"key": "longitude",
+							"value": "-84.205582"
+						},
+						{
+							"key": "latitude",
+							"value": "39.747753"
+						},
+						{
+							"key": "radius",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/averageDistance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/averageDistance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"averageDistance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/betweenDates?startDate=2016-02-08 06:49:27.000&endDate=2016-02-08 09:25:17.000",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/betweenDates?startDate=2016-02-08 06:49:27.000&endDate=2016-02-08 09:25:17.000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"betweenDates"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2016-02-08 06:49:27.000"
+						},
+						{
+							"key": "endDate",
+							"value": "2016-02-08 09:25:17.000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/streetsMostAccidents?limit=5",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/streetsMostAccidents?limit=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"streetsMostAccidents"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/mostDangerousPointsWithinRadius?longitude=-84.032608&latitude=39.063148&radius=50000&limit=5",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/mostDangerousPointsWithinRadius?longitude=-84.032608&latitude=39.063148&radius=50000&limit=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"mostDangerousPointsWithinRadius"
+					],
+					"query": [
+						{
+							"key": "longitude",
+							"value": "-84.032608"
+						},
+						{
+							"key": "latitude",
+							"value": "39.063148"
+						},
+						{
+							"key": "radius",
+							"value": "50000"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/mostCommonConditions/weather",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/mostCommonConditions/weather",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"mostCommonConditions",
+						"weather"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/mostCommonConditions/hour",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/mostCommonConditions/hour",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"mostCommonConditions",
+						"hour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/mostCommonConditions/terrain",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/mostCommonConditions/terrain",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"mostCommonConditions",
+						"terrain"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/mostCommonConditions/dayOfWeek",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/averageDistanceNearestNeighbors?limit=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"averageDistanceNearestNeighbors"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:6868/api/averageDistanceKNearestNeighbors?limit=10",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6868/api/averageDistanceKNearestNeighbors?limit=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6868",
+					"path": [
+						"api",
+						"averageDistanceKNearestNeighbors"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
 }

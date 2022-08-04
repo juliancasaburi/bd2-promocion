@@ -88,21 +88,21 @@ public class APIController {
 	@PostMapping("/seed/mongodb/accident")
 	public ResponseEntity seedAccidentMongoDB() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 		this.getSeedingService().seedAccidentMongoDB();
-		return ResponseEntity.status(HttpStatus.OK).body("mongodb accident seeding job started");
+		return ResponseEntity.status(HttpStatus.OK).body("mongodb accident seeding job finished");
 	}
 
 	@Operation(summary = "Lanza un job de seeding para TestModel (Postgresql)")
 	@PostMapping("/seed/postgresql/testModel")
 	public ResponseEntity seedTestModelPostgreSQL() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 		this.getSeedingService().seedTestModelPostgreSQL();
-		return ResponseEntity.status(HttpStatus.OK).body("postgresql testModel seeding job started");
+		return ResponseEntity.status(HttpStatus.OK).body("postgresql testModel seeding job finished");
 	}
 
 	@Operation(summary = "Lanza un job de seeding para Accident (Postgresql)")
 	@PostMapping("/seed/postgresql/accident")
 	public ResponseEntity seedAccidentPostgreSQL() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 		this.getSeedingService().seedAccidentPostgreSQL();
-		return ResponseEntity.status(HttpStatus.OK).body("postgresql accident seeding job started");
+		return ResponseEntity.status(HttpStatus.OK).body("postgresql accident seeding job finished");
 	}
 
 	@Operation(summary = "Recupera todos los TestModel (Postgresql)")
@@ -201,5 +201,12 @@ public class APIController {
     public ResponseEntity<List<ConditionValues>> getMostCommonTerrainConditions() {
         return new ResponseEntity<>(this.getAccidentService().getMostCommonTerrainConditions(), HttpStatus.OK);
     }
+
+	@Operation(summary = "Retorna la distancia promedio entre cada accidente y los k más cercanos")
+	@GetMapping("/averageDistanceKNearestNeighbors")
+	public ResponseEntity<Double> getAverageDistanceNearestNeighbors(
+			@RequestParam(name = "k", required = false, defaultValue = "10") int k) {
+		return new ResponseEntity<>(this.getAccidentService().getAverageDistanceNearestNeighbors(k), HttpStatus.OK);
+	}
 
 }

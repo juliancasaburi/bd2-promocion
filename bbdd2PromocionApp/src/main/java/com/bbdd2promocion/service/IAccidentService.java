@@ -92,4 +92,13 @@ public interface IAccidentService {
      */
     List<ConditionValues> getMostCommonTerrainConditions();
 
+    /**
+     * Retorna la distancia promedio que existe entre cada accidente y los "n" más cercanos.
+     *
+     * @param k
+     *
+     * @return la distancia promedio que existe entre cada accidente y los "n" más cercanos.
+     */
+    Double getAverageDistanceNearestNeighbors(int k);
+
 }
