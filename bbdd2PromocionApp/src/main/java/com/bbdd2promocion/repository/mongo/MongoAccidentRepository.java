@@ -1,8 +1,8 @@
 package com.bbdd2promocion.repository.mongo;
 
 import com.bbdd2promocion.model.Accident;
-import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import com.bbdd2promocion.repository.mongo.projections.HourCount;
+import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import org.springframework.data.geo.Circle;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.repository.Aggregation;
@@ -15,12 +15,12 @@ import java.util.List;
 @Repository
 public interface MongoAccidentRepository extends MongoRepository<Accident, String> {
 
-    List<Accident> findByStartLocationWithin(Circle circle);
+    List<Accident> findByAccidentLocationData_StartLocationWithin(Circle circle);
 
     @Aggregation(pipeline = {
             "{\n" +
                     "\"$match\": {\n" +
-                    "\"startLocation\": {\n" +
+                    "\"accidentLocationData.startLocation\": {\n" +
                     "      \"$geoWithin\": {\n" +
                     "         \"$centerSphere\": [\n" +
                     "           [?0, ?1], ?2\n" +
@@ -29,7 +29,7 @@ public interface MongoAccidentRepository extends MongoRepository<Accident, Strin
                     "    }\n" +
                     "    }\n" +
                     "    }",
-            "{ $sortByCount: \"$startLocation.coordinates\" }",
+            "{ $sortByCount: \"$accidentLocationData.startLocation.coordinates\" }",
             "{ $limit: ?3 }",
             "{ $addFields: { startLocation: \"$_id\" } }",
             "{ $unset: [\"_id\"] }"

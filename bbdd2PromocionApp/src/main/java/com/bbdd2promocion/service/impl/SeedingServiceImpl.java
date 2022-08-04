@@ -5,6 +5,7 @@ package com.bbdd2promocion.service.impl;
 
 import com.bbdd2promocion.config.HibernateConfiguration;
 import com.bbdd2promocion.config.MongoDBConfiguration;
+import com.bbdd2promocion.repository.jpa.JPAAccidentLocationDataRepository;
 import com.bbdd2promocion.seed.mongodb.AccidentMongoInsertionJobConfiguration;
 import com.bbdd2promocion.seed.mongodb.TestModelMongoInsertionJobConfiguration;
 import com.bbdd2promocion.seed.postgresql.AccidentPostgresInsertionJobConfiguration;
@@ -21,9 +22,16 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
 
 @Service
 public class SeedingServiceImpl implements ISeedingService {
+
+    @Inject
+    private JPAAccidentLocationDataRepository accidentLocationDataRepository;
 
     private void runJob(Class<?>[] configurationClasses, String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         ApplicationContext context = new AnnotationConfigApplicationContext(configurationClasses);
@@ -63,6 +71,9 @@ public class SeedingServiceImpl implements ISeedingService {
             JobInstanceAlreadyCompleteException, JobParametersInvalidException {
 
         Class<?>[] configurationClasses = { AccidentPostgresInsertionJobConfiguration.class, HibernateConfiguration.class };
+
+        this.accidentLocationDataRepository.createPostGISIndex();
+
         this.runJob(configurationClasses, "accidentPostgresInsertionJob");
     }
 

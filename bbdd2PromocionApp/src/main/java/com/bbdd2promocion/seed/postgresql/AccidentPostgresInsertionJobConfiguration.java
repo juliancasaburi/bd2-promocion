@@ -2,6 +2,8 @@ package com.bbdd2promocion.seed.postgresql;
 
 import com.bbdd2promocion.listener.JobNotificationListener;
 import com.bbdd2promocion.model.Accident;
+import com.bbdd2promocion.dto.AccidentDTO;
+import com.bbdd2promocion.seed.AccidentItemProcessor;
 import com.bbdd2promocion.seed.CommonAccidentSeedingJobConfiguration;
 import org.hibernate.SessionFactory;
 import org.springframework.batch.core.Job;
@@ -45,10 +47,11 @@ public class AccidentPostgresInsertionJobConfiguration {
     }
 
     @Bean(name="accidentPostgresStep")
-    public Step accidentPostgresStep(@Qualifier("asyncTaskExecutorPostgres") TaskExecutor taskExecutor, FlatFileItemReader<Accident> accidentFlatFileItemReader, @Qualifier("accidentHibernateItemWriter") HibernateItemWriter<Accident> accidentHibernateItemWriter) {
+    public Step accidentPostgresStep(@Qualifier("asyncTaskExecutorPostgres") TaskExecutor taskExecutor, FlatFileItemReader<AccidentDTO> accidentFlatFileItemReader, @Qualifier("accidentHibernateItemWriter") HibernateItemWriter<Accident> accidentHibernateItemWriter, AccidentItemProcessor processor) {
         return this.stepBuilderFactory.get("accidentStep")
-                .<Accident, Accident>chunk(10000)
+                .<AccidentDTO, Accident>chunk(10000)
                 .reader(accidentFlatFileItemReader)
+                .processor(processor)
                 .writer(accidentHibernateItemWriter)
                 .transactionManager(new HibernateTransactionManager(sessionFactory))
                 .taskExecutor(taskExecutor)

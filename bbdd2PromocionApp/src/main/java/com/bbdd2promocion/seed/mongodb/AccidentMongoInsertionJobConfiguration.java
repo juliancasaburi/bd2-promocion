@@ -1,7 +1,9 @@
 package com.bbdd2promocion.seed.mongodb;
 
+import com.bbdd2promocion.dto.AccidentDTO;
 import com.bbdd2promocion.listener.JobNotificationListener;
 import com.bbdd2promocion.model.Accident;
+import com.bbdd2promocion.seed.AccidentItemProcessor;
 import com.bbdd2promocion.seed.CommonAccidentSeedingJobConfiguration;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -41,14 +43,9 @@ public class AccidentMongoInsertionJobConfiguration {
     }
 
     @Bean
-    public AccidentItemProcessor processor() {
-        return new AccidentItemProcessor();
-    }
-
-    @Bean
-    public Step step(@Qualifier("asyncTaskExecutorMongo") TaskExecutor taskExecutor, FlatFileItemReader<Accident> flatFileIteamReader, MongoItemWriter<Accident> mongoItemWriter, AccidentItemProcessor processor) {
+    public Step step(@Qualifier("asyncTaskExecutorMongo") TaskExecutor taskExecutor, FlatFileItemReader<AccidentDTO> flatFileIteamReader, MongoItemWriter<Accident> mongoItemWriter, AccidentItemProcessor processor) {
         return this.stepBuilderFactory.get("step")
-                .<Accident, Accident>chunk(10000)
+                .<AccidentDTO, Accident>chunk(10000)
                 .reader(flatFileIteamReader)
                 .processor(processor)
                 .writer(mongoItemWriter)

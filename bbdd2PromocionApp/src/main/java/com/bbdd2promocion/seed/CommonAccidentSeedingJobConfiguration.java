@@ -1,6 +1,6 @@
 package com.bbdd2promocion.seed;
 
-import com.bbdd2promocion.model.Accident;
+import com.bbdd2promocion.dto.AccidentDTO;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
@@ -35,18 +35,23 @@ public class CommonAccidentSeedingJobConfiguration {
     }
 
     @Bean(name = "accidentMongoDBReader")
-    public FlatFileItemReader<Accident> reader() {
-        return new FlatFileItemReaderBuilder<Accident>().name("AccidentItemReader")
+    public FlatFileItemReader<AccidentDTO> reader() {
+        return new FlatFileItemReaderBuilder<AccidentDTO>().name("AccidentItemReader")
                 .resource(new ClassPathResource("US_Accidents_Dec19.csv")).delimited()
                 .names(new String[]{"csvId", "source", "tmc", "severity", "startTime", "endTime", "startLat", "startLng", "endLat", "endLng", "distance", "description", "number", "street", "side", "city", "county", "state", "zipcode", "country", "timezone", "airportCode", "weatherTimestamp", "temperature", "windChill", "humidity", "pressure", "visibility", "windDirection", "windSpeed", "precipitation", "weatherCondition", "amenity", "bump", "crossing", "giveWay", "junction", "noExit", "railway", "roundabout", "station", "stop", "trafficCalming", "trafficSignal", "turningLoop", "sunriseSunset", "civilTwilight", "nauticalTwilight", "astronomicalTwilight"})
                 .linesToSkip(1)
-                .fieldSetMapper(new BeanWrapperFieldSetMapper<Accident>() {
+                .fieldSetMapper(new BeanWrapperFieldSetMapper<AccidentDTO>() {
                     {
-                        setTargetType(Accident.class);
+                        setTargetType(AccidentDTO.class);
                         setConversionService(createConversionService());
                         setDistanceLimit(1);
                     }
                 }).build();
+    }
+
+    @Bean
+    public AccidentItemProcessor processor() {
+        return new AccidentItemProcessor();
     }
 
 }
