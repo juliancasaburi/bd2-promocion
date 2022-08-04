@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import org.locationtech.jts.geom.Point;
+
 import javax.persistence.*;
 
 @Entity
@@ -40,6 +42,10 @@ public class AccidentLocationData {
     @Transient
     @JsonIgnore
     private GeoJsonPoint startLocation;
+
+    @Column(name = "point")
+    @BsonIgnore
+    private Point point;
 
     @Field(name = "endLat")
     @Column(name = "end_lat")
@@ -93,7 +99,7 @@ public class AccidentLocationData {
 
     }
 
-    public AccidentLocationData(String startLat, String startLng, GeoJsonPoint startLocation, String endLat, String endLng, String number, String street, String side, String city, String county, String state, String zipcode, String country, String timezone, String airportCode) {
+    public AccidentLocationData(String startLat, String startLng, GeoJsonPoint startLocation, String endLat, String endLng, String number, String street, String side, String city, String county, String state, String zipcode, String country, String timezone, String airportCode, Point point) {
         this.startLat = startLat;
         this.startLng = startLng;
         this.startLocation = startLocation;
@@ -109,6 +115,7 @@ public class AccidentLocationData {
         this.country = country;
         this.timezone = timezone;
         this.airportCode = airportCode;
+        this.point = point;
     }
 
     public Long getId() {
@@ -237,5 +244,13 @@ public class AccidentLocationData {
 
     public void setAirportCode(String airportCode) {
         this.airportCode = airportCode;
+    }
+
+    public Point getPoint() {
+        return point;
+    }
+
+    public void setPoint(Point point) {
+        this.point = point;
     }
 }

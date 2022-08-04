@@ -110,6 +110,14 @@ Alternativamente, se provee una [colección de Postman](bd2-promocion.postman_co
     Retorna el día mas frecuente
     ```
 
+10. /averageDistanceKNearestNeighbors
+
+    ```
+    Retorna la distancia promedio que existe entre cada accidente y los "k" más cercanos.
+    - Parametros:
+    k: cantidad de Nearest Neighbors a utilizar durante el cálculo del promedio de distance (valor por defecto: 10).
+    ```
+
 ## Entorno local
 
 Puede ejecutar la API en un entorno local, contando con una instalación válida y propiamente configurada de PostgreSQL y MongoDB.

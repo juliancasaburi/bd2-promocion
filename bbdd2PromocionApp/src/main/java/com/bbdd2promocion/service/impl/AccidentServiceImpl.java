@@ -142,6 +142,11 @@ public class AccidentServiceImpl implements IAccidentService {
         return terrainConditions;
     }
 
+    @Override
+    public Double getAverageDistanceNearestNeighbors(int k){
+        return this.getAccidentLocationDataJPARepository().getAverageDistanceKNN(k);
+    }
+
     /**
      * Getter.
      *
