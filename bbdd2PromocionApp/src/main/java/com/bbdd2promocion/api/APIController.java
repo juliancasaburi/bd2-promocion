@@ -27,7 +27,6 @@ import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class APIController {
