@@ -21,14 +21,6 @@ services:
       - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
     volumes:
       - mgdb:/data/db
-    #mongo_seed:
-    #image: "mongo:5.0.9"
-    #links:
-    #  - mongodb
-    #volumes:
-    #  - ./seed:/seed
-    #command:
-    #  /seed/mongodb/import.sh
   app:
     depends_on:
       - postgresdb
