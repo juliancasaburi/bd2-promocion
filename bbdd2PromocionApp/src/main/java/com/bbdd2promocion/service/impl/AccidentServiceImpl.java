@@ -5,6 +5,7 @@ package com.bbdd2promocion.service.impl;
 
 import com.bbdd2promocion.helpers.AverageDistanceHelper;
 import com.bbdd2promocion.helpers.ConditionValues;
+import com.bbdd2promocion.listener.JobNotificationListener;
 import com.bbdd2promocion.model.Accident;
 import com.bbdd2promocion.repository.jpa.JPAAccidentRepository;
 import com.bbdd2promocion.repository.jpa.projections.StreetStatistics;
@@ -13,12 +14,15 @@ import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import com.bbdd2promocion.repository.mongo.MongoAccidentRepository;
 import com.bbdd2promocion.repository.jpa.projections.ValueCount;
 import com.bbdd2promocion.service.IAccidentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.geo.Circle;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +33,7 @@ import java.util.stream.Stream;
  * Accident.
  */
 @Service
-@Transactional
+@Transactional(readOnly=true)
 public class AccidentServiceImpl implements IAccidentService {
 
     /**
@@ -135,10 +139,20 @@ public class AccidentServiceImpl implements IAccidentService {
 
     @Override
     public Double getAverageDistanceNearestNeighbors(int limit){
-        AverageDistanceHelper averageDistanceHelper = new AverageDistanceHelper(limit);
-        Stream<Accident> accidents = this.getAccidentMongoRepository().findAllBy();
-        // getCoordinates returns the coordinates putting x/longitude first, and y/latitude second.
-        accidents.forEach(e -> averageDistanceHelper.calc(e.getStartLocation().getCoordinates().get(0), e.getStartLocation().getCoordinates().get(1)));
+        Logger log = LoggerFactory.getLogger(AccidentServiceImpl.class);
+        log.info("!!! averageDistanceNearestNeighbors started");
+        AverageDistanceHelper averageDistanceHelper = new AverageDistanceHelper(this.getAccidentMongoRepository(), limit);
+        //final int pageLimit = 500000;
+        final int pageLimit = 1000;
+        int pageNumber = 0;
+        Page<Accident> page = this.getAccidentMongoRepository().findAll(PageRequest.of(pageNumber, pageLimit));
+        // while (page.hasNext()) {
+            page.getContent().parallelStream().forEach(e -> averageDistanceHelper.calc(e.getStartLocation().getCoordinates().get(0), e.getStartLocation().getCoordinates().get(1)));
+            pageNumber += 1;
+            log.info("!!! averageDistanceNearestNeighbors query page: " + pageNumber);
+            //page = this.getAccidentMongoRepository().findAll(PageRequest.of(pageNumber, pageLimit));
+        // }
+        //page.getContent().forEach(e -> averageDistanceHelper.calc(e.getStartLocation().getCoordinates().get(0), e.getStartLocation().getCoordinates().get(1)));
         return averageDistanceHelper.getAverageDistance();
     }
 

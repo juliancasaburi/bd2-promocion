@@ -1,6 +1,7 @@
 package com.bbdd2promocion.repository.mongo;
 
 import com.bbdd2promocion.model.Accident;
+import com.bbdd2promocion.repository.mongo.projections.Distance;
 import com.bbdd2promocion.repository.mongo.projections.LocationCount;
 import com.bbdd2promocion.repository.mongo.projections.HourCount;
 import org.springframework.data.geo.Circle;
@@ -11,14 +12,30 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Repository
 public interface MongoAccidentRepository extends MongoRepository<Accident, String> {
 
-    Stream<Accident> findAllBy();
-
     List<Accident> findByStartLocationWithin(Circle circle);
+
+    @Aggregation(pipeline = {
+            "{\n" +
+                    "$geoNear: {\n" +
+                    "near: {\n" +
+                    "      \"type\": 'Point', \n" +
+                    "      \"coordinates\": [?0, ?1]\n" +
+                    "    },\n" +
+                    "key: 'startLocation', \n"+
+                    "distanceField: 'dist.calculated', \n"+
+                    "maxDistance: 9834000, \n"+
+                    "spherical: true \n"+
+                    "    }\n" +
+                    "    }",
+            "{ $replaceRoot: { newRoot: \"$dist\" } }",
+            "{ $limit: ?2 }",
+            "{ $project: { _id: 0, distance: \"$calculated\" } }",
+    })
+    AggregationResults<Distance> findAverageDistanceAccidents(Double longitude, Double latitude, int limit);
 
     @Aggregation(pipeline = {
             "{\n" +
