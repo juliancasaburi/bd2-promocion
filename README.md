@@ -120,6 +120,10 @@ Alternativamente, se provee una [colección de Postman](bd2-promocion.postman_co
 
 ## Entorno local
 
+### Configuración
+Se encuentra en: [application-properties](./bbdd2PromocionApp/src/main/resources/application.properties)
+
+### Entorno totalmente local
 Puede ejecutar la API en un entorno local, contando con una instalación válida y propiamente configurada de PostgreSQL y MongoDB.
 
 ```bash
@@ -127,7 +131,10 @@ cd ./bbdd2PromocionApp
 ./mvnw spring-boot:run -Dspring-boot.run.jvmArguments='-Dserver.port=6868'
 ```
 
-También, puede utilizar el docker-compose iniciando unicamente PostgreSQL y MongoDB y configurando los datos en [application-properties](./bbdd2PromocionApp/src/main/resources/application.properties), e iniciar la app localmente:
+### Bases de datos dockerizadas + Spring Boot Local
+Alternativamente, puede utilizar el docker-compose iniciando unicamente PostgreSQL y MongoDB e iniciar la app localmente:
+
+> Nota: la configuración de variables de entorno de bases de datos dockerizadas se realiza en el archivo [.env](.env)
 
 ```bash
 sudo docker-compose up postgresdb mongodb
@@ -139,7 +146,12 @@ cd ./bbdd2PromocionApp
 
 Puede ejecutar la API en un entorno dockerizado (Spring Boot + PostgreSQL + MongoDB).
 
-### Start the App
+### Configuración
+
+- Variables de entorno docker: [.env](.env)
+- Propiedades de spring boot: [docker-compose.yml](docker-compose.yml) (services -> app -> environment)
+
+### Iniciar la aplicación
 
 We can easily start app with a single command:
 
@@ -155,7 +167,7 @@ The services can be run on the background adding the -d parameter:
 docker-compose up -d
 ```
 
-### Stop the App
+### Detener la aplicación
 
 Stopping all the running containers is also simple with a single command:
 
