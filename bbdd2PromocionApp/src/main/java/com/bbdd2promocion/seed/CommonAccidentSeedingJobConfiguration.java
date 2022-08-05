@@ -18,40 +18,95 @@ import java.util.Date;
 @Configuration
 public class CommonAccidentSeedingJobConfiguration {
 
-    private ConversionService createConversionService() {
-        DefaultConversionService conversionService = new DefaultConversionService();
-        DefaultConversionService.addDefaultConverters(conversionService);
-        conversionService.addConverter(new Converter<String, Date>() {
-            @Override
-            public Date convert(String text) {
-                try {
-                    return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(text);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
+  private ConversionService createConversionService() {
+    DefaultConversionService conversionService = new DefaultConversionService();
+    DefaultConversionService.addDefaultConverters(conversionService);
+    conversionService.addConverter(
+        new Converter<String, Date>() {
+          @Override
+          public Date convert(String text) {
+            try {
+              return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(text);
+            } catch (ParseException e) {
+              throw new RuntimeException(e);
             }
+          }
         });
-        return conversionService;
-    }
+    return conversionService;
+  }
 
-    @Bean(name = "accidentMongoDBReader")
-    public FlatFileItemReader<AccidentDTO> reader() {
-        return new FlatFileItemReaderBuilder<AccidentDTO>().name("AccidentItemReader")
-                .resource(new ClassPathResource("US_Accidents_Dec19.csv")).delimited()
-                .names(new String[]{"csvId", "source", "tmc", "severity", "startTime", "endTime", "startLat", "startLng", "endLat", "endLng", "distance", "description", "number", "street", "side", "city", "county", "state", "zipcode", "country", "timezone", "airportCode", "weatherTimestamp", "temperature", "windChill", "humidity", "pressure", "visibility", "windDirection", "windSpeed", "precipitation", "weatherCondition", "amenity", "bump", "crossing", "giveWay", "junction", "noExit", "railway", "roundabout", "station", "stop", "trafficCalming", "trafficSignal", "turningLoop", "sunriseSunset", "civilTwilight", "nauticalTwilight", "astronomicalTwilight"})
-                .linesToSkip(1)
-                .fieldSetMapper(new BeanWrapperFieldSetMapper<AccidentDTO>() {
-                    {
-                        setTargetType(AccidentDTO.class);
-                        setConversionService(createConversionService());
-                        setDistanceLimit(1);
-                    }
-                }).build();
-    }
+  @Bean(name = "accidentMongoDBReader")
+  public FlatFileItemReader<AccidentDTO> reader() {
+    return new FlatFileItemReaderBuilder<AccidentDTO>()
+        .name("AccidentItemReader")
+        .resource(new ClassPathResource("US_Accidents_Dec19.csv"))
+        .delimited()
+        .names(
+            new String[] {
+              "csvId",
+              "source",
+              "tmc",
+              "severity",
+              "startTime",
+              "endTime",
+              "startLat",
+              "startLng",
+              "endLat",
+              "endLng",
+              "distance",
+              "description",
+              "number",
+              "street",
+              "side",
+              "city",
+              "county",
+              "state",
+              "zipcode",
+              "country",
+              "timezone",
+              "airportCode",
+              "weatherTimestamp",
+              "temperature",
+              "windChill",
+              "humidity",
+              "pressure",
+              "visibility",
+              "windDirection",
+              "windSpeed",
+              "precipitation",
+              "weatherCondition",
+              "amenity",
+              "bump",
+              "crossing",
+              "giveWay",
+              "junction",
+              "noExit",
+              "railway",
+              "roundabout",
+              "station",
+              "stop",
+              "trafficCalming",
+              "trafficSignal",
+              "turningLoop",
+              "sunriseSunset",
+              "civilTwilight",
+              "nauticalTwilight",
+              "astronomicalTwilight"
+            })
+        .linesToSkip(1)
+        .fieldSetMapper(
+            new BeanWrapperFieldSetMapper<AccidentDTO>() {
+              {
+                setTargetType(AccidentDTO.class);
+                setConversionService(createConversionService());
+                setDistanceLimit(1);
+              }
+            })
+        .build();
+  }
 
-    @Bean
-    public AccidentItemProcessor processor() {
-        return new AccidentItemProcessor();
-    }
-
+  @Bean
+  public AccidentItemProcessor processor() {
+    return new AccidentItemProcessor();
+  }
 }

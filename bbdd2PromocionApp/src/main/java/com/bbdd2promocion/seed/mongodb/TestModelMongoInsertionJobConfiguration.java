@@ -22,43 +22,61 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 @EnableBatchProcessing
 public class TestModelMongoInsertionJobConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
+  private final JobBuilderFactory jobBuilderFactory;
 
-    private final StepBuilderFactory stepBuilderFactory;
+  private final StepBuilderFactory stepBuilderFactory;
 
-    public TestModelMongoInsertionJobConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
-        this.jobBuilderFactory = jobBuilderFactory;
-        this.stepBuilderFactory = stepBuilderFactory;
-    }
+  public TestModelMongoInsertionJobConfiguration(
+      JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
+    this.jobBuilderFactory = jobBuilderFactory;
+    this.stepBuilderFactory = stepBuilderFactory;
+  }
 
-    @Bean(name="testModelMongoDBReader")
-    public FlatFileItemReader<TestModel> testModelReader() {
-        return new FlatFileItemReaderBuilder<TestModel>().name("testModelItemReader")
-                .resource(new ClassPathResource("testModel.csv")).delimited()
-                .names(new String[] {"csvId", "title", "description"})
-                .linesToSkip(1)
-                .fieldSetMapper(new BeanWrapperFieldSetMapper<TestModel>() {
-                    {
-                        setTargetType(TestModel.class);
-                        setDistanceLimit(1);
-                    }
-                }).build();
-    }
+  @Bean(name = "testModelMongoDBReader")
+  public FlatFileItemReader<TestModel> testModelReader() {
+    return new FlatFileItemReaderBuilder<TestModel>()
+        .name("testModelItemReader")
+        .resource(new ClassPathResource("testModel.csv"))
+        .delimited()
+        .names(new String[] {"csvId", "title", "description"})
+        .linesToSkip(1)
+        .fieldSetMapper(
+            new BeanWrapperFieldSetMapper<TestModel>() {
+              {
+                setTargetType(TestModel.class);
+                setDistanceLimit(1);
+              }
+            })
+        .build();
+  }
 
-    @Bean
-    public MongoItemWriter<TestModel> testModelMongoItemWriter(MongoTemplate mongoTemplate) {
-        return new MongoItemWriterBuilder<TestModel>().template(mongoTemplate).collection("TestModel").build();
-    }
+  @Bean
+  public MongoItemWriter<TestModel> testModelMongoItemWriter(MongoTemplate mongoTemplate) {
+    return new MongoItemWriterBuilder<TestModel>()
+        .template(mongoTemplate)
+        .collection("TestModel")
+        .build();
+  }
 
-    @Bean(name="testModelStep")
-    public Step testModelStep(@Qualifier("testModelMongoDBReader") FlatFileItemReader<TestModel> testModelFlatFileIteamReader, MongoItemWriter<TestModel> testModelMongoItemWriter) {
-        return this.stepBuilderFactory.get("testModelStep").<TestModel, TestModel>chunk(2).reader(testModelFlatFileIteamReader)
-                .writer(testModelMongoItemWriter).build();
-    }
+  @Bean(name = "testModelStep")
+  public Step testModelStep(
+      @Qualifier("testModelMongoDBReader")
+          FlatFileItemReader<TestModel> testModelFlatFileIteamReader,
+      MongoItemWriter<TestModel> testModelMongoItemWriter) {
+    return this.stepBuilderFactory
+        .get("testModelStep")
+        .<TestModel, TestModel>chunk(2)
+        .reader(testModelFlatFileIteamReader)
+        .writer(testModelMongoItemWriter)
+        .build();
+  }
 
-    @Bean
-    public Job testModelInsertionJob(@Qualifier("testModelStep") Step step) {
-        return this.jobBuilderFactory.get("testModelInsertionJob").listener(new JobNotificationListener()).start(step).build();
-    }
-
+  @Bean
+  public Job testModelInsertionJob(@Qualifier("testModelStep") Step step) {
+    return this.jobBuilderFactory
+        .get("testModelInsertionJob")
+        .listener(new JobNotificationListener())
+        .start(step)
+        .build();
+  }
 }

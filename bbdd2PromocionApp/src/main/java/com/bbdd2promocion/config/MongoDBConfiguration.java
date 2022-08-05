@@ -14,30 +14,33 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 @PropertySource("classpath:application.properties")
 public class MongoDBConfiguration extends AbstractMongoClientConfiguration {
 
-    @Autowired
-    private Environment env;
+  @Autowired private Environment env;
 
-    @Override
-    public MongoClient mongoClient() {
-        String connectionString = "mongodb://" + env.getProperty("spring.data.mongodb.host") + ":" + env.getProperty("spring.data.mongodb.port") + "/" + this.getDatabaseName();
-        MongoClient mClient = MongoClients.create(connectionString);
-        return mClient;
+  @Override
+  public MongoClient mongoClient() {
+    String connectionString =
+        "mongodb://"
+            + env.getProperty("spring.data.mongodb.host")
+            + ":"
+            + env.getProperty("spring.data.mongodb.port")
+            + "/"
+            + this.getDatabaseName();
+    MongoClient mClient = MongoClients.create(connectionString);
+    return mClient;
+  }
 
-    }
+  @Override
+  protected String getDatabaseName() {
+    return env.getProperty("spring.data.mongodb.database");
+  }
 
-    @Override
-    protected String getDatabaseName() {
-        return env.getProperty("spring.data.mongodb.database");
-    }
+  @Override
+  public boolean autoIndexCreation() {
+    return true;
+  }
 
-    @Override
-    public boolean autoIndexCreation() {
-        return true;
-    }
-
-    @Bean
-    public MongoTemplate mongoTemplate() {
-        return new MongoTemplate(this.mongoClient(), this.getDatabaseName());
-    }
-
+  @Bean
+  public MongoTemplate mongoTemplate() {
+    return new MongoTemplate(this.mongoClient(), this.getDatabaseName());
+  }
 }

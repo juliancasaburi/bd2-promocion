@@ -1,7 +1,7 @@
 package com.bbdd2promocion.repository.jpa.projections;
 
 public interface ValueCount {
-    Object getValue();
+  Object getValue();
 
-    int getCount();
+  int getCount();
 }

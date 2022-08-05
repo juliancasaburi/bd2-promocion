@@ -1,6 +1,4 @@
-/**
- * Este paquete contiene todas las clases e interfaces que componen la capa de servicios.
- */
+/** Este paquete contiene todas las clases e interfaces que componen la capa de servicios. */
 package com.bbdd2promocion.service;
 
 import com.bbdd2promocion.helpers.ConditionValues;
@@ -14,91 +12,86 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Esta interface define el comportamiento esperado por los servicios
- * relacionados con los Accident.
+ * Esta interface define el comportamiento esperado por los servicios relacionados con los Accident.
  */
 public interface IAccidentService {
 
-    /**
-     * Retorna los Accident ocurridos dentro del radio
-     *
-     * @return los Accident ocurridos dentro del radio
-     */
-    List<Accident> findByStartLocationWithinRadius(Circle circle);
+  /**
+   * Retorna los Accident ocurridos dentro del radio
+   *
+   * @return los Accident ocurridos dentro del radio
+   */
+  List<Accident> findByStartLocationWithinRadius(Circle circle);
 
-    /**
-     * Obtiene la distancia promedio desde el inicio al fin del accidente
-     *
-     * @return la distancia promedio desde el inicio al fin del accidente
-     */
-    Double getAverageDistance();
+  /**
+   * Obtiene la distancia promedio desde el inicio al fin del accidente
+   *
+   * @return la distancia promedio desde el inicio al fin del accidente
+   */
+  Double getAverageDistance();
 
-    /**
-     * Retorna los Accident con date entre startDate y endDate
-     *
-     * @param startDate
-     * @param endDate
-     * @return los Accident con date entre startDate y endDate
-     */
-    List<Accident> findBetweenDates(Date startDate, Date endDate);
+  /**
+   * Retorna los Accident con date entre startDate y endDate
+   *
+   * @param startDate
+   * @param endDate
+   * @return los Accident con date entre startDate y endDate
+   */
+  List<Accident> findBetweenDates(Date startDate, Date endDate);
 
-    /**
-     * Retorna datos de las N calles con mas accidentes
-     *
-     * @param limit
-     * @return datos de las N calles con mas accidentes
-     */
-    List<StreetStatistics> getStreetsWithMostAccidents(int limit);
+  /**
+   * Retorna datos de las N calles con mas accidentes
+   *
+   * @param limit
+   * @return datos de las N calles con mas accidentes
+   */
+  List<StreetStatistics> getStreetsWithMostAccidents(int limit);
 
-    /**
-     * Retorna los n puntos mas peligrosos dentro de un radio dada una latitud y
-     * longitud
-     *
-     * @param longitude
-     * @param latitude
-     * @param radius
-     * @param limit
-     *
-     * @return los n puntos mas peligrosos dentro de un radio dada una latitud y
-     *         longitud
-     */
-    List<LocationCount> getMostDangerousPointsWithinRadius(Double longitude, Double latitude, Double radius, int limit);
+  /**
+   * Retorna los n puntos mas peligrosos dentro de un radio dada una latitud y longitud
+   *
+   * @param longitude
+   * @param latitude
+   * @param radius
+   * @param limit
+   * @return los n puntos mas peligrosos dentro de un radio dada una latitud y longitud
+   */
+  List<LocationCount> getMostDangerousPointsWithinRadius(
+      Double longitude, Double latitude, Double radius, int limit);
 
-    /**
-     * Retorna las condiciones climáticas mas frecuentes
-     *
-     * @return las condiciones climáticas mas frecuentes
-     */
-    List<ConditionValues> getMostCommonWeatherConditions();
+  /**
+   * Retorna las condiciones climáticas mas frecuentes
+   *
+   * @return las condiciones climáticas mas frecuentes
+   */
+  List<ConditionValues> getMostCommonWeatherConditions();
 
-    /**
-     * Retorna las horas mas frecuentes de los accidentes
-     *
-     * @return las horas mas frecuentes de los accidentes
-     */
-    ValueCount getMostCommonHour();
+  /**
+   * Retorna las horas mas frecuentes de los accidentes
+   *
+   * @return las horas mas frecuentes de los accidentes
+   */
+  ValueCount getMostCommonHour();
 
-    /**
-     * Retorna el día mas frecuente de los accidentes
-     *
-     * @return el día mas frecuente de los accidentes
-     */
-    ValueCount getMostCommonDayConditions();
+  /**
+   * Retorna el día mas frecuente de los accidentes
+   *
+   * @return el día mas frecuente de los accidentes
+   */
+  ValueCount getMostCommonDayConditions();
 
-    /**
-     * Retorna las condiciones de terreno mas frecuentes de los accidentes
-     *
-     * @return las condiciones de terreno mas frecuentes de los accidentes
-     */
-    List<ConditionValues> getMostCommonTerrainConditions();
+  /**
+   * Retorna las condiciones de terreno mas frecuentes de los accidentes
+   *
+   * @return las condiciones de terreno mas frecuentes de los accidentes
+   */
+  List<ConditionValues> getMostCommonTerrainConditions();
 
-    /**
-     * Retorna la distancia promedio que existe entre cada accidente y los "k" más cercanos.
-     *
-     * @param k
-     *
-     * @return la distancia promedio que existe entre cada accidente y los "k" más cercanos.
-     */
-    Double getAverageDistanceNearestNeighbors(int k);
-
+  /**
+   * Retorna la distancia promedio que existe entre cada accidente y los "k" más cercanos.
+   *
+   * @param k
+   * @return la distancia promedio que existe entre cada accidente y los "k" más cercanos.
+   */
+  Double getAverageDistanceNearestNeighbors(int k);
 }

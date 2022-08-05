@@ -26,44 +26,51 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 @Import(CommonAccidentSeedingJobConfiguration.class)
 public class AccidentMongoInsertionJobConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
+  private final JobBuilderFactory jobBuilderFactory;
 
-    private final StepBuilderFactory stepBuilderFactory;
+  private final StepBuilderFactory stepBuilderFactory;
 
-    public AccidentMongoInsertionJobConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
-        this.jobBuilderFactory = jobBuilderFactory;
-        this.stepBuilderFactory = stepBuilderFactory;
-    }
+  public AccidentMongoInsertionJobConfiguration(
+      JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
+    this.jobBuilderFactory = jobBuilderFactory;
+    this.stepBuilderFactory = stepBuilderFactory;
+  }
 
-    @Bean
-    public MongoItemWriter<Accident> mongoItemWriter(MongoTemplate mongoTemplate) {
-        return new MongoItemWriterBuilder<Accident>().template(mongoTemplate)
-                .collection("Accidents")
-                .build();
-    }
+  @Bean
+  public MongoItemWriter<Accident> mongoItemWriter(MongoTemplate mongoTemplate) {
+    return new MongoItemWriterBuilder<Accident>()
+        .template(mongoTemplate)
+        .collection("Accidents")
+        .build();
+  }
 
-    @Bean
-    public Step step(@Qualifier("asyncTaskExecutorMongo") TaskExecutor taskExecutor, FlatFileItemReader<AccidentDTO> flatFileIteamReader, MongoItemWriter<Accident> mongoItemWriter, AccidentItemProcessor processor) {
-        return this.stepBuilderFactory.get("step")
-                .<AccidentDTO, Accident>chunk(10000)
-                .reader(flatFileIteamReader)
-                .processor(processor)
-                .writer(mongoItemWriter)
-                .taskExecutor(taskExecutor)
-                .build();
-    }
+  @Bean
+  public Step step(
+      @Qualifier("asyncTaskExecutorMongo") TaskExecutor taskExecutor,
+      FlatFileItemReader<AccidentDTO> flatFileIteamReader,
+      MongoItemWriter<Accident> mongoItemWriter,
+      AccidentItemProcessor processor) {
+    return this.stepBuilderFactory
+        .get("step")
+        .<AccidentDTO, Accident>chunk(10000)
+        .reader(flatFileIteamReader)
+        .processor(processor)
+        .writer(mongoItemWriter)
+        .taskExecutor(taskExecutor)
+        .build();
+  }
 
-    @Bean(name="asyncTaskExecutorMongo")
-    public TaskExecutor taskExecutor() {
-        return new SimpleAsyncTaskExecutor("spring_batch_accident_mongo");
-    }
+  @Bean(name = "asyncTaskExecutorMongo")
+  public TaskExecutor taskExecutor() {
+    return new SimpleAsyncTaskExecutor("spring_batch_accident_mongo");
+  }
 
-    @Bean
-    public Job accidentMongoInsertionJob(Step step) {
-        return this.jobBuilderFactory.get("accidentMongoInsertionJob")
-                .listener(new JobNotificationListener())
-                .start(step)
-                .build();
-    }
-
+  @Bean
+  public Job accidentMongoInsertionJob(Step step) {
+    return this.jobBuilderFactory
+        .get("accidentMongoInsertionJob")
+        .listener(new JobNotificationListener())
+        .start(step)
+        .build();
+  }
 }

@@ -9,13 +9,17 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-@ComponentScan(excludeFilters={ @ComponentScan.Filter(type=FilterType.ASSIGNABLE_TYPE, value=JobLauncherApplicationRunner.class)})
+@ComponentScan(
+    excludeFilters = {
+      @ComponentScan.Filter(
+          type = FilterType.ASSIGNABLE_TYPE,
+          value = JobLauncherApplicationRunner.class)
+    })
 @EnableJpaRepositories(basePackages = "com.bbdd2promocion.repository.jpa")
 @EnableMongoRepositories(basePackages = "com.bbdd2promocion.repository.mongo")
 public class BBDD2PromocionApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BBDD2PromocionApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(BBDD2PromocionApplication.class, args);
+  }
 }
