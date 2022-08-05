@@ -33,14 +33,15 @@ services:
       - .m2:/root/.m2
     environment:
       - SPRING_MAIN_ALLOW_BEAN_DEFINITION_OVERRIDING=true
+      - SPRING_DATASOURCE_HIKARI_JDBC_URL=jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE?useSSL=false
+      - SPRING_DATASOURCE_HIKARI_USERNAME=$POSTGRESDB_USER
+      - SPRING_DATASOURCE_HIKARI_PASSWORD=$POSTGRESDB_PASSWORD
+      - SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE=16
       - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.spatial.dialect.postgis.PostgisDialect
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.spatial.dialect.postgis.PostgisDialect
       - SPRING_JPA_HIBERNATE_DIALECT=org.hibernate.spatial.dialect.postgis.PostgisDialect
       - HIBERNATE_DIALECT=org.hibernate.spatial.dialect.postgis.PostgisDialect
       - SPRING_JPA_HIBERNATE_SHOW_SQL=false
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE?useSSL=false
-      - SPRING_DATASOURCE_USERNAME=$POSTGRESDB_USER
-      - SPRING_DATASOURCE_PASSWORD=$POSTGRESDB_PASSWORD
       - SPRING_JPA_GENERATE_DDL=true
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_DATA_MONGODB_HOST=mongodb

@@ -35,7 +35,7 @@ public interface JPAAccidentLocationDataRepository extends JpaRepository<Acciden
             "                 ald2.point <-> ald.point as dist\n" +
             "          from accident_location_data ald2\n" +
             "          order by dist\n" +
-            "          limit ?0\n" +
+            "          limit ?1\n" +
             "          ) ald2) calc")
     Double getAverageDistanceKNN(int k);
 

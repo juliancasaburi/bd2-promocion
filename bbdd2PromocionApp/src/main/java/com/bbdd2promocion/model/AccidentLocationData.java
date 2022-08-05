@@ -37,14 +37,15 @@ public class AccidentLocationData {
      * }
      */
     @Field(name = "startLocation")
-    @Column(name = "start_location")
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     @Transient
     @JsonIgnore
     private GeoJsonPoint startLocation;
 
-    @Column(name = "point")
+    @Column(name = "point", columnDefinition = "geography(Point,4326)")
     @BsonIgnore
+    @org.springframework.data.annotation.Transient
+    @JsonIgnore
     private Point point;
 
     @Field(name = "endLat")
