@@ -110,8 +110,7 @@ public class AccidentServiceImpl implements IAccidentService {
 
   @Override
   public ValueCount getMostCommonDayConditions() {
-    PageRequest pageRequest = PageRequest.of(0, 1);
-    return this.getAccidentJPARepository().findMostCommonDay(pageRequest).get(0);
+    return this.getAccidentJPARepository().findMostCommonDay(PageRequest.of(0, 1)).get(0);
   }
 
   @Override

@@ -50,10 +50,11 @@ public interface JPAAccidentRepository extends JpaRepository<Accident, Long> {
    * @param pageable
    * @return el dia de la semana con mayor cantidad de accidentes
    */
+  // FM = fill mode (suppress leading zeroes and padding blanks)
   @Query(
-      "SELECT TO_CHAR(a.startTime, 'day') as value, count(a) as count  \n"
+      "SELECT TO_CHAR(a.startTime, 'FMday') as value, count(a) as count  \n"
           + "from Accident a \n"
-          + "group by TO_CHAR(a.startTime, 'day') \n"
-          + "order by count(TO_CHAR(a.startTime, 'day')) desc \n")
+          + "group by TO_CHAR(a.startTime, 'FMday') \n"
+          + "order by count(TO_CHAR(a.startTime, 'FMday')) desc \n")
   List<ValueCount> findMostCommonDay(Pageable pageable);
 }
