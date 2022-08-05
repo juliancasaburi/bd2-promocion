@@ -350,7 +350,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:6868/api/averageDistanceNearestNeighbors?limit=10",
+					"raw": "http://localhost:6868/api/mostCommonConditions/dayOfWeek",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -358,13 +358,8 @@
 					"port": "6868",
 					"path": [
 						"api",
-						"averageDistanceNearestNeighbors"
-					],
-					"query": [
-						{
-							"key": "limit",
-							"value": "10"
-						}
+						"mostCommonConditions",
+						"dayOfWeek"
 					]
 				}
 			},
