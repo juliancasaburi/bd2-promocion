@@ -85,14 +85,6 @@ public class Accident {
 	@JoinColumn(name = "accident_terrain_data_ID", referencedColumnName = "id")
 	private AccidentTerrainData accidentTerrainData;
 
-	public AccidentLocationData getAccidentLocationData() {
-		return accidentLocationData;
-	}
-
-	public void setAccidentLocationData(AccidentLocationData accidentLocationData) {
-		this.accidentLocationData = accidentLocationData;
-	}
-
 	public Accident() {
 
 	}
@@ -213,6 +205,14 @@ public class Accident {
 
 	public void setAstronomicalTwilight(String astronomicalTwilight) {
 		this.astronomicalTwilight = astronomicalTwilight;
+	}
+
+	public AccidentLocationData getAccidentLocationData() {
+		return accidentLocationData;
+	}
+
+	public void setAccidentLocationData(AccidentLocationData accidentLocationData) {
+		this.accidentLocationData = accidentLocationData;
 	}
 
 	public AccidentWeatherData getAccidentWeatherData() {

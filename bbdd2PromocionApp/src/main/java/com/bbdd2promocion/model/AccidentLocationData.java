@@ -44,6 +44,7 @@ public class AccidentLocationData {
 
     @Column(name = "point", columnDefinition = "geography(Point,4326)")
     @BsonIgnore
+    @org.springframework.data.annotation.Transient
     @JsonIgnore
     private Point point;
 
