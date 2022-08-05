@@ -13,76 +13,78 @@ import javax.persistence.*;
 @Table(name = "test_models")
 public class TestModel {
 
-	@Id
-	@GeneratedValue(strategy= GenerationType.SEQUENCE)
-	@BsonIgnore
-	private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @BsonIgnore
+  private Long id;
 
-	@MongoId
-	@Transient
-	private String mongoId;
+  @MongoId @Transient private String mongoId;
 
-	@Field(name = "csvId")
-	@Column(name = "csv_id")
-	private String csvId;
+  @Field(name = "csvId")
+  @Column(name = "csv_id")
+  private String csvId;
 
-	@Field(name = "title")
-	@Column(name = "title")
-	@Indexed
-	private String title;
+  @Field(name = "title")
+  @Column(name = "title")
+  @Indexed
+  private String title;
 
-	@Field(name = "description")
-	@Column(name = "description")
-	private String description;
+  @Field(name = "description")
+  @Column(name = "description")
+  private String description;
 
-	public TestModel() {
+  public TestModel() {}
 
-	}
+  public TestModel(String csvId, String title, String description) {
+    this.csvId = csvId;
+    this.title = title;
+    this.description = description;
+  }
 
-	public TestModel(String csvId, String title, String description) {
-		this.csvId = csvId;
-		this.title = title;
-		this.description = description;
-	}
+  public void setCsvId(String csvId) {
+    this.csvId = csvId;
+  }
 
-	public void setCsvId(String csvId) {
-		this.csvId = csvId;
-	}
+  public String getCsvId() {
+    return csvId;
+  }
 
-	public String getCsvId() {
-		return csvId;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public Long getId() {
-		return id;
-	}
+  public String getMongoId() {
+    return mongoId;
+  }
 
-	public String getMongoId() {
-		return mongoId;
-	}
+  public String getTitle() {
+    return title;
+  }
 
-	public String getTitle() {
-		return title;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public String getDescription() {
+    return description;
+  }
 
-	public String getDescription() {
-		return description;
-	}
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	@Override
-	public String toString() {
-		return "TestModel{" +
-				"csvId='" + csvId + '\'' +
-				", title='" + title + '\'' +
-				", description='" + description + '\'' +
-				'}';
-	}
+  @Override
+  public String toString() {
+    return "TestModel{"
+        + "csvId='"
+        + csvId
+        + '\''
+        + ", title='"
+        + title
+        + '\''
+        + ", description='"
+        + description
+        + '\''
+        + '}';
+  }
 }

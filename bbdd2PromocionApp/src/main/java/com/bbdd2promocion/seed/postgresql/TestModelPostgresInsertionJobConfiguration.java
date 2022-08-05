@@ -22,51 +22,66 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 @EnableBatchProcessing
 public class TestModelPostgresInsertionJobConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
+  private final JobBuilderFactory jobBuilderFactory;
 
-    private final StepBuilderFactory stepBuilderFactory;
+  private final StepBuilderFactory stepBuilderFactory;
 
-    private final SessionFactory sessionFactory;
+  private final SessionFactory sessionFactory;
 
-    public TestModelPostgresInsertionJobConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, SessionFactory sessionFactory) {
-        this.jobBuilderFactory = jobBuilderFactory;
-        this.stepBuilderFactory = stepBuilderFactory;
-        this.sessionFactory = sessionFactory;
-    }
+  public TestModelPostgresInsertionJobConfiguration(
+      JobBuilderFactory jobBuilderFactory,
+      StepBuilderFactory stepBuilderFactory,
+      SessionFactory sessionFactory) {
+    this.jobBuilderFactory = jobBuilderFactory;
+    this.stepBuilderFactory = stepBuilderFactory;
+    this.sessionFactory = sessionFactory;
+  }
 
-    @Bean(name="testModelPostgresReader")
-    public FlatFileItemReader<TestModel> testModelPostgresReader() {
-        return new FlatFileItemReaderBuilder<TestModel>().name("testModelItemReader")
-                .resource(new ClassPathResource("testModel.csv")).delimited()
-                .names(new String[] {"csvId", "Title", "Description"})
-                .linesToSkip(1)
-                .fieldSetMapper(new BeanWrapperFieldSetMapper<TestModel>() {
-                    {
-                        setTargetType(TestModel.class);
-                        setDistanceLimit(1);
-                    }
-                }).build();
-    }
+  @Bean(name = "testModelPostgresReader")
+  public FlatFileItemReader<TestModel> testModelPostgresReader() {
+    return new FlatFileItemReaderBuilder<TestModel>()
+        .name("testModelItemReader")
+        .resource(new ClassPathResource("testModel.csv"))
+        .delimited()
+        .names(new String[] {"csvId", "Title", "Description"})
+        .linesToSkip(1)
+        .fieldSetMapper(
+            new BeanWrapperFieldSetMapper<TestModel>() {
+              {
+                setTargetType(TestModel.class);
+                setDistanceLimit(1);
+              }
+            })
+        .build();
+  }
 
-    @Bean
-    public HibernateItemWriter<TestModel> writer() {
-        HibernateItemWriter<TestModel> hibernateItemWriter = new HibernateItemWriter<>();
-        hibernateItemWriter.setSessionFactory(sessionFactory);
-        return hibernateItemWriter;
-    }
+  @Bean
+  public HibernateItemWriter<TestModel> writer() {
+    HibernateItemWriter<TestModel> hibernateItemWriter = new HibernateItemWriter<>();
+    hibernateItemWriter.setSessionFactory(sessionFactory);
+    return hibernateItemWriter;
+  }
 
-    @Bean(name="testModelPostgresStep")
-    public Step testModelPostgresStep(@Qualifier("testModelPostgresReader") FlatFileItemReader<TestModel> testModelFlatFileItemReader, HibernateItemWriter<TestModel> testModelHibernateItemWriter) {
-        return this.stepBuilderFactory.get("testModelStep").<TestModel, TestModel>chunk(2)
-                .reader(testModelFlatFileItemReader)
-                .writer(testModelHibernateItemWriter)
-                .transactionManager(new HibernateTransactionManager(sessionFactory))
-                .build();
-    }
+  @Bean(name = "testModelPostgresStep")
+  public Step testModelPostgresStep(
+      @Qualifier("testModelPostgresReader")
+          FlatFileItemReader<TestModel> testModelFlatFileItemReader,
+      HibernateItemWriter<TestModel> testModelHibernateItemWriter) {
+    return this.stepBuilderFactory
+        .get("testModelStep")
+        .<TestModel, TestModel>chunk(2)
+        .reader(testModelFlatFileItemReader)
+        .writer(testModelHibernateItemWriter)
+        .transactionManager(new HibernateTransactionManager(sessionFactory))
+        .build();
+  }
 
-    @Bean
-    public Job testModelPostgresInsertionJob(@Qualifier("testModelPostgresStep") Step step) {
-        return this.jobBuilderFactory.get("testModelPostgresInsertionJob").listener(new JobNotificationListener()).start(step).build();
-    }
-
+  @Bean
+  public Job testModelPostgresInsertionJob(@Qualifier("testModelPostgresStep") Step step) {
+    return this.jobBuilderFactory
+        .get("testModelPostgresInsertionJob")
+        .listener(new JobNotificationListener())
+        .start(step)
+        .build();
+  }
 }

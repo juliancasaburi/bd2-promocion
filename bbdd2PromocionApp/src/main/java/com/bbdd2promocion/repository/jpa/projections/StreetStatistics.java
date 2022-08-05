@@ -1,9 +1,9 @@
 package com.bbdd2promocion.repository.jpa.projections;
 
 public interface StreetStatistics {
-    String getStreet();
+  String getStreet();
 
-    String getZipcode();
+  String getZipcode();
 
-    int getCount();
+  int getCount();
 }
