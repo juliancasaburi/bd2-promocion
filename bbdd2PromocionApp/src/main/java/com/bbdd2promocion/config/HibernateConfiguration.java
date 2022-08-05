@@ -1,6 +1,7 @@
 package com.bbdd2promocion.config;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,11 +21,14 @@ public class HibernateConfiguration {
 
     @Bean(destroyMethod="close")
     public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl(env.getProperty("spring.datasource.url"));
-        dataSource.setUsername(env.getProperty("spring.datasource.username"));
-        dataSource.setPassword(env.getProperty("spring.datasource.password"));
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setDriverClassName(env.getProperty("spring.datasource.hikari.driver-class-name"));
+        hikariConfig.setJdbcUrl(env.getProperty("spring.datasource.hikari.jdbc-url"));
+        hikariConfig.setUsername(env.getProperty("spring.datasource.hikari.username"));
+        hikariConfig.setPassword(env.getProperty("spring.datasource.hikari.password"));
+        hikariConfig.setMaximumPoolSize(Integer.parseInt(env.getProperty("spring.datasource.hikari.maximum-pool-size")));
+
+        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
         return dataSource;
     }
 

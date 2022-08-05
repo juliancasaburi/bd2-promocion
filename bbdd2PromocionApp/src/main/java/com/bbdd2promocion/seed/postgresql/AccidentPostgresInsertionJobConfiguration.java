@@ -60,7 +60,9 @@ public class AccidentPostgresInsertionJobConfiguration {
 
     @Bean(name="asyncTaskExecutorPostgres")
     public TaskExecutor taskExecutor() {
-        return new SimpleAsyncTaskExecutor("spring_batch_accident_postgres");
+        SimpleAsyncTaskExecutor taskExecutor = new SimpleAsyncTaskExecutor("spring_batch_accident_postgres");
+        taskExecutor.setConcurrencyLimit(16);
+        return taskExecutor;
     }
 
     @Bean
