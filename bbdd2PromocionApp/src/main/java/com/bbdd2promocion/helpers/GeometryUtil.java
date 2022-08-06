@@ -7,7 +7,7 @@ import org.locationtech.jts.io.WKTReader;
 
 public class GeometryUtil {
 
-  public static final int SRID = 4326; // LatLng
+  public static final int SRID = 4326; // longitude, latitude
   private static final WKTReader wktReader = new WKTReader();
 
   private static Geometry wktToGeometry(String wellKnownText) {
@@ -24,7 +24,7 @@ public class GeometryUtil {
   public static Point parseLocation(double x, double y) {
     Geometry geometry = GeometryUtil.wktToGeometry(String.format("POINT (%s %s)", x, y));
     Point p = (Point) geometry;
-    p.setSRID(4326);
+    p.setSRID(SRID);
     return p;
   }
 }
