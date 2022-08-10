@@ -15,14 +15,15 @@ Alternativamente, se provee una [colección de Postman](bd2-promocion.postman_co
 
 ## Seeding de MongoDB y PostgreSQL desde archivo csv
 
-1. Descargar el archivo [US_Accidents_Dec19.csv](https://www.dropbox.com/sh/g4fo1woljc6j2kw/AACFN-puWJEGv6OxVuNphWGQa/199387_896000_compressed_US_Accidents_Dec19.csv.zip?file_subpath=%2FUS_Accidents_Dec19.csv)
-2. Copiar el archivo `US_Accidents_Dec19.csv` en `./bbdd2PromocionApp/src/main/resources` antes de buildear la imagen del service app, es decir previo a ejecutar por primera vez:
+1. Descargar el archivo [US_Accidents_Dec19.csv.zip](https://www.dropbox.com/sh/g4fo1woljc6j2kw/AACFN-puWJEGv6OxVuNphWGQa/199387_896000_compressed_US_Accidents_Dec19.csv.zip?file_subpath=%2FUS_Accidents_Dec19.csv)
+2. Descomprimir el archivo .zip
+3. Copiar el archivo `US_Accidents_Dec19.csv` en `./bbdd2PromocionApp/src/main/resources` antes de buildear la imagen del service app, es decir previo a ejecutar por primera vez:
 
     ```bash
     docker-compose up
     ```
 
-3. Puede lanzar uno o más jobs de seeding realizando una solicitud POST a los endpoints:
+4. Puede lanzar uno o más jobs de seeding realizando una solicitud POST a los endpoints:
 
     - **Seeding de TestModel (MongoDB)**  
       `/seed/mongodb/testModel`
