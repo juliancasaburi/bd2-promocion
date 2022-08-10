@@ -15,16 +15,16 @@ import com.bbdd2promocion.service.IAccidentService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.geo.Circle;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /** Esta clase contiene la implementación de los servicios relacionados con los Accident. */
 @Service
-@Transactional
+@Transactional(readOnly=true)
 public class AccidentServiceImpl implements IAccidentService {
 
   /** Es el repositorio ligado a los Accident */
